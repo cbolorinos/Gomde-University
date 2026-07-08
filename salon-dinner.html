@@ -99,10 +99,11 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 
 /* ---- Shared dark-section treatment: parallax gradient + floating specks ---- */
 .night-bg{
-  position:absolute; left:0; right:0; top:-30%; height:160%; z-index:0;
+  position:absolute; left:0; right:0; top:-80%; height:260%; z-index:0;
   will-change:transform; pointer-events:none;
 }
-.specks{ position:absolute; inset:0; z-index:1; width:100%; height:100%; pointer-events:none; }
+.specks{ position:absolute; left:0; top:-80%; width:100%; height:260%; z-index:1;
+  will-change:transform; pointer-events:none; }
 
 /* Slow-rotating shafts of light from the upper right, like the invitation */
 .hero-rays{
@@ -136,7 +137,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .lotus{ display:block; }
 .hero-emblem{ width:104px; height:62px; margin:0 auto 2.2rem; color:var(--gold-lume);
   filter:drop-shadow(0 2px 14px rgba(0,0,0,.5)); opacity:.95; }
-.ornament{ width:80px; height:48px; margin:0 auto 1.7rem; color:var(--gold); opacity:.92; }
+.ornament{ width:66px; height:40px; margin:0 auto 1.7rem; color:var(--gold); opacity:.92; }
 .ornament--light{ color:var(--gold-pale); opacity:.9; }
 .hero .eyebrow{ color:var(--gold-lume); letter-spacing:.42em; font-size:.72rem; }
 .hero h1{
@@ -190,7 +191,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .question p.big{
   font-family:var(--display); font-weight:300; font-style:italic;
   font-size:clamp(1.9rem,4.6vw,3.4rem); line-height:1.45; letter-spacing:.01em;
-  max-width:18ch; margin:1rem auto 0; color:#FBEFCF;
+  max-width:30ch; margin:1rem auto 0; color:#FBEFCF;
 }
 .question .count{ margin-top:3.2rem; font-size:.82rem; letter-spacing:.34em; text-transform:uppercase; color:var(--gold-pale); }
 
@@ -290,14 +291,14 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- HERO                                                                    -->
 <!-- ======================================================================= -->
 <header class="hero" id="top">
-  <div class="night-bg" data-parallax="0.18" aria-hidden="true"></div>
-  <canvas class="specks" aria-hidden="true"></canvas>
+  <div class="night-bg" data-parallax="0.55" aria-hidden="true"></div>
+  <canvas class="specks" data-parallax="0.55" aria-hidden="true"></canvas>
   <div class="hero-rays" aria-hidden="true"></div>
 
   <div class="hero-inner">
     <svg class="hero-emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
     <p class="eyebrow">Leadership · Interdependence · The Elevation of the World</p>
-    <h1>A Private<br><span class="light">Salon Dinner</span></h1>
+    <h1>A Private<br>Salon Dinner</h1>
     <p class="hero-at">at Schloss Kremsegg</p>
     <p class="hero-meta">
       <strong>Friday, 12 September 2026</strong><br>
@@ -330,8 +331,8 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ONE QUESTION                                                            -->
 <!-- ======================================================================= -->
 <section class="question">
-  <div class="night-bg" data-parallax="0.14" aria-hidden="true"></div>
-  <canvas class="specks" aria-hidden="true"></canvas>
+  <div class="night-bg" data-parallax="0.5" aria-hidden="true"></div>
+  <canvas class="specks" data-parallax="0.5" aria-hidden="true"></canvas>
   <svg class="ornament ornament--light lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
   <p class="eyebrow reveal">At the heart of the evening, one essential question</p>
   <p class="big reveal">What does it mean to lead as a force for elevation in a world that is interconnected?</p>
@@ -432,8 +433,8 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- FOOTER                                                                  -->
 <!-- ======================================================================= -->
 <footer class="site-footer">
-  <div class="night-bg" data-parallax="0.12" aria-hidden="true"></div>
-  <canvas class="specks" aria-hidden="true"></canvas>
+  <div class="night-bg" data-parallax="0.45" aria-hidden="true"></div>
+  <canvas class="specks" data-parallax="0.45" aria-hidden="true"></canvas>
   <svg class="emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
   <p class="host-name">Chökyi Nyima Rinpoche</p>
   <p class="role">Host of the Evening</p>
@@ -509,7 +510,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
     this.canvas.width = Math.floor(this.W * this.DPR);
     this.canvas.height = Math.floor(this.H * this.DPR);
     this.ctx.setTransform(this.DPR, 0, 0, this.DPR, 0, 0);
-    var target = Math.min(150, Math.round((this.W * this.H) / 9000));
+    var target = Math.min(320, Math.round((this.W * this.H) / 8000));
     this.specks = [];
     for (var i = 0; i < target; i++) this.specks.push(makeSpeck(true));
   };

@@ -7,7 +7,7 @@
 <meta name="description" content="Two academic tracks, one contemplative foundation: Applied Contemplative Practices and Coherent Leadership & Systemic Transformation, offered at BA and MA level at Kremsegg Castle, Austria.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=16">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -60,7 +60,21 @@
      intensives, campus) is a candidate to become its own page later. Sections
      carry stable ids so future pages can 301/anchor cleanly. -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--image page-hero--left" id="hero">
+  <div class="parallax-bg" aria-hidden="true"
+       style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDlkchySOtW0cce1VO4qYdKaeoNaFrzuCQDjGKSG52K2WxmooeVOfWpXA8o8Cok7lxR/9k=')">
+    <picture>
+      <source type="image/webp"
+              srcset="img/academics-800.webp 800w, img/academics-1280.webp 1280w, img/academics-1920.webp 1920w"
+              sizes="100vw">
+      <img class="hero-img" src="img/academics-1280.jpg"
+           srcset="img/academics-800.jpg 800w, img/academics-1280.jpg 1280w, img/academics-1920.jpg 1920w"
+           sizes="100vw" alt="" width="1920" height="582"
+           fetchpriority="high" decoding="async"
+           onload="this.closest('.parallax-bg').classList.add('loaded')">
+    </picture>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <p class="eyebrow">Academics</p>
     <h1>Shaping a new way of thinking<br>and being in the world</h1>
@@ -253,6 +267,6 @@
   setTimeout(h, 6000);
 })();
 </script>
-<script src="js/main.js?v=15" defer></script>
+<script src="js/main.js?v=16" defer></script>
 </body>
 </html>
