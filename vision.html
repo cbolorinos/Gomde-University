@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Vision — University at Kremsegg</title>
+<title>The Vision — Kremsegg University</title>
 <meta name="description" content="Compassion and wisdom. The time is now. A university built on the conviction that the whole person and the life they lead are not separate domains.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=15">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -32,7 +32,7 @@
   <div class="header-bar">
     <a class="brand" href="index.html">
       <img src="img/logo-web.webp" alt="" width="46" height="42">
-      <span class="brand-name">University at Kremsegg<small>Wisdom &amp; Compassion</small></span>
+      <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
     </a>
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <ul>
@@ -47,18 +47,6 @@
             <li><a href="join-faculty.html">Join the Faculty</a></li>
           </ul>
         </li>
-        <li class="has-dropdown">
-          <button class="nav-toggle-btn" type="button" aria-expanded="false">Become a Founder</button>
-          <ul class="dropdown">
-            <li><a href="founder.html">Overview</a></li>
-            <li><a href="why-now.html">Why Now?</a></li>
-            <li><a href="campaign.html">The Campaign</a></li>
-            <li><a href="founding-patrons.html">Founding Patrons</a></li>
-            <li><a href="naming-opportunities.html">Naming Opportunities</a></li>
-            <li><a href="ways-to-give.html">Ways to Give</a></li>
-            <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
-          </ul>
-        </li>
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
@@ -68,7 +56,21 @@
 </header>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero page-hero--image page-hero--left" id="hero">
+  <div class="parallax-bg" aria-hidden="true"
+       style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCnp1wAOT1rRZIGGWwKwrOtX/ljXK1qdCeg9/s0MLuhBYdqrC6tnhMgQbwelVLw4gfHrVS06PRy6XNL6H//2Q==')">
+    <picture>
+      <source type="image/webp"
+              srcset="img/thevision-800.webp 800w, img/thevision-1280.webp 1280w, img/thevision-1920.webp 1920w"
+              sizes="100vw">
+      <img class="hero-img" src="img/thevision-1280.jpg"
+           srcset="img/thevision-800.jpg 800w, img/thevision-1280.jpg 1280w, img/thevision-1920.jpg 1920w"
+           sizes="100vw" alt="" width="1980" height="600"
+           fetchpriority="high" decoding="async"
+           onload="this.closest('.parallax-bg').classList.add('loaded')">
+    </picture>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <p class="eyebrow">The Vision</p>
     <h1>Compassion &amp; Wisdom.<br>The Time Is Now.</h1>
@@ -121,7 +123,7 @@
   <div class="wrap narrow">
     <p class="eyebrow">Part of a Larger Vision</p>
     <h2>The Bodhi Project</h2>
-    <p>The University at Kremsegg is the first and load-bearing expression of something larger. The Bodhi Project is a long-term undertaking to bring contemplative wisdom and rigorous modern inquiry together across the whole arc of a human life — a university for adult formation, a school for the young, and the Kremsegg Cultural Programs that open the estate to the wider community.</p>
+    <p>The Kremsegg University is the first and load-bearing expression of something larger. The Bodhi Project is a long-term undertaking to bring contemplative wisdom and rigorous modern inquiry together across the whole arc of a human life — a university for adult formation, a school for the young, and the Kremsegg Cultural Programs that open the estate to the wider community.</p>
     <p>The project holds two non-negotiable commitments: that everything it does be world-class by both Western and Eastern measures, and that it be built to last — sustainable, in every sense, for more than a hundred years. Its vision is of generations formed in both outer academic rigor and inward development; of scholars and leaders who emerge through the recognition of their communities and carry dignity, compassion, and discernment into the systems of their time; of Eastern contemplative wisdom and Western science meeting at depth.</p>
     <p><strong>The university is where that vision begins.</strong></p>
   </div>
@@ -131,7 +133,7 @@
   <div class="wrap narrow">
     <div class="note">
       <h3>A note on where we are</h3>
-      <p>The University at Kremsegg will be a degree-granting institution meeting European accreditation standards, and is committed to securing full accreditation before conferring any degree. The curricula described on this site are in active development — and that is itself part of this moment. Founding students, faculty, and supporters are helping to shape programs at the stage when shaping is still possible. What you will find here is the architecture; the detail is being built now, with care.</p>
+      <p>The Kremsegg University will be a degree-granting institution meeting European accreditation standards, and is committed to securing full accreditation before conferring any degree. The curricula described on this site are in active development — and that is itself part of this moment. Founding students, faculty, and supporters are helping to shape programs at the stage when shaping is still possible. What you will find here is the architecture; the detail is being built now, with care.</p>
     </div>
     <div class="pager" style="border-top:0">
       <a class="arrow-link" href="academics.html">Explore the programs</a>
@@ -145,9 +147,9 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="img/logo-web.webp" alt="University at Kremsegg emblem" width="52" height="48">
+        <img src="img/logo-web.webp" alt="Kremsegg University emblem" width="52" height="48">
         <div>
-          <span class="brand-name">University at Kremsegg<small>Wisdom &amp; Compassion</small></span>
+          <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
           <p class="small" style="margin-top:.7rem">Schloss Kremsegg, Kremsm&uuml;nster<br>Upper Austria</p>
         </div>
       </div>
@@ -182,7 +184,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 University at Kremsegg. All rights reserved.</span>
+      <span>&copy; 2026 Kremsegg University. All rights reserved.</span>
       <span>A degree-granting institution in development, committed to full European accreditation before conferring any degree.</span>
     </div>
   </div>
@@ -208,6 +210,6 @@
   setTimeout(h, 6000);
 })();
 </script>
-<script src="js/main.js?v=6" defer></script>
+<script src="js/main.js?v=15" defer></script>
 </body>
 </html>

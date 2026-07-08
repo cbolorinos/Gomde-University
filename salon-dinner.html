@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Private Salon Dinner at Schloss Kremsegg — 12 September 2026</title>
+<meta name="description" content="An intimate benefit dinner in support of a new university uniting contemplative wisdom and modern scholarship. By invitation. Hosted by Chökyi Nyima Rinpoche at Schloss Kremsegg, Upper Austria.">
+<link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="img/favicon-192.png">
+
+<!-- Elegant high-contrast serifs to echo the invitation's engraved lettering.
+     Loading time is not a concern here; presence is. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ==========================================================================
+   A Private Salon Dinner — standalone invitation page
+   Palette & spirit carried from the Kremsegg University site; hero lifted
+   from the printed invitation: molten gold, drifting motes, shafts of light.
+   ========================================================================== */
+:root{
+  --cream:#FAF6EE; --cream-2:#F3ECDC; --paper:#FDF9F0;
+  --ink:#2A2118; --ink-soft:#4A3E30; --muted:#6E5F4D;
+  --gold:#B98A4A; --gold-dark:#96702F; --gold-pale:#E4CFA4;
+  --gold-lume:#F0D08A; --maroon:#7E2F21; --maroon-dark:#67251A;
+  --border:#E5DAC3;
+  --night:#140d06;
+  --display:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --body:'EB Garamond', Georgia, 'Times New Roman', serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--cream); color:var(--ink);
+  font-family:var(--body); font-size:1.15rem; line-height:1.75;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{max-width:100%; height:auto; display:block;}
+h1,h2,h3{font-family:var(--display); font-weight:400; line-height:1.12; margin:0 0 .5em;}
+p{margin:0 0 1.2em;}
+
+.wrap{max-width:940px; margin:0 auto; padding:0 1.5rem;}
+.narrow{max-width:720px;}
+
+.eyebrow{
+  font-family:var(--body); font-size:.82rem; font-weight:500;
+  letter-spacing:.34em; text-transform:uppercase; color:var(--gold-dark);
+  margin:0 0 1.4rem;
+}
+.rule{ width:70px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); border:0; margin:1.8rem auto; }
+
+/* ---- Buttons ------------------------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem;
+  font-family:var(--body); font-size:1rem; font-weight:500; letter-spacing:.06em;
+  text-decoration:none; border-radius:2px; padding:.95rem 1.9rem; cursor:pointer;
+  transition:background .25s, color .25s, border-color .25s, transform .25s, box-shadow .25s;
+}
+.btn svg{width:1.05em; height:1.05em; flex:none;}
+.btn--gold{
+  background:linear-gradient(180deg,#c9994f,#96702F); color:#fff;
+  border:1px solid var(--gold-dark); box-shadow:0 8px 24px rgba(150,112,47,.28);
+}
+.btn--gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(150,112,47,.4); }
+.btn--ghost{ background:transparent; color:var(--ink); border:1px solid var(--gold); }
+.btn--ghost:hover{ background:var(--gold-dark); color:#fff; border-color:var(--gold-dark); transform:translateY(-2px); }
+
+/* ==========================================================================
+   PAGE LOADER — the turning wheel of the Dharma (identical to the main site)
+   ========================================================================== */
+.page-loader{display:none;}
+html.js .page-loader{
+  display:flex; position:fixed; inset:0; z-index:200;
+  background:var(--cream); align-items:center; justify-content:center;
+  opacity:1; transition:opacity .6s ease;
+}
+html.js .page-loader img{ width:110px; height:110px; animation:dharma-spin 2.8s linear infinite; }
+html.js .page-loader.done{ opacity:0; pointer-events:none; }
+@keyframes dharma-spin{ to{ transform:rotate(360deg);} }
+
+/* ==========================================================================
+   HERO — molten gold, drifting light, shafts from above
+   ========================================================================== */
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:6rem 1.5rem 5rem; overflow:hidden; isolation:isolate;
+  color:#F6E7C4; background:#20130a;
+}
+.hero .night-bg{
+  background:
+    radial-gradient(120% 90% at 78% 8%, rgba(255,214,130,.55) 0%, rgba(198,140,54,.28) 26%, rgba(60,36,14,0) 55%),
+    radial-gradient(150% 120% at 20% 100%, rgba(120,78,30,.55) 0%, rgba(30,18,8,0) 60%),
+    linear-gradient(160deg, #23150a 0%, #3a230f 34%, #6b4417 60%, #2c1a0b 100%);
+}
+
+/* ---- Shared dark-section treatment: parallax gradient + floating specks ---- */
+.night-bg{
+  position:absolute; left:0; right:0; top:-30%; height:160%; z-index:0;
+  will-change:transform; pointer-events:none;
+}
+.specks{ position:absolute; inset:0; z-index:1; width:100%; height:100%; pointer-events:none; }
+
+/* Slow-rotating shafts of light from the upper right, like the invitation */
+.hero-rays{
+  position:absolute; inset:-40% -20%; z-index:0; pointer-events:none;
+  background:
+    conic-gradient(from 210deg at 80% 6%,
+      rgba(255,225,150,0) 0deg,
+      rgba(255,225,150,.16) 10deg,
+      rgba(255,225,150,0) 20deg,
+      rgba(255,225,150,0) 40deg,
+      rgba(255,231,170,.13) 52deg,
+      rgba(255,225,150,0) 64deg,
+      rgba(255,225,150,0) 92deg,
+      rgba(255,220,140,.1) 104deg,
+      rgba(255,225,150,0) 118deg);
+  mix-blend-mode:screen; opacity:.9;
+  animation:ray-drift 26s ease-in-out infinite alternate;
+}
+@keyframes ray-drift{ from{ transform:rotate(-4deg) scale(1.02);} to{ transform:rotate(4deg) scale(1.06);} }
+
+/* Soft vignette to seat the text */
+.hero::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 52%, rgba(15,9,3,0) 30%, rgba(15,9,3,.55) 100%);
+}
+.hero-inner{ position:relative; z-index:2; max-width:820px; opacity:0; transform:translateY(18px);
+  animation:hero-in 1.6s cubic-bezier(.2,.7,.2,1) .3s forwards; }
+@keyframes hero-in{ to{ opacity:1; transform:none; } }
+
+/* Lotus emblem + section ornaments */
+.lotus{ display:block; }
+.hero-emblem{ width:104px; height:62px; margin:0 auto 2.2rem; color:var(--gold-lume);
+  filter:drop-shadow(0 2px 14px rgba(0,0,0,.5)); opacity:.95; }
+.ornament{ width:80px; height:48px; margin:0 auto 1.7rem; color:var(--gold); opacity:.92; }
+.ornament--light{ color:var(--gold-pale); opacity:.9; }
+.hero .eyebrow{ color:var(--gold-lume); letter-spacing:.42em; font-size:.72rem; }
+.hero h1{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(2.9rem, 8vw, 6.2rem); line-height:1; letter-spacing:.01em;
+  color:#FBEFCF; text-shadow:0 2px 40px rgba(0,0,0,.5), 0 0 60px rgba(255,205,120,.15);
+  margin:0;
+}
+.hero h1 .light{ display:block; font-style:italic; font-weight:300; color:#F4DCA1; }
+.hero-at{ font-family:var(--display); font-size:clamp(1.2rem,3.4vw,1.9rem); letter-spacing:.32em;
+  text-transform:uppercase; color:var(--gold-lume); margin:1.4rem 0 0; font-weight:500; }
+.hero-meta{ margin-top:2.4rem; font-family:var(--body); color:#EAD9B0; letter-spacing:.06em; }
+.hero-meta strong{ font-weight:500; color:#FBEFCF; }
+.hero-host{ margin-top:1.6rem; font-size:.8rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-pale); }
+.hero-host span{ display:block; font-family:var(--display); font-size:1.5rem; letter-spacing:.04em; text-transform:none; color:#FBEFCF; margin-top:.35rem; }
+
+/* Scroll cue */
+.scroll-cue{ position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%); z-index:2;
+  font-size:.66rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-pale);
+  opacity:.0; animation:cue-in 1s ease 1.6s forwards; }
+.scroll-cue::after{ content:""; display:block; width:1px; height:42px; margin:.7rem auto 0;
+  background:linear-gradient(var(--gold-pale),transparent); animation:cue-pulse 2.4s ease-in-out infinite; }
+@keyframes cue-in{ to{ opacity:.85; } }
+@keyframes cue-pulse{ 0%,100%{ transform:scaleY(.5); opacity:.3; transform-origin:top;} 50%{ transform:scaleY(1); opacity:1; transform-origin:top;} }
+
+/* ==========================================================================
+   SECTIONS
+   ========================================================================== */
+.section{ padding:7rem 0; }
+.section--paper{ background:var(--paper); }
+.section--cream2{ background:var(--cream-2); }
+.section-eyebrow{ text-align:center; }
+.section h2{ font-size:clamp(2rem,4.5vw,3.1rem); text-align:center; color:var(--ink); }
+.lead{ font-size:1.32rem; color:var(--ink-soft); }
+.center{ text-align:center; }
+
+/* A single monumental question, like the invitation's centrefold */
+.question{
+  position:relative; text-align:center; color:#F6E7C4; overflow:hidden; isolation:isolate;
+  padding:10rem clamp(1.5rem, 8vw, 7rem); background:#20130a;
+}
+.question .night-bg{
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255,214,130,.28) 0%, rgba(40,24,10,0) 55%),
+    linear-gradient(160deg,#20130a,#4a2d12 70%,#20130a);
+}
+.question::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%, rgba(15,9,3,0) 40%, rgba(15,9,3,.5) 100%); }
+.question > p, .question > .ornament{ position:relative; z-index:2; }
+.question .eyebrow{ color:var(--gold-lume); }
+.question p.big{
+  font-family:var(--display); font-weight:300; font-style:italic;
+  font-size:clamp(1.9rem,4.6vw,3.4rem); line-height:1.45; letter-spacing:.01em;
+  max-width:18ch; margin:1rem auto 0; color:#FBEFCF;
+}
+.question .count{ margin-top:3.2rem; font-size:.82rem; letter-spacing:.34em; text-transform:uppercase; color:var(--gold-pale); }
+
+/* Experience list */
+.deflist{ list-style:none; margin:2.5rem auto 0; padding:0; max-width:720px; }
+.deflist li{ padding:1.6rem 0 1.6rem 2rem; border-top:1px solid var(--border); position:relative; }
+.deflist li:last-child{ border-bottom:1px solid var(--border); }
+.deflist li::before{ content:""; position:absolute; left:0; top:2.15rem; width:9px; height:9px;
+  border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px rgba(185,138,74,.16); }
+.deflist strong{ font-family:var(--display); font-weight:500; font-size:1.5rem; display:block; color:var(--ink); }
+
+/* ==========================================================================
+   DETAILS CARD — date / time / place + Add to Calendar
+   ========================================================================== */
+.details{ max-width:780px; margin:0 auto; background:var(--paper);
+  border:1px solid var(--border); border-top:3px solid var(--gold);
+  box-shadow:0 30px 70px rgba(42,33,24,.12); padding:3.5rem 3rem; text-align:center; }
+.details .grid{ display:grid; grid-template-columns:1fr 1fr; gap:2rem 3rem; text-align:left; margin:2.5rem 0; }
+.details .field .k{ font-family:var(--body); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:.35rem; }
+.details .field .v{ font-family:var(--display); font-size:1.5rem; color:var(--ink); line-height:1.25; }
+.details .field .v small{ display:block; font-family:var(--body); font-size:.98rem; color:var(--muted); letter-spacing:.02em; margin-top:.2rem; }
+.details .actions{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
+@media (max-width:560px){ .details{ padding:2.5rem 1.5rem;} .details .grid{ grid-template-columns:1fr; gap:1.6rem;} }
+
+/* ==========================================================================
+   MAP
+   ========================================================================== */
+.map-frame{ max-width:980px; margin:2.5rem auto 0; border:1px solid var(--border);
+  border-top:3px solid var(--gold); box-shadow:0 24px 60px rgba(42,33,24,.14);
+  background:var(--paper); padding:.55rem; }
+.map-frame iframe{ display:block; width:100%; height:440px; border:0;
+  filter:sepia(.28) saturate(1.05) contrast(.98); }
+.address{ text-align:center; margin-top:2rem; font-family:var(--display); font-size:1.4rem; color:var(--ink); line-height:1.4; }
+.address small{ display:block; font-family:var(--body); font-size:.95rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-top:.5rem; }
+
+.note{ max-width:720px; margin:0 auto; background:var(--paper);
+  border:1px solid var(--gold-pale); border-left:4px solid var(--gold);
+  padding:2rem 2.2rem; color:var(--ink-soft); font-size:1.08rem; }
+.note h3{ font-size:1.4rem; margin-bottom:.4rem; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.site-footer{ position:relative; overflow:hidden; isolation:isolate;
+  background:#140d06; color:#CBBBA0; text-align:center; padding:5rem 1.5rem 3rem; }
+.site-footer .night-bg{
+  background:
+    radial-gradient(120% 130% at 50% 0%, rgba(255,214,130,.16) 0%, rgba(20,13,6,0) 60%),
+    linear-gradient(180deg,#1c1208,#140d06);
+}
+.site-footer > :not(.night-bg):not(.specks){ position:relative; z-index:2; }
+.site-footer .emblem{ width:88px; height:53px; margin:0 auto 1.7rem; color:var(--gold-pale); opacity:.9; }
+.site-footer .host-name{ font-family:var(--display); font-size:1.7rem; color:#FBEFCF; margin:0 0 .3rem; }
+.site-footer .role{ font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+.site-footer a{ color:var(--gold-pale); }
+.site-footer .confid{ max-width:560px; margin:2.5rem auto 0; font-size:.92rem; color:#9C8B72; line-height:1.7; }
+.site-footer .fine{ margin-top:2rem; font-size:.78rem; color:#7A6B54; letter-spacing:.04em; }
+
+/* ==========================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+.reveal{ opacity:0; transform:translateY(34px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); will-change:opacity,transform; }
+.reveal.in-view{ opacity:1; transform:none; }
+.reveal-stagger.in-view{ transition-delay:var(--stagger,0s); }
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+  .hero-inner{ animation:none; opacity:1; transform:none; }
+  .hero-rays{ animation:none; }
+  .scroll-cue{ animation:none; opacity:.85; }
+  html.js .page-loader img{ animation:none; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Lotus glyph from the invitation — defined once, tinted per-section via currentColor. -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <symbol id="lotus-sym" viewBox="0 0 100 60">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M50,54 C37,37.7 42.9,12.7 50,6 C57.2,12.7 63,37.7 50,54 Z"/>
+      <path d="M50,54 C30.8,48.2 22.9,25.4 25.5,16.3 C34.9,17.6 52.6,34.1 50,54 Z"/>
+      <path d="M50,54 C47.4,34.1 65.1,17.6 74.5,16.3 C77.1,25.4 69.2,48.2 50,54 Z"/>
+      <path d="M50,54 C32.9,60 15.6,47.2 12.9,39 C20.6,35 41.9,37.8 50,54 Z"/>
+      <path d="M50,54 C58.1,37.8 79.4,35 87.1,39 C84.4,47.2 67.1,60 50,54 Z"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- Page loader: the wheel of the Dharma turns while the page settles. -->
+<div class="page-loader" id="page-loader" role="status" aria-label="Loading">
+  <img src="img/spinner.webp" alt="" width="110" height="110">
+</div>
+
+<!-- ======================================================================= -->
+<!-- HERO                                                                    -->
+<!-- ======================================================================= -->
+<header class="hero" id="top">
+  <div class="night-bg" data-parallax="0.18" aria-hidden="true"></div>
+  <canvas class="specks" aria-hidden="true"></canvas>
+  <div class="hero-rays" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <svg class="hero-emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <p class="eyebrow">Leadership · Interdependence · The Elevation of the World</p>
+    <h1>A Private<br><span class="light">Salon Dinner</span></h1>
+    <p class="hero-at">at Schloss Kremsegg</p>
+    <p class="hero-meta">
+      <strong>Friday, 12 September 2026</strong><br>
+      Reception 19:00 · Dinner to follow<br>
+      Schloss Kremsegg, Upper Austria
+    </p>
+    <p class="hero-host">Hosted by<span>Chökyi Nyima Rinpoche</span></p>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">Enter</div>
+</header>
+
+<main>
+
+<!-- ======================================================================= -->
+<!-- INVITATION                                                              -->
+<!-- ======================================================================= -->
+<section class="section section--paper">
+  <div class="wrap narrow center">
+    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <p class="eyebrow reveal">It is our great pleasure to invite you</p>
+    <p class="lead reveal">On the evening of 12 September, twenty guests will gather by invitation at a baroque castle in the heart of Upper Austria — a place that has held space for learning, music, and quiet revolutions of thought since the year 1230.</p>
+    <hr class="rule reveal">
+    <p class="reveal">It will become the setting for a private benefit dedicated to a new kind of university: one that brings together the depth of the Buddhist contemplative tradition with the rigor of modern scholarship, with the aim of shaping future leaders guided by wisdom, clarity, compassion, and inner coherence.</p>
+    <p class="reveal">Guests will be received at the castle gates and led into the <em>Golden Salon of Luminosity</em>, where the Austrian artist Alexandra-Maria Marcus has composed an immersive experience of light and sound — designed to stir the conversation and awaken the senses.</p>
+  </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- ONE QUESTION                                                            -->
+<!-- ======================================================================= -->
+<section class="question">
+  <div class="night-bg" data-parallax="0.14" aria-hidden="true"></div>
+  <canvas class="specks" aria-hidden="true"></canvas>
+  <svg class="ornament ornament--light lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+  <p class="eyebrow reveal">At the heart of the evening, one essential question</p>
+  <p class="big reveal">What does it mean to lead as a force for elevation in a world that is interconnected?</p>
+  <p class="count reveal">Twenty guests · One question</p>
+</section>
+
+<!-- ======================================================================= -->
+<!-- THE EVENING                                                             -->
+<!-- ======================================================================= -->
+<section class="section section--cream2">
+  <div class="wrap">
+    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <p class="eyebrow section-eyebrow reveal">The Evening</p>
+    <h2 class="reveal">An evening created for depth, beauty,<br>and meaningful encounter</h2>
+    <ul class="deflist">
+      <li class="reveal reveal-stagger"><strong>Reception at the gates</strong>Guests are received at the castle gates as the light falls, and led within.</li>
+      <li class="reveal reveal-stagger"><strong>The Golden Salon of Luminosity</strong>An immersive composition of light and sound by artist Alexandra-Maria Marcus.</li>
+      <li class="reveal reveal-stagger"><strong>A dinner of exceptional conversation</strong>Twenty guests at one table, hosted by the world-renowned Buddhist teacher Chökyi Nyima Rinpoche.</li>
+      <li class="reveal reveal-stagger"><strong>Held in confidence</strong>In keeping with the intimate nature of the evening, guest names, conversations, and contributions are held in complete confidence.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- DETAILS + ADD TO CALENDAR                                               -->
+<!-- ======================================================================= -->
+<section class="section section--paper">
+  <div class="wrap">
+    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <p class="eyebrow section-eyebrow reveal">The Details</p>
+    <div class="details reveal">
+      <h2 style="text-align:center;margin-bottom:.2em;">You are warmly invited</h2>
+      <div class="grid">
+        <div class="field"><div class="k">Date</div><div class="v">Friday, 12 September 2026</div></div>
+        <div class="field"><div class="k">Time</div><div class="v">19:00<small>Reception · dinner to follow</small></div></div>
+        <div class="field"><div class="k">Place</div><div class="v">Schloss Kremsegg<small>Upper Austria</small></div></div>
+        <div class="field"><div class="k">Host</div><div class="v">Chökyi Nyima Rinpoche</div></div>
+      </div>
+      <div class="actions">
+        <a class="btn btn--gold" id="cal-btn"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=A%20Private%20Salon%20Dinner%20at%20Schloss%20Kremsegg&dates=20260912T170000Z/20260912T200000Z&details=An%20intimate%20benefit%20dinner%20in%20support%20of%20a%20new%20university%20uniting%20contemplative%20wisdom%20and%20modern%20scholarship.%20Reception%2019%3A00%2C%20dinner%20to%20follow.%20Hosted%20by%20Ch%C3%B6kyi%20Nyima%20Rinpoche.%20By%20invitation.&location=Schloss%20Kremsegg%2C%20Kremsegger%20Stra%C3%9Fe%2059%2C%204550%20Kremsm%C3%BCnster%2C%20Upper%20Austria%2C%20Austria&ctz=Europe/Vienna"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
+          Add to Google Calendar
+        </a>
+      </div>
+      <p style="margin-top:1.6rem;font-size:.92rem;color:var(--muted);">Kindly reply at your earliest convenience. Guest names and contributions are held in complete confidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- MAP                                                                     -->
+<!-- ======================================================================= -->
+<section class="section section--cream2">
+  <div class="wrap">
+    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <p class="eyebrow section-eyebrow reveal">The Setting</p>
+    <h2 class="reveal">Schloss Kremsegg</h2>
+    <p class="center lead reveal" style="max-width:640px;margin-left:auto;margin-right:auto;">A baroque castle above the Krems valley — a place of learning, music, and quiet revolutions of thought since the year 1230.</p>
+    <div class="map-frame reveal">
+      <iframe
+        title="Map to Schloss Kremsegg"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Schloss%20Kremsegg%2C%20Kremsegger%20Stra%C3%9Fe%2059%2C%204550%20Kremsm%C3%BCnster%2C%20Austria&z=14&output=embed"></iframe>
+    </div>
+    <p class="address reveal">
+      Castle Kremsegg
+      <small>Kremsegger Straße 59 · 4550 Kremsmünster · Upper Austria, Austria</small>
+    </p>
+    <div class="center reveal" style="margin-top:1.6rem;">
+      <a class="btn btn--ghost" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/dir/?api=1&destination=Schloss%20Kremsegg%2C%20Kremsegger%20Stra%C3%9Fe%2059%2C%204550%20Kremsm%C3%BCnster%2C%20Austria">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Open in Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- YOUR STAY                                                               -->
+<!-- ======================================================================= -->
+<section class="section section--paper">
+  <div class="wrap">
+    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <div class="note reveal">
+      <h3>A note on your stay</h3>
+      <p style="margin-bottom:0;">You will be warmly accommodated either at the castle or at the affiliated Buddhist retreat center, Gomde — a place of rest, beauty, and renewal. In the days surrounding the dinner, we would be glad to suggest optional ways to experience the Austrian landscape and culture. You are most welcome to bring your partner or family, and to extend your stay with us.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================================================================= -->
+<!-- FOOTER                                                                  -->
+<!-- ======================================================================= -->
+<footer class="site-footer">
+  <div class="night-bg" data-parallax="0.12" aria-hidden="true"></div>
+  <canvas class="specks" aria-hidden="true"></canvas>
+  <svg class="emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
+  <p class="host-name">Chökyi Nyima Rinpoche</p>
+  <p class="role">Host of the Evening</p>
+  <p class="confid">We would be honored by your presence. With warm regards,<br>John Dunne &amp; the University Team · <a href="mailto:tracy@tracy-allyn.com">tracy@tracy-allyn.com</a></p>
+  <p class="fine">Schloss Kremsegg, Kremsmünster · Upper Austria · By invitation only</p>
+</footer>
+
+<!-- ======================================================================= -->
+<!-- SCRIPTS                                                                 -->
+<!-- ======================================================================= -->
+<script>
+/* Hide the loader — inline so it works even if other scripts fail. */
+(function () {
+  var l = document.getElementById('page-loader');
+  if (!l) return;
+  var MIN_SHOW = 1100, t0 = Date.now(), hidden = false;
+  var h = function () {
+    if (hidden) return; hidden = true;
+    var wait = Math.max(0, MIN_SHOW - (Date.now() - t0));
+    setTimeout(function () {
+      l.classList.add('done');
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 700);
+    }, wait);
+  };
+  if (document.readyState === 'complete') h();
+  else window.addEventListener('load', h);
+  setTimeout(h, 6000);
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Floating light specks — a transcendent drift of golden motes over every
+   dark section (hero, the question, the footer). One shared animation loop
+   feeds all canvases. Retina-aware, gentle on the CPU, honors reduced-motion.
+--------------------------------------------------------------------------- */
+(function () {
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canvases = document.querySelectorAll('canvas.specks');
+  if (!canvases.length) return;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function makeSpeck(seed) {
+    return {
+      x: Math.random(),
+      y: seed ? Math.random() : rand(0.6, 1.15),
+      r: rand(0.6, 3.4),
+      drift: rand(-0.04, 0.04),
+      rise: rand(0.06, 0.28),
+      phase: rand(0, Math.PI * 2),
+      tw: rand(0.6, 1.7),
+      hue: Math.random() < 0.25 ? '255,231,175' : '255,206,120',
+      base: rand(0.25, 0.9)
+    };
+  }
+
+  function Field(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.specks = [];
+    this.visible = true;
+    this.resize();
+    var self = this;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        self.visible = entries[0].isIntersecting;
+      }, { threshold: 0 }).observe(canvas);
+    }
+  }
+  Field.prototype.resize = function () {
+    this.DPR = Math.min(window.devicePixelRatio || 1, 2);
+    this.W = this.canvas.clientWidth; this.H = this.canvas.clientHeight;
+    this.canvas.width = Math.floor(this.W * this.DPR);
+    this.canvas.height = Math.floor(this.H * this.DPR);
+    this.ctx.setTransform(this.DPR, 0, 0, this.DPR, 0, 0);
+    var target = Math.min(150, Math.round((this.W * this.H) / 9000));
+    this.specks = [];
+    for (var i = 0; i < target; i++) this.specks.push(makeSpeck(true));
+  };
+  Field.prototype.step = function (t, animate) {
+    var ctx = this.ctx, W = this.W, H = this.H;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < this.specks.length; i++) {
+      var s = this.specks[i], px, py, alpha, rr;
+      if (animate) {
+        s.y -= (s.rise / H) * 1.2;
+        if (s.y < -0.06) { this.specks[i] = makeSpeck(false); continue; }
+        var tw = 0.55 + 0.45 * Math.sin(t * s.tw + s.phase);
+        px = (s.x * W) + Math.sin(t * s.tw + s.phase) * 14 + (s.drift * W * 0.02);
+        py = s.y * H; alpha = s.base * tw; rr = s.r * (0.85 + 0.3 * tw);
+      } else {
+        px = s.x * W; py = s.y * H; alpha = s.base * 0.7; rr = s.r;
+      }
+      var g = ctx.createRadialGradient(px, py, 0, px, py, rr * 4);
+      g.addColorStop(0, 'rgba(' + s.hue + ',' + alpha + ')');
+      g.addColorStop(0.35, 'rgba(' + s.hue + ',' + (alpha * 0.35) + ')');
+      g.addColorStop(1, 'rgba(' + s.hue + ',0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(px, py, rr * 4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  };
+
+  var fields = [];
+  for (var i = 0; i < canvases.length; i++) fields.push(new Field(canvases[i]));
+
+  var to;
+  window.addEventListener('resize', function () {
+    clearTimeout(to);
+    to = setTimeout(function () {
+      for (var i = 0; i < fields.length; i++) { fields[i].resize(); if (reduced) fields[i].step(0, false); }
+    }, 180);
+  }, { passive: true });
+
+  if (reduced) {
+    for (var j = 0; j < fields.length; j++) fields[j].step(0, false);
+    return;
+  }
+  function loop(now) {
+    var t = now / 1000;
+    for (var i = 0; i < fields.length; i++) { if (fields[i].visible) fields[i].step(t, true); }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Parallax — the gradient layer behind each dark section drifts slower than
+   the page, giving depth as you scroll. Transform-only, rAF-throttled.
+--------------------------------------------------------------------------- */
+(function () {
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  var items = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  if (!items.length) return;
+  var ticking = false;
+  function update() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < items.length; i++) {
+      var el = items[i], parent = el.parentElement;
+      var r = parent.getBoundingClientRect();
+      var factor = parseFloat(el.getAttribute('data-parallax')) || 0.15;
+      var delta = (r.top + r.height / 2) - vh / 2;
+      el.style.transform = 'translate3d(0,' + (-delta * factor).toFixed(1) + 'px,0)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Scroll-reveal — elements rise and fade in as they enter the viewport,
+   with a gentle stagger for siblings.
+--------------------------------------------------------------------------- */
+(function () {
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || reduced) {
+    els.forEach(function (el) { el.classList.add('in-view'); });
+    return;
+  }
+  els.forEach(function (el) {
+    var parent = el.parentElement;
+    var sibs = Array.prototype.filter.call(parent.children, function (c) { return c.classList.contains('reveal-stagger'); });
+    if (el.classList.contains('reveal-stagger')) {
+      var idx = sibs.indexOf(el);
+      el.style.setProperty('--stagger', (idx * 0.12) + 's');
+    }
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

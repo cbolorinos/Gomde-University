@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>University at Kremsegg — Where Timeless Wisdom Meets Modern Inquiry</title>
+<title>Kremsegg University — Where Timeless Wisdom Meets Modern Inquiry</title>
 <meta name="description" content="A new university in the hills of Upper Austria, uniting rigorous academic study with contemplative practice. Founded in the lineage of Chökyi Nyima Rinpoche.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=15">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -32,7 +32,7 @@
   <div class="header-bar">
     <a class="brand" href="index.html">
       <img src="img/logo-web.webp" alt="" width="46" height="42">
-      <span class="brand-name">University at Kremsegg<small>Wisdom &amp; Compassion</small></span>
+      <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
     </a>
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <ul>
@@ -47,18 +47,6 @@
             <li><a href="join-faculty.html">Join the Faculty</a></li>
           </ul>
         </li>
-        <li class="has-dropdown">
-          <button class="nav-toggle-btn" type="button" aria-expanded="false">Become a Founder</button>
-          <ul class="dropdown">
-            <li><a href="founder.html">Overview</a></li>
-            <li><a href="why-now.html">Why Now?</a></li>
-            <li><a href="campaign.html">The Campaign</a></li>
-            <li><a href="founding-patrons.html">Founding Patrons</a></li>
-            <li><a href="naming-opportunities.html">Naming Opportunities</a></li>
-            <li><a href="ways-to-give.html">Ways to Give</a></li>
-            <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
-          </ul>
-        </li>
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
@@ -68,10 +56,27 @@
 </header>
 
 <main id="main">
-<section class="hero">
+<section class="hero hero--image" id="hero">
+  <!-- Background image. A tiny (~1 KB) blurred placeholder shows instantly,
+       then the real image fades in on load. WebP with JPEG fallback and
+       responsive srcset keep the transfer small on slow connections. -->
+  <div class="parallax-bg" id="hero-bg" aria-hidden="true"
+       style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDdu7hE+WPDNVYTblPmLg+1ZmnTPMMNjg96vMWDHgEfWmpMLFLVEElqGH3jXOT4Q+9dNfL58LKpwy9hWEtm8khEykCpbuFizaEiY4JFaNyT5Q5NFFLoBVUnd1NJKaKKXQD/2Q==')">
+    <picture>
+      <source type="image/webp"
+              srcset="img/hero-800.webp 800w, img/hero-1280.webp 1280w, img/hero-1920.webp 1920w"
+              sizes="100vw">
+      <img class="hero-img" src="img/hero-1280.jpg"
+           srcset="img/hero-800.jpg 800w, img/hero-1280.jpg 1280w, img/hero-1920.jpg 1920w"
+           sizes="100vw" alt="" width="1980" height="1114"
+           fetchpriority="high" decoding="async"
+           onload="this.closest('.parallax-bg').classList.add('loaded')">
+    </picture>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <img class="hero-emblem" src="img/logo-web.webp" alt="" width="130" height="119">
-    <p class="eyebrow">University at Kremsegg</p>
+    <p class="eyebrow">Kremsegg University</p>
     <h1>Where timeless wisdom<br>meets modern inquiry</h1>
     <p class="lede">Shaping how you think and who you become.</p>
     <hr class="rule rule--center">
@@ -88,19 +93,18 @@
 
     <div class="split">
       <div class="split-media">
-        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#B98A4A" stroke-width="1.2"><path d="M12 21c-4-.5-7-3-8-7 2.5.5 4.5 2 5.5 3.5C9 14 10 11 12 9c2 2 3 5 2.5 8.5 1-1.5 3-3 5.5-3.5-1 4-4 6.5-8 7z"/></svg><span>Image: students in study &amp; practice</span></div>
+        <div class="ph"><img src="img/thewholeperson.jpg" alt="students in study &amp; practice"></div>
       </div>
       <div>
         <p class="eyebrow">Principle One</p>
         <h2>The whole person.</h2>
-        <p>Most institutions develop your mind. The University at Kremsegg develops the person who uses it. Academic rigor and contemplative training are not two separate activities here — they are one. The curriculum is built around presence, interdependence, judgment, and integrity, so that what you learn and who you become advance together.</p>
+        <p>Most institutions develop your mind. The Kremsegg University develops the person who uses it. Academic rigor and contemplative training are not two separate activities here — they are one. The curriculum is built around presence, interdependence, judgment, and integrity, so that what you learn and who you become advance together.</p>
         <a class="arrow-link" href="academics.html">Academic Programs</a>
       </div>
     </div>
-
     <div class="split split--flip">
       <div class="split-media">
-        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#B98A4A" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 3v18M3 12h18"/></svg><span>Image: systems &amp; landscape</span></div>
+        <div class="ph"><img src="img/theworldthatscoming.jpg" alt="people in classroom"></div>
       </div>
       <div>
         <p class="eyebrow">Principle Two</p>
@@ -112,7 +116,7 @@
 
     <div class="split">
       <div class="split-media">
-        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#B98A4A" stroke-width="1.2"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg><span>Image: Kremsegg Castle</span></div>
+        <div class="ph"><img src="img/schloss.jpg" alt="people in classroom"></div>
       </div>
       <div>
         <p class="eyebrow">Principle Three</p>
@@ -125,7 +129,7 @@
   </div>
 </section>
 
-<section class="quote">
+<section class="quote scroll-parallax">
   <blockquote>&ldquo;Intelligence without compassion is dangerous. Compassion without wisdom cannot see the path forward.&rdquo;</blockquote>
   <cite>Chökyi Nyima Rinpoche, Spiritual Guide</cite>
 </section>
@@ -156,7 +160,7 @@
   </div>
 </section>
 
-<section class="cta-band">
+<section class="cta-band scroll-parallax">
   <h2>The moment is now.</h2>
   <p>Founding students, faculty, and supporters are shaping the university at the stage when shaping is still possible.</p>
   <div class="hero-actions">
@@ -170,9 +174,9 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="img/logo-web.webp" alt="University at Kremsegg emblem" width="52" height="48">
+        <img src="img/logo-web.webp" alt="Kremsegg University emblem" width="52" height="48">
         <div>
-          <span class="brand-name">University at Kremsegg<small>Wisdom &amp; Compassion</small></span>
+          <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
           <p class="small" style="margin-top:.7rem">Schloss Kremsegg, Kremsm&uuml;nster<br>Upper Austria</p>
         </div>
       </div>
@@ -207,7 +211,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 University at Kremsegg. All rights reserved.</span>
+      <span>&copy; 2026 Kremsegg University. All rights reserved.</span>
       <span>A degree-granting institution in development, committed to full European accreditation before conferring any degree.</span>
     </div>
   </div>
@@ -233,6 +237,6 @@
   setTimeout(h, 6000);
 })();
 </script>
-<script src="js/main.js?v=6" defer></script>
+<script src="js/main.js?v=15" defer></script>
 </body>
 </html>
