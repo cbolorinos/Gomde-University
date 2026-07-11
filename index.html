@@ -7,8 +7,8 @@
 <meta name="description" content="A new university in the hills of Upper Austria, uniting rigorous academic study with contemplative practice. Founded in the lineage of Chökyi Nyima Rinpoche.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=16">
-<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="css/style.css?v=20">
+<script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
 </head>
 <body>
 
@@ -24,8 +24,6 @@
 <header class="site-header">
   <div class="eyebrow-bar">
     <div class="eyebrow-bar-inner">
-      <a href="study-with-us.html">Study With Us</a>
-      <span class="eyebrow-sep" aria-hidden="true">&middot;</span>
       <a href="speak-with-our-team.html">Become a Founder</a>
     </div>
   </div>
@@ -40,11 +38,11 @@
         <li><a class="nav-link" href="vision.html">The Vision</a></li>
         <li><a class="nav-link" href="academics.html">Academics</a></li>
         <li class="has-dropdown">
-          <button class="nav-toggle-btn" type="button" aria-expanded="false">Faculty &amp; Leadership</button>
+          <button class="nav-toggle-btn" type="button" aria-expanded="false">Project Team</button>
           <ul class="dropdown">
             <li><a href="faculty.html">Leadership</a></li>
             <li><a href="board.html">Board &amp; Advisory Council</a></li>
-            <li><a href="join-faculty.html">Join the Faculty</a></li>
+            <li><a href="join-faculty.html">Advisors &amp; Collaborators</a></li>
           </ul>
         </li>
       </ul>
@@ -56,31 +54,17 @@
 </header>
 
 <main id="main">
-<section class="hero hero--image" id="hero">
-  <!-- Background image. A tiny (~1 KB) blurred placeholder shows instantly,
-       then the real image fades in on load. WebP with JPEG fallback and
-       responsive srcset keep the transfer small on slow connections. -->
-  <div class="parallax-bg" id="hero-bg" aria-hidden="true"
-       style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDdu7hE+WPDNVYTblPmLg+1ZmnTPMMNjg96vMWDHgEfWmpMLFLVEElqGH3jXOT4Q+9dNfL58LKpwy9hWEtm8khEykCpbuFizaEiY4JFaNyT5Q5NFFLoBVUnd1NJKaKKXQD/2Q==')">
-    <picture>
-      <source type="image/webp"
-              srcset="img/hero-800.webp 800w, img/hero-1280.webp 1280w, img/hero-1920.webp 1920w"
-              sizes="100vw">
-      <img class="hero-img" src="img/hero-1280.jpg"
-           srcset="img/hero-800.jpg 800w, img/hero-1280.jpg 1280w, img/hero-1920.jpg 1920w"
-           sizes="100vw" alt="" width="1980" height="1114"
-           fetchpriority="high" decoding="async"
-           onload="this.closest('.parallax-bg').classList.add('loaded')">
-    </picture>
-  </div>
-  <div class="hero-scrim" aria-hidden="true"></div>
+<section class="hero hero--gradient" id="hero">
+  <!-- Flowing animated gradient background — colours drift slowly and
+       continuously. Falls back to a static gradient where animation is off. -->
+  <div class="hero-gradient-bg" aria-hidden="true"></div>
   <div class="wrap">
     <img class="hero-emblem" src="img/logo-web.webp" alt="" width="130" height="119">
     <p class="eyebrow">Kremsegg University</p>
-    <h1>Where timeless wisdom<br>meets modern inquiry</h1>
-    <p class="lede">Shaping how you think and who you become.</p>
+    <h1>Train the Mind. Open the Heart.<br>Serve the World.</h1>
+    <p class="lede">An education rooted in contemplative wisdom and engaged with the sciences of mind, complexity, and leadership.</p>
     <hr class="rule rule--center">
-    <p class="lede narrow" style="margin-left:auto;margin-right:auto">The moment is now. An innovative and outstanding university is being shaped by world thinkers in the hills of Upper Austria — designed on three core principles.</p>
+    <p class="lede narrow" style="margin-left:auto;margin-right:auto">An innovative university is taking shape in the hills of Upper Austria, created by world-renowned contemplative teachers, academic scholars, and experienced leaders.</p>
     <div class="hero-actions">
       <a class="btn btn--gold" href="academics.html">Explore the Programs</a>
       <a class="btn btn--ghost" href="founder.html">Become a Founder</a>
@@ -91,6 +75,11 @@
 <section class="section">
   <div class="wrap">
 
+    <div class="section-head">
+      <p class="eyebrow">Our Core Principles</p>
+      <h2>The whole person, for the world that&rsquo;s coming.</h2>
+    </div>
+
     <div class="split">
       <div class="split-media">
         <div class="ph"><img src="img/thewholeperson.jpg" alt="students in study &amp; practice"></div>
@@ -98,7 +87,7 @@
       <div>
         <p class="eyebrow">Principle One</p>
         <h2>The whole person.</h2>
-        <p>Most institutions develop your mind. The Kremsegg University develops the person who uses it. Academic rigor and contemplative training are not two separate activities here — they are one. The curriculum is built around presence, interdependence, judgment, and integrity, so that what you learn and who you become advance together.</p>
+        <p>Most institutions simply transfer knowledge. Kremsegg University develops the whole person to use that knowledge wisely. Academic rigor and contemplative training are not two separate activities here — they are one. The curriculum is built around presence, interdependence, discernment, and integrity, so that what you learn and who you become advance together.</p>
         <a class="arrow-link" href="academics.html">Academic Programs</a>
       </div>
     </div>
@@ -109,7 +98,7 @@
       <div>
         <p class="eyebrow">Principle Two</p>
         <h2>For the world that&rsquo;s coming.</h2>
-        <p>This is where intelligence finds its purpose in compassion and empathy. Students learn to think systemically — to see how culture, strategy, economics, and ecology interact across scales — and to develop the inner life that makes such thinking usable under real pressure. In a world that has mastered the accumulation of knowledge but not the wisdom to apply it, this is the capability the moment demands.</p>
+        <p>This is where intelligence finds its purpose in compassionate action. Students learn to think systemically — to see how culture, economics, and ecology interact across scales — and to develop the inner life that makes such thinking usable under real pressure. Graduates embody these capacities wherever they serve: classrooms and clinics, nonprofits and ministries, governments and companies. In a world that has mastered the accumulation of knowledge but not the wisdom to apply it, this is the capability the moment demands.</p>
         <a class="arrow-link" href="founder.html">Become a Founder</a>
       </div>
     </div>
@@ -121,8 +110,8 @@
       <div>
         <p class="eyebrow">Principle Three</p>
         <h2>Rooted, and open.</h2>
-        <p>Founded in the Buddhist lineage of Chökyi Nyima Rinpoche and taught by faculty who are both academically credentialed and trained in the traditions they teach, the university is equally at home in a contemplative setting and a boardroom.</p>
-        <a class="arrow-link" href="faculty.html">Faculty &amp; Leadership</a>
+        <p>Kremsegg University is guided by the Venerable Chökyi Nyima Rinpoche, one of the great Buddhist teachers of our era, and rooted in a lineage of study and practice refined over centuries. That depth is precisely what makes its openness possible: the university welcomes students and scholars of every tradition, and actively seeks dialogue with the world&rsquo;s contemplative and intellectual heritages — not as a gesture of tolerance, but as part of its method. Educated by a faculty who are both academically credentialed and trained in the traditions they teach, graduates are equally at home in a monastery or a boardroom, a classroom or a clinic.</p>
+        <a class="arrow-link" href="faculty.html">Project Team</a>
       </div>
     </div>
 
@@ -148,7 +137,7 @@
       </a>
       <a class="card" href="academics.html">
         <h3>Academics</h3>
-        <p>Two tracks, one contemplative foundation: Applied Contemplative Practices and Coherent Leadership &amp; Systemic Transformation, at BA and MA level.</p>
+        <p>Two tracks, one contemplative foundation: Applied Contemplative Practices and Transformative Leadership, at BA and MA level.</p>
         <span class="arrow-link">Explore the programs</span>
       </a>
       <a class="card" href="founder.html">
@@ -162,10 +151,9 @@
 
 <section class="cta-band scroll-parallax">
   <h2>The moment is now.</h2>
-  <p>Founding students, faculty, and supporters are shaping the university at the stage when shaping is still possible.</p>
   <div class="hero-actions">
     <a class="btn btn--light" href="speak-with-our-team.html">Speak With Our Team</a>
-    <a class="btn btn--ghost" style="color:#FDF9F0;border-color:#E4CFA4" href="vision.html">Read the Vision</a>
+    <a class="btn btn--ghost" href="vision.html">Read the Vision</a>
   </div>
 </section>
 </main>
@@ -185,9 +173,9 @@
         <ul>
           <li><a href="vision.html">The Vision</a></li>
           <li><a href="academics.html">Academics</a></li>
-          <li><a href="faculty.html">Faculty &amp; Leadership</a></li>
+          <li><a href="faculty.html">Project Team</a></li>
           <li><a href="board.html">Governance</a></li>
-          <li><a href="join-faculty.html">Join the Faculty</a></li>
+          <li><a href="join-faculty.html">Advisors &amp; Collaborators</a></li>
         </ul>
       </div>
       <div>
@@ -196,7 +184,6 @@
           <li><a href="why-now.html">Why Now?</a></li>
           <li><a href="campaign.html">The Campaign</a></li>
           <li><a href="founding-patrons.html">Founding Patrons</a></li>
-          <li><a href="naming-opportunities.html">Naming Opportunities</a></li>
           <li><a href="ways-to-give.html">Ways to Give</a></li>
         </ul>
       </div>
@@ -205,6 +192,7 @@
         <ul>
           <li><a href="study-with-us.html">Study With Us</a></li>
           <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
+          <li><a href="media.html">Media &amp; Press</a></li>
           <li><a href="speak-with-our-team.html#contact-form">Contact Form</a></li>
         </ul>
         <p class="small" style="margin-top:.9rem">Part of the Bodhi Project and the Shedrub Mandala. Founded in the lineage of Ch&ouml;kyi Nyima Rinpoche.</p>

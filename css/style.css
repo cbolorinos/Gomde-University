@@ -210,7 +210,7 @@ body.menu-open { overflow: hidden; }
   overflow: hidden;
   isolation: isolate;
   padding: 6rem 0 5.5rem;
-  background: #2A2118; /* fallback colour before/without the image */
+  background: var(--cream-2); /* fallback colour before/without the image */
 }
 .hero--image .wrap { position: relative; z-index: 2; }
 
@@ -234,29 +234,83 @@ body.menu-open { overflow: hidden; }
 }
 .parallax-bg.loaded .hero-img { opacity: 1; }
 
-/* Scrim for text legibility — darker at the centre where the copy sits. */
+/* Scrim for text legibility — a light wash that lifts the photo so dark
+   text reads over it, strongest at the centre where the copy sits. */
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse at 50% 45%, rgba(20,15,8,.42) 0%, rgba(20,15,8,.62) 100%),
-    linear-gradient(to bottom, rgba(20,15,8,.35) 0%, rgba(20,15,8,.15) 40%, rgba(20,15,8,.55) 100%);
+    radial-gradient(ellipse at 50% 45%, rgba(253,249,240,.68) 0%, rgba(253,249,240,.5) 100%),
+    linear-gradient(to bottom, rgba(253,249,240,.55) 0%, rgba(253,249,240,.4) 40%, rgba(253,249,240,.62) 100%);
 }
 
-/* Light text over the image */
-.hero--image .eyebrow { color: var(--gold-pale); }
+/* Dark text over the lightened image */
+.hero--image .eyebrow { color: var(--gold-dark); }
 .hero--image h1,
-.hero--image .lede { color: #FDF9F0; }
-.hero--image h1 { text-shadow: 0 2px 18px rgba(0,0,0,.45); }
-.hero--image .lede { text-shadow: 0 1px 10px rgba(0,0,0,.5); }
-.hero--image .rule { border-color: rgba(228,207,164,.55); }
-.hero--image .hero-emblem { filter: drop-shadow(0 2px 10px rgba(0,0,0,.4)); }
-/* Ghost button needs light styling on the dark image */
-.hero--image .btn--ghost { color: #FDF9F0; border-color: var(--gold-pale); }
-.hero--image .btn--ghost:hover { background: var(--gold-pale); color: var(--ink); border-color: var(--gold-pale); }
+.hero--image .lede { color: var(--ink); }
+.hero--image h1 { text-shadow: 0 1px 14px rgba(253,249,240,.7); }
+.hero--image .lede { text-shadow: 0 1px 8px rgba(253,249,240,.7); }
+.hero--image .rule { border-color: rgba(150,112,47,.5); }
+.hero--image .hero-emblem { filter: drop-shadow(0 2px 8px rgba(255,255,255,.6)); }
+/* Ghost button styled for the light image */
+.hero--image .btn--ghost { color: var(--ink); border-color: var(--gold-dark); }
+.hero--image .btn--ghost:hover { background: var(--gold-dark); color: var(--paper); border-color: var(--gold-dark); }
 
 @media (max-width: 640px) { .hero--image { padding: 4.5rem 0 4rem; } }
+
+/* ---- Hero with a flowing animated gradient ------------------------------
+   A warm, on-brand gradient whose colours drift continuously. Light text
+   sits over it, lifted by a soft central vignette for legibility. */
+.hero--gradient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 6.5rem 0 6rem;
+  color: var(--paper);
+  background: #67251A; /* fallback */
+}
+.hero-gradient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(125deg,
+    #5A2016 0%, #7E2F21 18%, #B4632B 36%, #D2A14A 52%,
+    #B4632B 66%, #6E2A3F 82%, #5A2016 100%);
+  background-size: 300% 300%;
+  animation: heroFlow 24s ease-in-out infinite;
+}
+/* Soft vignette + slight darkening so the light headline always reads. */
+.hero--gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 42%, rgba(0,0,0,.04) 0%, rgba(0,0,0,.26) 100%);
+}
+.hero--gradient .wrap { position: relative; z-index: 2; }
+
+@keyframes heroFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Light text + accents over the gradient */
+.hero--gradient .eyebrow { color: var(--gold-pale); }
+.hero--gradient h1,
+.hero--gradient .lede { color: #FBF4E6; }
+.hero--gradient h1 { text-shadow: 0 2px 20px rgba(35,15,8,.4); }
+.hero--gradient .lede { text-shadow: 0 1px 12px rgba(35,15,8,.4); }
+.hero--gradient .rule { border-color: rgba(228,207,164,.6); }
+.hero--gradient .hero-emblem { filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,.35)); }
+.hero--gradient .btn--ghost { color: #FBF4E6; border-color: rgba(251,244,230,.75); }
+.hero--gradient .btn--ghost:hover { background: #FBF4E6; color: var(--maroon); border-color: #FBF4E6; }
+
+@media (max-width: 640px) { .hero--gradient { padding: 4.75rem 0 4.25rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-bg { animation: none; background-position: 50% 50%; }
+}
 
 /* ---- Classic scroll parallax (quote + CTA) -------------------------------
    The image is pinned to the viewport (background-attachment: fixed) so the
@@ -269,7 +323,7 @@ body.menu-open { overflow: hidden; }
    `background: var(--maroon)` shorthand that appears later in the file. */
 .quote.scroll-parallax,
 .cta-band.scroll-parallax {
-  background-color: #2A2118;                  /* solid fallback until image loads */
+  background-color: var(--cream-2);           /* solid fallback until image loads */
   background-image:
     -webkit-image-set(
       url("../img/hero-1280.webp") type("image/webp"),
@@ -283,23 +337,39 @@ body.menu-open { overflow: hidden; }
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-.scroll-parallax::before {           /* dark overlay — identical to the hero */
+.scroll-parallax::before {           /* light overlay — identical to the hero */
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 45%, rgba(20,15,8,.42) 0%, rgba(20,15,8,.62) 100%),
-    linear-gradient(to bottom, rgba(20,15,8,.35) 0%, rgba(20,15,8,.15) 40%, rgba(20,15,8,.55) 100%);
+    radial-gradient(ellipse at 50% 45%, rgba(253,249,240,.68) 0%, rgba(253,249,240,.5) 100%),
+    linear-gradient(to bottom, rgba(253,249,240,.55) 0%, rgba(253,249,240,.4) 40%, rgba(253,249,240,.62) 100%);
 }
 .scroll-parallax > * { position: relative; z-index: 1; }
-/* Lift the light text a touch for pop (CTA band only) */
+/* Lift the dark text a touch for pop (CTA band only) */
 .cta-band.scroll-parallax h2,
-.cta-band.scroll-parallax p { text-shadow: 0 1px 12px rgba(0,0,0,.5); }
-/* Quote band: plain white text, no shadow */
-.quote.scroll-parallax { color: #fff; }
+.cta-band.scroll-parallax p { color: var(--ink); text-shadow: 0 1px 8px rgba(253,249,240,.7); }
+/* Quote band: dark ink text, no shadow */
+.quote.scroll-parallax { color: var(--ink); }
 .quote.scroll-parallax blockquote,
-.quote.scroll-parallax cite { color: #fff; text-shadow: none; }
+.quote.scroll-parallax cite { color: var(--ink); text-shadow: none; }
+
+/* Buttons on the light CTA band — darker, solid colours so they don't wash
+   out against the lightened photo. Primary is solid maroon; secondary is a
+   gold-dark outline with maroon text. */
+.cta-band.scroll-parallax .btn--light {
+  background: var(--maroon); color: #fff; border-color: var(--maroon);
+}
+.cta-band.scroll-parallax .btn--light:hover {
+  background: var(--maroon-dark); color: #fff; border-color: var(--maroon-dark);
+}
+.cta-band.scroll-parallax .btn--ghost {
+  color: var(--maroon-dark); border-color: var(--gold-dark);
+}
+.cta-band.scroll-parallax .btn--ghost:hover {
+  background: var(--gold-dark); color: #fff; border-color: var(--gold-dark);
+}
 
 /* background-attachment: fixed is janky/unsupported on most touch browsers,
    so fall back to a normal scrolling cover image there. */
@@ -325,13 +395,13 @@ body.menu-open { overflow: hidden; }
   isolation: isolate;
   padding: 3rem 0 2.75rem;                 /* ~half the home hero */
   border-bottom: 0;
-  background: #2A2118;                      /* fallback before/without the image */
-  color: #FDF9F0;
+  background: var(--cream-2);               /* fallback before/without the image */
+  color: var(--ink);
 }
 .page-hero--image .wrap { position: relative; z-index: 2; }
-.page-hero--image .eyebrow { color: var(--gold-pale); }
-.page-hero--image h1 { color: #FDF9F0; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
-.page-hero--image .lede { color: #FDF9F0; text-shadow: 0 1px 10px rgba(0,0,0,.5); }
+.page-hero--image .eyebrow { color: var(--gold-dark); }
+.page-hero--image h1 { color: var(--ink); text-shadow: 0 1px 14px rgba(253,249,240,.7); }
+.page-hero--image .lede { color: var(--ink); text-shadow: 0 1px 8px rgba(253,249,240,.7); }
 
 /* Left-flushed variant — keeps copy on the left so it clears a right-heavy image */
 .page-hero--left { text-align: left; }
@@ -341,8 +411,8 @@ body.menu-open { overflow: hidden; }
    activity is — clearer. */
 .page-hero--left .hero-scrim {
   background:
-    linear-gradient(to right, rgba(20,15,8,.72) 0%, rgba(20,15,8,.5) 42%, rgba(20,15,8,.12) 100%),
-    linear-gradient(rgba(20,15,8,.15), rgba(20,15,8,.15));
+    linear-gradient(to right, rgba(253,249,240,.8) 0%, rgba(253,249,240,.58) 42%, rgba(253,249,240,.2) 100%),
+    linear-gradient(rgba(253,249,240,.2), rgba(253,249,240,.2));
 }
 
 /* ---- Sections ------------------------------------------------------------ */
@@ -465,6 +535,9 @@ html.js .page-loader {
   background: var(--cream); align-items: center; justify-content: center;
   opacity: 1; transition: opacity .5s ease;
 }
+/* Returning within the same session: the wheel already greeted them, so skip
+   it. `loader-seen` is set inline in <head> before paint, so there's no flash. */
+html.loader-seen .page-loader { display: none !important; }
 html.js .page-loader img { animation: dharma-spin 2.8s linear infinite; }
 html.js .page-loader.done { opacity: 0; pointer-events: none; }
 @keyframes dharma-spin { to { transform: rotate(360deg); } }
