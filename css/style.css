@@ -40,7 +40,10 @@ img, svg { max-width: 100%; height: auto; }
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; color: var(--ink); margin: 0 0 .6em; }
 h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); letter-spacing: -.01em; }
 h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); }
-h3 { font-size: 1.35rem; }
+h3 {
+  font-family: var(--sans); font-size: 1.05rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--brand-maroon);
+}
 h4 { font-size: 1.1rem; }
 p { margin: 0 0 1.1em; }
 a { color: var(--gold-dark); text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -203,6 +206,9 @@ body.menu-open { overflow: hidden; }
 /* ---- Hero ---------------------------------------------------------------- */
 .hero { padding: 4.5rem 0 4rem; text-align: center; background: radial-gradient(ellipse at 50% -20%, var(--paper) 0%, var(--cream) 65%); }
 .hero .lede { max-width: 700px; margin: 0 auto 1.2em; }
+/* Extra headline break shown only on narrow screens */
+.br-mobile { display: none; }
+@media (max-width: 640px) { .br-mobile { display: inline; } }
 .hero-emblem { width: 130px; margin: 0 auto 1.6rem; }
 .hero-actions { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem; }
 
@@ -482,6 +488,14 @@ a.card:hover { box-shadow: 0 8px 22px rgba(42,33,24,.1); transform: translateY(-
   background: var(--paper); border: 1px solid var(--gold-pale); border-left: 4px solid var(--gold);
   padding: 1.4rem 1.6rem; font-size: .98rem; color: var(--ink-soft);
 }
+
+/* Intro band — maroon strip beneath the hero */
+.intro-band { background: linear-gradient(to bottom, var(--brand-maroon) 0%, var(--maroon-dark) 100%); color: #fff; text-align: center; padding: 3.4rem 0; }
+.intro-band h2 {
+  font-family: var(--serif); color: #fff; font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.3; max-width: 900px; margin: 0 auto .9rem;
+}
+.intro-band p { color: rgba(255,255,255,.9); font-size: 1.1rem; max-width: 760px; margin: 0 auto; }
 
 /* CTA band */
 .cta-band { background: var(--maroon); color: var(--paper); text-align: center; padding: 4rem 1.25rem; }
