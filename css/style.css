@@ -227,7 +227,7 @@ body.menu-open { overflow: hidden; }
    placeholder lives on this element's background. */
 .parallax-bg {
   position: absolute;
-  inset: min(-6%, -22px);     /* bleed for the drift; the px floor covers short banners */
+  inset: min(-9%, -54px);     /* bleed for the drift; the px floor covers short banners */
   z-index: 0;
   background-size: cover;
   background-position: center;
@@ -370,6 +370,12 @@ body.menu-open { overflow: hidden; }
 
 .page-hero { padding: 3.6rem 0 3rem; text-align: center; border-bottom: 1px solid var(--border); background: radial-gradient(ellipse at 50% -20%, var(--paper) 0%, var(--cream) 65%); }
 .page-hero .lede { max-width: 720px; margin: 0 auto; }
+/* Warm cream-to-gold gradient, matching the home hero */
+.page-hero.page-hero--gradient {
+  border-bottom: 0;
+  background: linear-gradient(to bottom, #FDF9F0 0%, #F3ECDC 50%, #E4CFA4 100%);
+}
+.page-hero--gradient .eyebrow { color: var(--brand-maroon); }
 
 /* ---- Subpage hero with background image (half the home hero's height) -----
    Reuses the home hero's parallax layer (.parallax-bg gets the cursor drift
@@ -387,6 +393,68 @@ body.menu-open { overflow: hidden; }
 .page-hero--image .eyebrow { color: var(--gold-dark); }
 .page-hero--image h1 { color: var(--ink); text-shadow: 0 1px 14px rgba(253,249,240,.7); }
 .page-hero--image .lede { color: var(--ink); text-shadow: 0 1px 8px rgba(253,249,240,.7); }
+
+/* Traditional scroll parallax — the image is pinned to the viewport
+   (background-attachment: fixed) so the hero scrolls over a still image,
+   matching the home-page quote band. */
+.page-hero.page-hero--fixed {
+  background-color: var(--cream-2);          /* fallback until the image loads */
+  background-image:
+    -webkit-image-set(
+      url("../img/academics-1920.webp?v=2") type("image/webp"),
+      url("../img/academics-1920.jpg?v=2")  type("image/jpeg"));
+  background-image:
+    image-set(
+      url("../img/academics-1920.webp?v=2") type("image/webp"),
+      url("../img/academics-1920.jpg?v=2")  type("image/jpeg"));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* fixed attachment is janky/unsupported on most touch browsers — fall back
+   to a normal scrolling cover image there. */
+@media (hover: none), (max-width: 768px) {
+  .page-hero.page-hero--fixed { background-attachment: scroll; }
+}
+
+/* Vision hero — same fixed-attachment parallax as academics, but with a
+   responsive background: the browser downloads the smallest file that covers
+   the viewport (800 on phones, 1280 on tablets/laptops, 1920 on desktops). */
+.page-hero.page-hero--fixed.hero-vision {
+  background-image:
+    -webkit-image-set(
+      url("../img/thevision-1920.webp?v=2") type("image/webp"),
+      url("../img/thevision-1920.jpg?v=2")  type("image/jpeg"));
+  background-image:
+    image-set(
+      url("../img/thevision-1920.webp?v=2") type("image/webp"),
+      url("../img/thevision-1920.jpg?v=2")  type("image/jpeg"));
+}
+@media (max-width: 1280px) {
+  .page-hero.page-hero--fixed.hero-vision {
+    background-image:
+      -webkit-image-set(
+        url("../img/thevision-1280.webp?v=2") type("image/webp"),
+        url("../img/thevision-1280.jpg?v=2")  type("image/jpeg"));
+    background-image:
+      image-set(
+        url("../img/thevision-1280.webp?v=2") type("image/webp"),
+        url("../img/thevision-1280.jpg?v=2")  type("image/jpeg"));
+  }
+}
+@media (max-width: 800px) {
+  .page-hero.page-hero--fixed.hero-vision {
+    background-image:
+      -webkit-image-set(
+        url("../img/thevision-800.webp?v=2") type("image/webp"),
+        url("../img/thevision-800.jpg?v=2")  type("image/jpeg"));
+    background-image:
+      image-set(
+        url("../img/thevision-800.webp?v=2") type("image/webp"),
+        url("../img/thevision-800.jpg?v=2")  type("image/jpeg"));
+  }
+}
 
 /* Left-flushed variant — keeps copy on the left so it clears a right-heavy image */
 .page-hero--left { text-align: left; }
@@ -489,8 +557,19 @@ a.card:hover { box-shadow: 0 8px 22px rgba(42,33,24,.1); transform: translateY(-
   padding: 1.4rem 1.6rem; font-size: .98rem; color: var(--ink-soft);
 }
 
+/* Gradient bands — quote + CTA, matching the home hero's cream-to-gold wash */
+.quote.band--gradient,
+.cta-band.band--gradient {
+  background: linear-gradient(to bottom, var(--gold-pale) 0%, var(--gold) 100%);
+  color: var(--ink);
+}
+.quote.band--gradient blockquote,
+.quote.band--gradient cite,
+.cta-band.band--gradient h2,
+.cta-band.band--gradient p { color: var(--ink); text-shadow: none; }
+
 /* Intro band — maroon strip beneath the hero */
-.intro-band { background: linear-gradient(to bottom, var(--brand-maroon) 0%, var(--maroon-dark) 100%); color: #fff; text-align: center; padding: 3.4rem 0; }
+.intro-band { background: var(--ink); color: #fff; text-align: center; padding: 3.4rem 0; }
 .intro-band h2 {
   font-family: var(--serif); color: #fff; font-size: clamp(1.45rem, 3vw, 2rem);
   line-height: 1.3; max-width: 900px; margin: 0 auto .9rem;

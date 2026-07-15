@@ -74,6 +74,27 @@
     });
   }
 
+  /* Hero scroll parallax — the background image drifts slower than the page
+     as you scroll, giving depth. Transform-only, rAF-throttled; skipped when
+     the user prefers reduced motion. */
+  if (!reduced) {
+    var heroBg = document.querySelector('.page-hero--image .parallax-bg, .hero--image .parallax-bg');
+    if (heroBg) {
+      var heroTicking = false;
+      var HERO_FACTOR = 0.18, HERO_CAP = 46; /* px — stays within the .parallax-bg bleed */
+      var updateHero = function () {
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        var shift = Math.min(y * HERO_FACTOR, HERO_CAP);
+        heroBg.style.transform = 'translate3d(0,' + shift.toFixed(1) + 'px,0)';
+        heroTicking = false;
+      };
+      window.addEventListener('scroll', function () {
+        if (!heroTicking) { heroTicking = true; requestAnimationFrame(updateHero); }
+      }, { passive: true });
+      updateHero();
+    }
+  }
+
   /* Mark the current page in the nav */
   var here = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav a[href]').forEach(function (a) {
@@ -87,36 +108,4 @@
     }
   });
 
-  /* Hero parallax — the background image drifts slightly opposite the cursor.
-     Progressive enhancement only:
-       - skipped if the user prefers reduced motion
-       - skipped on coarse/touch pointers (no hover, saves work on phones)
-     It touches only a CSS transform via requestAnimationFrame, so it stays
-     cheap and never blocks rendering on slow devices. */
-  var layers = document.querySelectorAll('.parallax-bg');
-  var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (layers.length && finePointer && !reduced) {
-    var MAX = 18;           /* max pixels of drift each axis */
-    var tx = 0, ty = 0, cx = 0, cy = 0, ticking = false;
-    function render() {
-      /* ease toward the target for a smooth, weighty feel */
-      cx += (tx - cx) * 0.12;
-      cy += (ty - cy) * 0.12;
-      var t = 'translate3d(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px,0)';
-      for (var i = 0; i < layers.length; i++) { layers[i].style.transform = t; }
-      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
-        requestAnimationFrame(render);
-      } else {
-        ticking = false;
-      }
-    }
-    window.addEventListener('mousemove', function (e) {
-      /* -1..1 from centre, then inverted so the image moves the opposite way */
-      var nx = (e.clientX / window.innerWidth) - 0.5;
-      var ny = (e.clientY / window.innerHeight) - 0.5;
-      tx = -nx * MAX * 2;
-      ty = -ny * MAX * 2;
-      if (!ticking) { ticking = true; requestAnimationFrame(render); }
-    }, { passive: true });
-  }
 })();

@@ -7,7 +7,7 @@
 <meta name="description" content="Two academic tracks, one contemplative foundation: Applied Contemplative Practices and Transformative Leadership, offered at BA and MA level at Kremsegg Castle, Austria.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=28">
+<link rel="stylesheet" href="css/style.css?v=37">
 <script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
 </head>
 <body>
@@ -22,11 +22,6 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
-  <div class="eyebrow-bar">
-    <div class="eyebrow-bar-inner">
-      <a href="speak-with-our-team.html">Become a Founder</a>
-    </div>
-  </div>
   <div class="header-bar">
     <a class="brand" href="index.html">
       <img src="img/logo-web.webp" alt="" width="46" height="42">
@@ -42,9 +37,10 @@
           <ul class="dropdown">
             <li><a href="faculty.html">Leadership</a></li>
             <li><a href="board.html">Board &amp; Advisory Council</a></li>
-            <li><a href="join-faculty.html">Advisors &amp; Collaborators</a></li>
+            <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
           </ul>
         </li>
+        <li><a class="nav-link" href="speak-with-our-team.html">Become a Founder</a></li>
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
@@ -58,24 +54,12 @@
      intensives, campus) is a candidate to become its own page later. Sections
      carry stable ids so future pages can 301/anchor cleanly. -->
 
-<section class="page-hero page-hero--image page-hero--left" id="hero">
-  <div class="parallax-bg" aria-hidden="true"
-       style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDlkchySOtW0cce1VO4qYdKaeoNaFrzuCQDjGKSG52K2WxmooeVOfWpXA8o8Cok7lxR/9k=')">
-    <picture>
-      <source type="image/webp"
-              srcset="img/academics-800.webp 800w, img/academics-1280.webp 1280w, img/academics-1920.webp 1920w"
-              sizes="100vw">
-      <img class="hero-img" src="img/academics-1280.jpg"
-           srcset="img/academics-800.jpg 800w, img/academics-1280.jpg 1280w, img/academics-1920.jpg 1920w"
-           sizes="100vw" alt="" width="1920" height="582"
-           fetchpriority="high" decoding="async"
-           onload="this.closest('.parallax-bg').classList.add('loaded')">
-    </picture>
-  </div>
+<section class="page-hero page-hero--image page-hero--left page-hero--fixed" id="hero">
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <p class="eyebrow">Academics</p>
-    <h1>A rigorous education in contemplative wisdom,<br>compassionate action, and modern science</h1>
+    <hr class="rule rule--left">
+    <h2>Contemplative wisdom,<br>compassionate action, and modern science</h2>
     <p class="lede">Preparing you to thrive in a world that has mastered the accumulation of knowledge but not the wisdom to apply it.</p>
   </div>
 </section>
@@ -90,18 +74,18 @@
 
     <div class="track" id="applied-contemplative-practices">
       <span class="degree">BA &middot; MA</span>
-      <h3>Applied Contemplative Practices</h3>
-      <p>This track is steeped in the insights and methods of Buddhist and cross-traditional contemplative inquiry. Students explore how attention, emotion, and cognition can be cultivated in ways that support both personal well-being and social transformation. In the spirit of the ancient monastery of Nalanda — where Buddhist philosophy was studied alongside other traditions — students engage the world&rsquo;s wisdom traditions not as a survey of beliefs but as a comparative inquiry into the human capacity for wisdom and compassion.</p>
+      <h3>Applied contemplative practices</h3>
+      <p>This track is steeped in the insights and methods of Buddhist and cross-traditional contemplative inquiry. Students explore how attention, emotion, and cognition can be cultivated in ways that support both personal well-being and social transformation. In the spirit of the ancient monastery of Nalanda — where Buddhist philosophy was studied alongside other traditions — students engage the world&rsquo;s wisdom traditions as a comparative inquiry into the human capacity for wisdom and compassion.</p>
       <p>Drawing on contemporary scientific research alongside centuries of contemplative philosophy, the program is grounded in the scholar-practitioner model: students and faculty do not only study these traditions, they engage them from the standpoint of lived practice.</p>
       <p><strong>Where it leads.</strong> Graduates are equipped to design evidence-based contemplative programs, to teach resilience and ethical practice, to conduct interdisciplinary inquiry, and to carry the tools of contemplative practice into education, healthcare, social innovation, and community life.</p>
     </div>
 
     <div class="track" id="transformative-leadership">
       <span class="degree">BA &middot; MA</span>
-      <h3>Transformative Leadership</h3>
-      <p>Rooted in the same contemplative foundation as its companion track, this program prepares leaders to navigate complexity with wisdom and compassion. Students learn to lead not by repeating the accumulated patterns of the past, but from a clear-eyed sense of the future that wants to emerge — attending to the inner source from which all action originates.</p>
+      <h3>Transformative leadership</h3>
+      <p>Rooted in the same contemplative foundation as its companion track, this program prepares leaders to navigate complexity with wisdom and compassion. Students learn to lead from a clear-eyed sense of the future that wants to emerge — attending to the inner source from which all action originates.</p>
       <p>They learn to think systemically: to see how culture, economics, and ecology interact across scales, grounded in the recognition that interdependence is not an abstract idea but the actual structure of the world they are leading in. And they develop the capacity to truly see another person — to recognize the difference between who someone is today and who they are becoming, and to lead from that deeper recognition.</p>
-      <p>Leadership here is treated not as power over others but as the capacity to align intention, action, and long-term consequence — what the university calls <em>coherence</em>.</p>
+      <p>Leadership here is treated as the capacity to align intention, action, and long-term consequence — what the university calls <em>coherence</em>.</p>
       <p><strong>Where it leads.</strong> Graduates design and lead organizations that measure success not by profit alone, but by their contribution to systemic prosperity; a condition in which economic vitality, social well-being, and the health of the planet reinforce rather than undermine one another.</p>
     </div>
   </div>
@@ -114,9 +98,9 @@
         <div class="ph"><img src="img/leadershipimmersion.webp" alt="people in classroom"></div>
       </div>
       <div>
-        <h2>Executive &amp; Professional Programs</h2>
-        <p>The people who most urgently need to encounter contemplative wisdom are often those least able to step away for a residential degree: senior leaders in business, government, and civil society who carry real institutional weight and cannot disappear from their responsibilities for years at a time.</p>
-        <p>For them, executive and professional programs are a structural part of the university&rsquo;s design, not an afterthought. Short residential intensives, hybrid professional programs, and leadership immersions at Kremsegg Castle bring established leaders into direct contact with the university&rsquo;s intellectual and contemplative resources. The hybrid format — periods of residential immersion combined with sustained engagement at a distance — fits the lives of people with serious responsibilities in a way that traditional degree programs cannot.</p>
+        <h2>Executive &amp; professional programs</h2>
+        <p>The people who most urgently need to encounter contemplative wisdom are often those least able to step away for a residential degree: senior leaders in business, government, and civil society who carry institutional weight and cannot disappear from their responsibilities for years at a time.</p>
+        <p>For them, executive and professional programs are a structural part of the university&rsquo;s design. Short residential intensives, hybrid professional programs, and leadership immersions at Kremsegg Castle bring established leaders into direct contact with the university&rsquo;s intellectual and contemplative resources. The hybrid format, with periods of residential immersion combined with sustained engagement at a distance, fits the lives of people with serious responsibilities in a way that traditional degree programs cannot.</p>
       </div>
     </div>
 
@@ -125,7 +109,7 @@
         <div class="ph"><img src="img/summer.jpg" alt="people in classroom"></div>
       </div>
       <div>
-        <h2>Summer Intensives</h2>
+        <h2>Summer intensives</h2>
         <p>Summer at Kremsegg is an invitation. For those who are drawn to this work but not yet ready to commit to a full degree, the summer intensives are the most natural way in — an immersion in the castle, the community, and the practices at the center of everything the university does.</p>
         <p>They are also, for many, the beginning of a longer path: a first encounter that becomes a graduate program, a sabbatical that reorients a career, a few weeks that change how someone intends to live and lead. Open to a wider range of participants than the degree programs, the intensives are where many people first discover what this education makes possible.</p>
       </div>
@@ -185,16 +169,6 @@
     <p class="narrow" style="margin:2.4rem auto 0;text-align:center">Together, these venues form a wider field of learning. Students may study primarily at Kremsegg, immerse themselves in practice at Gomde, spend time in Nepal at Rangjung Yeshe Institute, or take selected courses through Dharma Gate Buddhist College. Through visiting semesters, short courses, and intensive study periods, the university&rsquo;s campus extends beyond a single place into an international network of contemplative education.</p>
   </div>
 </section>
-
-<section class="cta-band">
-  <h2>Study with us — or help build this.</h2>
-  <p>The programs are in active development. Founding students shape them.</p>
-  <div class="hero-actions">
-    <a class="btn btn--light" href="study-with-us.html">Study With Us</a>
-    <a class="btn btn--ghost" href="founder.html">Become a Founder</a>
-    <a class="btn btn--ghost" href="speak-with-our-team.html">Request Info</a>
-  </div>
-</section>
 </main>
 
 <footer class="site-footer">
@@ -214,7 +188,7 @@
           <li><a href="academics.html">Academics</a></li>
           <li><a href="faculty.html">Project Team</a></li>
           <li><a href="board.html">Governance</a></li>
-          <li><a href="join-faculty.html">Advisors &amp; Collaborators</a></li>
+          <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
         </ul>
       </div>
       <div>
@@ -264,6 +238,6 @@
   setTimeout(h, 6000);
 })();
 </script>
-<script src="js/main.js?v=15" defer></script>
+<script src="js/main.js?v=17" defer></script>
 </body>
 </html>
