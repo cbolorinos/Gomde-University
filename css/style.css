@@ -370,6 +370,12 @@ body.menu-open { overflow: hidden; }
 
 .page-hero { padding: 3.6rem 0 3rem; text-align: center; border-bottom: 1px solid var(--border); background: radial-gradient(ellipse at 50% -20%, var(--paper) 0%, var(--cream) 65%); }
 .page-hero .lede { max-width: 720px; margin: 0 auto; }
+/* Hero subheader — a serif tagline that sits just beneath the main hero title */
+.page-hero .hero-sub {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.25;
+  color: var(--gold-dark); margin: -.15em 0 1rem;
+}
 /* Warm cream-to-gold gradient, matching the home hero */
 .page-hero.page-hero--gradient {
   border-bottom: 0;
@@ -467,6 +473,11 @@ body.menu-open { overflow: hidden; }
     linear-gradient(to right, rgba(253,249,240,.8) 0%, rgba(253,249,240,.58) 42%, rgba(253,249,240,.2) 100%),
     linear-gradient(rgba(253,249,240,.2), rgba(253,249,240,.2));
 }
+
+/* Parallax heroes (vision, academics): hold the copy in a ~500px column on the
+   left, flush to the page gutter, so the fixed background image has room to
+   breathe on the right. Caps each child so nothing runs wider than the column. */
+.page-hero--fixed .wrap > * { max-width: 500px; margin-left: 0; margin-right: auto; }
 
 /* ---- Sections ------------------------------------------------------------ */
 .section { padding: 4rem 0; }

@@ -7,7 +7,7 @@
 <meta name="description" content="A founding gift begins with a conversation, not a form. Private, unhurried conversations held directly with the Founding Rector and development team.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=37">
+<link rel="stylesheet" href="css/style.css?v=40">
 <script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
 </head>
 <body>
@@ -50,7 +50,7 @@
 </header>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero page-hero--gradient">
   <div class="wrap">
     <p class="eyebrow">Become a Founder</p>
     <h1>A conversation,<br>before anything else</h1>
@@ -94,14 +94,16 @@
       <h2>Start the conversation</h2>
       <p class="muted">Tell us a little about yourself and what draws you to this work. Everything you share is held in confidence.</p>
 
-      <!-- CONTACT FORM ▸ powered by formsubmit.co (no backend needed).
-           To change the recipient, replace the email in the action URL below.
-           NOTE: the first submission triggers a one-time activation email to
-           that address — click the link in it to activate the form. -->
-      <form action="https://formsubmit.co/cbolorinos@gmail.com" method="POST" class="form-grid">
-        <input type="hidden" name="_subject" value="Founding inquiry — Kremsegg University website">
-        <input type="hidden" name="_template" value="table">
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <!-- CONTACT FORM ▸ powered by Web3Forms (no backend needed).
+           Submissions go to the inbox registered to the access_key below.
+           To change the recipient, swap in a new key from https://web3forms.com -->
+
+      <form action="https://api.web3forms.com/submit" method="POST" class="form-grid">
+        <input type="hidden" name="access_key" value="cd746b90-1dbd-4954-8a20-3e30c8b845dc">
+        <input type="hidden" name="subject" value="Founding inquiry — Kremsegg University website">
+        <input type="hidden" name="from_name" value="Kremsegg University website">
+        <!-- honeypot: bots that tick this hidden box are silently rejected -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div>
           <label for="cf-name">Name</label>
@@ -201,6 +203,47 @@
   if (document.readyState === 'complete') h();
   else window.addEventListener('load', h);
   setTimeout(h, 6000);
+})();
+</script>
+<script>
+/* Contact form — submit via AJAX so we can show an inline "thank you" without
+   leaving the page. Progressive enhancement: if this script doesn't run, the
+   form still POSTs normally and lands on Web3Forms' own success page. */
+(function () {
+  var form = document.querySelector('#contact-form form');
+  if (!form || !window.fetch) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (json) {
+      if (!json.success) throw new Error(json.message || 'failed');
+      var card = form.closest('.form-card');
+      card.innerHTML =
+        '<h2>Thank you.</h2>' +
+        '<p class="muted">Your message has reached our development team. ' +
+        'We read every note personally, and will be in touch soon.</p>';
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .catch(function () {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+      var err = form.querySelector('.form-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'form-error small';
+        err.style.cssText = 'color:var(--maroon);margin-top:.8rem';
+        form.appendChild(err);
+      }
+      err.textContent = 'Sorry — something went wrong sending your message. Please try again, or email us directly.';
+    });
+  });
 })();
 </script>
 <script src="js/main.js?v=17" defer></script>
