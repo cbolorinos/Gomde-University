@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donate by Bank Transfer — Kremsegg University</title>
+<meta name="description" content="Support Kremsegg University by bank transfer. Bank details and a scannable GiroCode for a fast SEPA transfer.">
+<link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="img/favicon-192.png">
+<link rel="stylesheet" href="css/style.css?v=41">
+<script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
+<style>
+  /* Page-specific layout only — all colours & type come from style.css variables */
+  .bank-list { list-style:none; margin:1.4rem 0 0; padding:0; }
+  .bank-list li { display:flex; justify-content:space-between; gap:1rem;
+    padding:.7rem 0; border-bottom:1px solid var(--border); font-size:1rem; }
+  .bank-list li:last-child { border-bottom:0; }
+  .bank-list .k { color:var(--muted); }
+  .bank-list .v { font-weight:600; text-align:right; word-break:break-all; }
+  .girocode { text-align:center; }
+  .girocode-frame { display:inline-block; background:#fff; border:1px solid var(--border);
+    border-radius:4px; padding:16px; }
+  .girocode-frame img { width:236px; height:236px; image-rendering:pixelated; display:block; }
+</style>
+</head>
+<body>
+
+<div class="page-loader" id="page-loader" role="status" aria-label="Loading">
+  <img src="img/spinner.webp" alt="" width="110" height="110">
+</div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="eyebrow-bar">
+    <div class="eyebrow-bar-inner">
+      <a href="spenden.html">Donate</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="header-bar">
+    <a class="brand" href="index.html">
+      <img src="img/logo-web.webp" alt="" width="46" height="42">
+      <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="vision.html">The Vision</a></li>
+        <li><a class="nav-link" href="academics.html">Academics</a></li>
+        <li class="has-dropdown">
+          <button class="nav-toggle-btn" type="button" aria-expanded="false">Project Team</button>
+          <ul class="dropdown">
+            <li><a href="faculty.html">Leadership</a></li>
+            <li><a href="board.html">Board &amp; Advisory Council</a></li>
+            <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link" href="speak-with-our-team.html">Become a Founder</a></li>
+      </ul>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-hero page-hero--gradient">
+  <div class="wrap">
+    <p class="eyebrow">Kremsegg University · Donate</p>
+    <h1>Give by bank transfer</h1>
+    <p class="lede">Support Kremsegg University &mdash; by SEPA bank transfer or by scanning the GiroCode.</p>
+  </div>
+</section>
+
+<!-- ===================== BANK DETAILS ===================== -->
+<section class="section">
+  <div class="wrap narrow">
+    <div class="form-card">
+      <h2>Bank details</h2>
+      <ul class="bank-list">
+        <li><span class="k">Account holder</span><span class="v">GOMDE-Stiftung F.Tib.-Buddh</span></li>
+        <li><span class="k">IBAN</span><span class="v" id="iban">DE63 3702 0500 0008 3280 00</span></li>
+        <li><span class="k">BIC</span><span class="v">BFSWDE33XXX</span></li>
+        <li><span class="k">Bank</span><span class="v">Bank f&uuml;r Sozialwirtschaft, Cologne</span></li>
+      </ul>
+      <div class="hero-actions" style="margin-top:1.6rem">
+        <button class="btn btn--gold" type="button" id="copy-iban">Copy IBAN</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GIROCODE ===================== -->
+<section class="section section--alt">
+  <div class="wrap narrow center">
+    <h2>Scan with your banking app</h2>
+    <p class="muted">Scan the GiroCode directly in your banking app &mdash; the account holder, IBAN and BIC are filled in automatically.</p>
+    <div class="girocode" style="margin:1.8rem 0">
+      <span class="girocode-frame">
+        <img alt="GiroCode – SEPA bank transfer" src="data:image/png;base64,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">
+      </span>
+    </div>
+    <div class="note" style="text-align:left; max-width:520px; margin:0 auto">
+      <strong>How it works:</strong> open your banking app &rarr; choose &ldquo;Scan QR code / GiroCode&rdquo; &rarr; scan the code &rarr; enter an amount and confirm.
+      This code only works inside a banking app, not with your phone&rsquo;s regular camera.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MANUAL TRANSFER ===================== -->
+<section class="section">
+  <div class="wrap narrow center">
+    <h2>Prefer to transfer manually?</h2>
+    <p class="lede">Just use the bank details above in your online banking or on a transfer form. Thank you for your support.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-web.webp" alt="Kremsegg University emblem" width="52" height="48">
+        <div>
+          <span class="brand-name">Kremsegg University<small>Wisdom &amp; Compassion</small></span>
+          <p class="small" style="margin-top:.7rem">Schloss Kremsegg, Kremsm&uuml;nster<br>Upper Austria</p>
+        </div>
+      </div>
+      <div>
+        <h4>University</h4>
+        <ul>
+          <li><a href="vision.html">The Vision</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="faculty.html">Project Team</a></li>
+          <li><a href="board.html">Governance</a></li>
+          <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Become a Founder</h4>
+        <ul>
+          <li><a href="why-now.html">Why Now?</a></li>
+          <li><a href="campaign.html">The Campaign</a></li>
+          <li><a href="founding-patrons.html">Founding Patrons</a></li>
+          <li><a href="ways-to-give.html">Ways to Give</a></li>
+          <li><a href="donate.html">Donate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="study-with-us.html">Study With Us</a></li>
+          <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
+          <li><a href="media.html">Media &amp; Press</a></li>
+          <li><a href="speak-with-our-team.html#contact-form">Contact Form</a></li>
+        </ul>
+        <p class="small" style="margin-top:.9rem">Part of the Bodhi Project and the Shedrub Mandala. Founded in the lineage of Ch&ouml;kyi Nyima Rinpoche.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Kremsegg University. All rights reserved.</span>
+      <span>A degree-granting institution in development, committed to full European accreditation before conferring any degree.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var l = document.getElementById('page-loader');
+  if (!l) return;
+  var MIN_SHOW = 1100, t0 = Date.now(), hidden = false;
+  var h = function () {
+    if (hidden) return; hidden = true;
+    var wait = Math.max(0, MIN_SHOW - (Date.now() - t0));
+    setTimeout(function () {
+      l.classList.add('done');
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 600);
+    }, wait);
+  };
+  if (document.readyState === 'complete') h();
+  else window.addEventListener('load', h);
+  setTimeout(h, 6000);
+})();
+
+/* Copy IBAN to clipboard */
+(function () {
+  var b = document.getElementById('copy-iban');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    navigator.clipboard.writeText('DE63370205000008328000').then(function () {
+      var t = b.textContent; b.textContent = '✓ IBAN kopiert';
+      setTimeout(function () { b.textContent = t; }, 1800);
+    });
+  });
+})();
+</script>
+<script src="js/main.js?v=17" defer></script>
+</body>
+</html>

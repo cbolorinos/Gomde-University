@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Board & Advisory Council — Kremsegg University</title>
-<meta name="description" content="How the Kremsegg University is governed: a permanent separation of spiritual inspiration and academic authority, designed to protect the mission for more than a hundred years.">
+<title>Contact — Kremsegg University</title>
+<meta name="description" content="Write to the Kremsegg University development team. We read every message personally and will respond.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
 <link rel="stylesheet" href="css/style.css?v=41">
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
 </head>
 <body>
 
@@ -58,38 +58,59 @@
 <main id="main">
 <section class="page-hero page-hero--gradient">
   <div class="wrap">
-    <p class="eyebrow">Project Team</p>
-    <h1>Board &amp; Advisory Council</h1>
-    <p class="lede">Governance designed to protect the university&rsquo;s mission across generations, while guaranteeing the academic freedom and professional standards a degree-granting institution requires.</p>
+    <p class="eyebrow">Contact</p>
+    <h1>Write to our team</h1>
+    <p class="lede">Tell us a little about yourself and what draws you to this work. Everything you share is held in confidence.</p>
   </div>
 </section>
 
-<section class="section" style="background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<section class="section section--alt" id="contact-form" style="background:#ffffff">
   <div class="wrap narrow">
-    <h2>How the university is governed</h2>
-    <p>Kremsegg University is built to last — its founders&rsquo; stated intention is an institution that remains world-class and sustainable for more than a hundred years. Governance is designed accordingly: to protect the university&rsquo;s mission across generations while guaranteeing the academic freedom and professional standards a degree-granting institution requires.</p>
+    <div class="form-card" style="background:#ffffff">
+      <h2>Send us a message</h2>
+      <p class="muted">We read every note personally, and will respond.</p>
 
-    <h3 style="margin-top:2.4rem">A clear separation of inspiration and authority</h3>
-    <p>The university draws its vision and its lineage from Ch&ouml;kyi Nyima Rinpoche, who serves as Spiritual Guide. It is governed, academically and operationally, by its Rector, faculty, and Board under professional standards and complete academic freedom. This distinction is deliberate and permanent: spiritual inspiration animates the institution; it does not direct its scholarship. It is the same principle that allows universities grounded in a tradition — Georgetown or KU Leuven among them — to remain fully open to people of every background and belief.</p>
+      <!-- CONTACT FORM ▸ powered by Web3Forms (no backend needed).
+           Submissions go to the inbox registered to the access_key below.
+           To change the recipient, swap in a new key from https://web3forms.com -->
 
-    <h3 style="margin-top:2.4rem">The Board of Trustees</h3>
-    <p>The Board of Trustees holds ultimate responsibility for the university&rsquo;s mission, integrity, and long-term sustainability. Continuity with the founding lineage is built into its composition: representation connected to the Gomde community and the Rangjung Yeshe Institute is maintained by design, with succession planned in advance so that the founding vision is never unrepresented.</p>
-    <p>The Board returns regularly to the questions that serve as its tie-breakers for any difficult decision; among them whether the university remains world-class by both Western and Eastern measures, whether it remains sustainable for the century ahead, and whether the founding intention would still be recognizable in what the institution has become.</p>
-    <p class="small muted">Founding trustees to be listed here as appointments are confirmed.</p>
-    <h3 style="margin-top:2.4rem">The Advisory Council</h3>
-    <p>The Advisory Council convenes a global network of contemplative scholars, scientists, and leaders across multiple fields to inform the university&rsquo;s academic direction, research agenda, and public engagement. The breadth and standing of this network is itself one of the institution&rsquo;s distinguishing assets — a convening capacity in the contemplative sciences and leadership that very few new universities could assemble.</p>
-    <p class="small muted">Advisory Council members to be listed here as the network is formalized.</p>
+      <form action="https://api.web3forms.com/submit" method="POST" class="form-grid">
+        <input type="hidden" name="access_key" value="cd746b90-1dbd-4954-8a20-3e30c8b845dc">
+        <input type="hidden" name="subject" value="Contact — Kremsegg University website">
+        <input type="hidden" name="from_name" value="Kremsegg University website">
+        <!-- honeypot: bots that tick this hidden box are silently rejected -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <div class="pager">
-      <a class="arrow-link" href="faculty.html">Leadership</a>
-      <a class="arrow-link" href="advisors-collaborators.html">Advisors &amp; Collaborators</a>
+        <div>
+          <label for="cf-name">Name</label>
+          <input id="cf-name" type="text" name="name" required autocomplete="name">
+        </div>
+        <div>
+          <label for="cf-email">Email</label>
+          <input id="cf-email" type="email" name="email" required autocomplete="email">
+        </div>
+        <div class="full">
+          <label for="cf-interest">I am interested in</label>
+          <select id="cf-interest" name="interest">
+            <option>Becoming a Founding Patron</option>
+            <option>Requesting the Campaign Information Sheet</option>
+            <option>Arranging a call or a visit to Kremsegg</option>
+            <option>Naming opportunities</option>
+            <option>Ways to give</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" required></textarea>
+        </div>
+        <div class="full">
+          <button class="btn btn--gold" type="submit" style="cursor:pointer">Send message</button>
+          <p class="small muted" style="margin-top:.8rem">Your message goes directly to our development team. We will respond personally.</p>
+        </div>
+      </form>
     </div>
   </div>
-</section>
-
-<section class="quote scroll-parallax">
-  <blockquote>&ldquo;I feel that it&rsquo;s critical at the present time to invest more effort into systematically developing love and compassion. If we could advance the cultivation of love and compassion to the extent we have developed technological improvements, the entire world community would benefit immeasurably.&rdquo;</blockquote>
-  <cite>Chökyi Nyima Rinpoche, Spiritual Guide</cite>
 </section>
 </main>
 
@@ -120,6 +141,7 @@
           <li><a href="campaign.html">The Campaign</a></li>
           <li><a href="founding-patrons.html">Founding Patrons</a></li>
           <li><a href="ways-to-give.html">Ways to Give</a></li>
+          <li><a href="spenden.html">Donate</a></li>
         </ul>
       </div>
       <div>
@@ -128,7 +150,7 @@
           <li><a href="study-with-us.html">Study With Us</a></li>
           <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
           <li><a href="media.html">Media &amp; Press</a></li>
-          <li><a href="speak-with-our-team.html#contact-form">Contact Form</a></li>
+          <li><a href="contact.html">Contact Form</a></li>
         </ul>
         <p class="small" style="margin-top:.9rem">Part of the Bodhi Project and the Shedrub Mandala. Founded in the lineage of Ch&ouml;kyi Nyima Rinpoche.</p>
       </div>
@@ -158,6 +180,47 @@
   if (document.readyState === 'complete') h();
   else window.addEventListener('load', h);
   setTimeout(h, 6000);
+})();
+</script>
+<script>
+/* Contact form — submit via AJAX so we can show an inline "thank you" without
+   leaving the page. Progressive enhancement: if this script doesn't run, the
+   form still POSTs normally and lands on Web3Forms' own success page. */
+(function () {
+  var form = document.querySelector('#contact-form form');
+  if (!form || !window.fetch) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (json) {
+      if (!json.success) throw new Error(json.message || 'failed');
+      var card = form.closest('.form-card');
+      card.innerHTML =
+        '<h2>Thank you.</h2>' +
+        '<p class="muted">Your message has reached our development team. ' +
+        'We read every note personally, and will be in touch soon.</p>';
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .catch(function () {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+      var err = form.querySelector('.form-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'form-error small';
+        err.style.cssText = 'color:var(--maroon);margin-top:.8rem';
+        form.appendChild(err);
+      }
+      err.textContent = 'Sorry — something went wrong sending your message. Please try again, or email us directly.';
+    });
+  });
 })();
 </script>
 <script src="js/main.js?v=17" defer></script>
