@@ -186,8 +186,14 @@ $("proposeBtn").onclick = async () => {
         image: imagePayload ? { data: imagePayload.data, media_type: imagePayload.media_type } : null
       })
     });
-    const data = await res.json();
-    if (!res.ok) { setStatus($("editStatus"), data.error || "Request failed.", "err"); return; }
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch (_) {}
+    if (!res.ok) {
+      const msg = data.error || data.errorMessage || ("HTTP " + res.status + (raw ? ": " + raw.slice(0, 400) : ""));
+      setStatus($("editStatus"), msg, "err");
+      return;
+    }
     if (data.unchanged) { setStatus($("editStatus"), "The assistant made no changes — try rephrasing the request.", "err"); return; }
 
     pending = { page, newHtml: data.newHtml, instruction, image: imagePayload };
@@ -233,8 +239,14 @@ $("approveBtn").onclick = async () => {
         image: pending.image ? { data: pending.image.data, filename: pending.image.filename } : null
       })
     });
-    const data = await res.json();
-    if (!res.ok) { setStatus($("publishStatus"), data.error || "Publish failed.", "err"); return; }
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch (_) {}
+    if (!res.ok) {
+      const msg = data.error || data.errorMessage || ("HTTP " + res.status + (raw ? ": " + raw.slice(0, 400) : ""));
+      setStatus($("publishStatus"), msg, "err");
+      return;
+    }
     setStatus($("publishStatus"),
       'Published ✓ ' + (data.backedUp ? "(previous version backed up) " : "") +
       '— it goes live in ~30s once Netlify rebuilds. ' +

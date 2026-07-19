@@ -7,6 +7,10 @@
   publish = "."
   functions = "netlify/functions"
 
+# The functions use the built-in global fetch(), which requires Node 18+.
+[build.environment]
+  NODE_VERSION = "18"
+
 # Keep the private editor out of search engines. (The real protection is the
 # password check in the functions; this just avoids it being indexed.)
 [[headers]]
