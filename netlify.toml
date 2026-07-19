@@ -1,0 +1,19 @@
+# Netlify configuration for the Kremsegg University site + admin editor.
+#
+# The site is plain static HTML, so there is no build step — Netlify just
+# publishes the repo root. Serverless functions live in netlify/functions.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Keep the private editor out of search engines. (The real protection is the
+# password check in the functions; this just avoids it being indexed.)
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Node 18+ gives the functions a global fetch(), which propose.js/publish.js use.
+[functions]
+  node_bundler = "esbuild"

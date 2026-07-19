@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Site Editor — Kremsegg University</title>
+<style>
+  :root{
+    --ink:#2b2622; --muted:#6b6259; --line:#e3dcd2; --bg:#f6f1e9;
+    --card:#fffdf9; --accent:#7a5c3e; --accent-ink:#fff;
+    --add-bg:#e7f3e7; --add-ink:#1f6b2e; --del-bg:#f6e3e3; --del-ink:#9a2b2b;
+    --radius:12px; --sans:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5}
+  a{color:var(--accent)}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
+  header.bar{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:22px}
+  header.bar h1{font-size:1.15rem;margin:0;font-weight:600}
+  header.bar .tag{margin-left:auto;font-size:.8rem;color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  label{display:block;font-size:.85rem;font-weight:600;margin:0 0 6px}
+  input[type=password],input[type=text],select,textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;
+    font:inherit;background:#fff;color:var(--ink)
+  }
+  textarea{min-height:96px;resize:vertical}
+  .row{margin-bottom:16px}
+  .btn{appearance:none;border:0;border-radius:8px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .btn.secondary{background:#efe8dd;color:var(--ink)}
+  .btn.danger{background:#f6e3e3;color:var(--del-ink)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .hidden{display:none!important}
+  .muted{color:var(--muted);font-size:.85rem}
+  .status{margin:14px 0;padding:10px 12px;border-radius:8px;font-size:.9rem}
+  .status.err{background:var(--del-bg);color:var(--del-ink)}
+  .status.ok{background:var(--add-bg);color:var(--add-ink)}
+  .status.info{background:#eef1f5;color:#3a4656}
+  pre.diff{background:#20201d;color:#e8e2d6;border-radius:8px;padding:14px;overflow:auto;font-size:.8rem;line-height:1.45;max-height:440px}
+  pre.diff .a{color:#8fd39a;background:rgba(80,160,90,.14);display:block}
+  pre.diff .d{color:#f0a0a0;background:rgba(180,70,70,.16);display:block}
+  pre.diff .h{color:#9aa4b2;display:block}
+  .thumb{max-width:160px;border:1px solid var(--line);border-radius:8px;margin-top:8px}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  h2{font-size:1rem;margin:0 0 12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <h1>Kremsegg — Site Editor</h1>
+    <span class="tag">private</span>
+  </header>
+
+  <!-- LOGIN ---------------------------------------------------------- -->
+  <section id="login" class="card">
+    <div class="row">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" placeholder="Enter editor password">
+    </div>
+    <div class="btns">
+      <button class="btn" id="loginBtn">Unlock</button>
+    </div>
+    <div id="loginStatus"></div>
+  </section>
+
+  <!-- EDITOR --------------------------------------------------------- -->
+  <section id="editor" class="card hidden">
+    <h2>Request a change</h2>
+    <div class="row">
+      <label for="page">Which page?</label>
+      <select id="page"></select>
+    </div>
+    <div class="row">
+      <label for="instruction">What should change?</label>
+      <textarea id="instruction" placeholder="e.g. Change the headline on the vision page to “A University for the Whole Person”, and soften the second paragraph."></textarea>
+    </div>
+    <div class="row">
+      <label for="image">Add an image (optional)</label>
+      <input id="image" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml">
+      <div class="muted">Attach an image to place on the page, or to show the change you want. Uploaded images are committed to <code>img/uploads/</code>.</div>
+      <img id="thumb" class="thumb hidden" alt="preview">
+    </div>
+    <div class="btns">
+      <button class="btn" id="proposeBtn">Preview change</button>
+      <button class="btn secondary" id="logoutBtn">Lock</button>
+    </div>
+    <div id="editStatus"></div>
+  </section>
+
+  <!-- REVIEW --------------------------------------------------------- -->
+  <section id="review" class="card hidden" style="margin-top:18px">
+    <h2>Review before publishing</h2>
+    <p class="muted" id="reviewMeta"></p>
+    <pre class="diff" id="diff"></pre>
+    <div class="btns" style="margin-top:14px">
+      <button class="btn" id="approveBtn">Approve &amp; publish</button>
+      <button class="btn secondary" id="reviseBtn">Revise</button>
+      <button class="btn danger" id="discardBtn">Discard</button>
+    </div>
+    <div id="publishStatus"></div>
+  </section>
+</div>
+
+<script>
+// All site pages (repo root .html files). Update this list if pages change.
+const PAGES = [
+  "index.html","vision.html","academics.html","faculty.html","board.html",
+  "founder.html","founding-patrons.html","advisors-collaborators.html",
+  "study-with-us.html","why-now.html","campaign.html","naming-opportunities.html",
+  "ways-to-give.html","spenden.html","salon-dinner.html",
+  "media.html","contact.html","speak-with-our-team.html"
+];
+
+let password = "";       // held in memory only, for this tab
+let pending = null;      // { page, newHtml, instruction, image }
+
+const $ = (id) => document.getElementById(id);
+const pageSel = $("page");
+PAGES.forEach((p) => {
+  const o = document.createElement("option");
+  o.value = p; o.textContent = p;
+  pageSel.appendChild(o);
+});
+
+function setStatus(el, msg, kind) {
+  el.innerHTML = msg ? `<div class="status ${kind||'info'}">${msg}</div>` : "";
+}
+
+// ---- Login ----------------------------------------------------------
+$("loginBtn").onclick = async () => {
+  const pw = $("pw").value;
+  if (!pw) return;
+  setStatus($("loginStatus"), 'Checking…', 'info');
+  // Validate by making a harmless propose call? Instead, just accept and let
+  // the first real request confirm. But give quick feedback via a ping.
+  password = pw;
+  $("login").classList.add("hidden");
+  $("editor").classList.remove("hidden");
+  setStatus($("loginStatus"), "");
+};
+$("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
+
+$("logoutBtn").onclick = () => {
+  password = ""; pending = null;
+  $("editor").classList.add("hidden");
+  $("review").classList.add("hidden");
+  $("login").classList.remove("hidden");
+  $("pw").value = "";
+};
+
+// ---- Image handling -------------------------------------------------
+let imagePayload = null; // { data(base64), media_type, filename }
+$("image").addEventListener("change", (e) => {
+  const f = e.target.files[0];
+  if (!f) { imagePayload = null; $("thumb").classList.add("hidden"); return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    const base64 = dataUrl.split(",")[1];
+    imagePayload = { data: base64, media_type: f.type, filename: f.name.replace(/[^a-zA-Z0-9._-]/g,"_") };
+    $("thumb").src = dataUrl;
+    $("thumb").classList.remove("hidden");
+  };
+  reader.readAsDataURL(f);
+});
+
+// ---- Propose --------------------------------------------------------
+$("proposeBtn").onclick = async () => {
+  const page = pageSel.value;
+  const instruction = $("instruction").value.trim();
+  if (!instruction) { setStatus($("editStatus"), "Describe what should change.", "err"); return; }
+
+  $("proposeBtn").disabled = true;
+  setStatus($("editStatus"), 'Asking the assistant to draft the change… <span class="spin"></span>', "info");
+
+  try {
+    const res = await fetch("/.netlify/functions/propose", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        password, page, instruction,
+        image: imagePayload ? { data: imagePayload.data, media_type: imagePayload.media_type } : null
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) { setStatus($("editStatus"), data.error || "Request failed.", "err"); return; }
+    if (data.unchanged) { setStatus($("editStatus"), "The assistant made no changes — try rephrasing the request.", "err"); return; }
+
+    pending = { page, newHtml: data.newHtml, instruction, image: imagePayload };
+    renderDiff(data.diff);
+    $("reviewMeta").textContent = "Page: " + page + (imagePayload ? "  •  image: " + imagePayload.filename : "");
+    setStatus($("editStatus"), "");
+    $("review").classList.remove("hidden");
+    $("review").scrollIntoView({ behavior: "smooth" });
+  } catch (e) {
+    setStatus($("editStatus"), "Network error: " + e.message, "err");
+  } finally {
+    $("proposeBtn").disabled = false;
+  }
+};
+
+function renderDiff(diff) {
+  const el = $("diff");
+  el.innerHTML = "";
+  diff.split("\n").forEach((line) => {
+    const span = document.createElement("span");
+    if (line.startsWith("+")) span.className = "a";
+    else if (line.startsWith("-")) span.className = "d";
+    else if (line.startsWith("@@") || line.startsWith("---") || line.startsWith("+++")) span.className = "h";
+    span.textContent = line;
+    el.appendChild(span);
+  });
+}
+
+// ---- Approve / publish ---------------------------------------------
+$("approveBtn").onclick = async () => {
+  if (!pending) return;
+  $("approveBtn").disabled = true;
+  setStatus($("publishStatus"), 'Backing up and publishing… <span class="spin"></span>', "info");
+  try {
+    const res = await fetch("/.netlify/functions/publish", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        password,
+        page: pending.page,
+        newHtml: pending.newHtml,
+        instruction: pending.instruction,
+        image: pending.image ? { data: pending.image.data, filename: pending.image.filename } : null
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) { setStatus($("publishStatus"), data.error || "Publish failed.", "err"); return; }
+    setStatus($("publishStatus"),
+      'Published ✓ ' + (data.backedUp ? "(previous version backed up) " : "") +
+      '— it goes live in ~30s once Netlify rebuilds. ' +
+      '<a href="' + data.commitUrl + '" target="_blank" rel="noopener">View commit</a>', "ok");
+    pending = null;
+    $("instruction").value = "";
+    $("image").value = ""; imagePayload = null; $("thumb").classList.add("hidden");
+  } catch (e) {
+    setStatus($("publishStatus"), "Network error: " + e.message, "err");
+  } finally {
+    $("approveBtn").disabled = false;
+  }
+};
+
+$("reviseBtn").onclick = () => {
+  $("review").classList.add("hidden");
+  setStatus($("publishStatus"), "");
+  $("editor").scrollIntoView({ behavior: "smooth" });
+};
+$("discardBtn").onclick = () => {
+  pending = null;
+  $("review").classList.add("hidden");
+  setStatus($("publishStatus"), "");
+  setStatus($("editStatus"), "Discarded. Nothing was published.", "info");
+};
+</script>
+</body>
+</html>
