@@ -16,6 +16,13 @@
 
 const CLAUDE_MODEL = 'claude-sonnet-5';
 
+// Reject a request whose estimated token usage is too high BEFORE spending
+// anything on the model. Tunable via the MAX_REQUEST_TOKENS env var.
+const MAX_REQUEST_TOKENS = parseInt(process.env.MAX_REQUEST_TOKENS || '30000', 10);
+const TOO_MANY_TOKENS_MSG =
+  "Woah there, that's a lot of tokens! Better ask Chris to do the edit " +
+  'instead! 😉 You can contact him at cbolorinos@gmail.com';
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Method not allowed' });
@@ -52,6 +59,18 @@ exports.handler = async (event) => {
     return json(500, { error: 'Could not read page from GitHub: ' + e.message });
   }
   const currentHtml = currentFile.content;
+
+  // --- Pre-flight token guard ------------------------------------------
+  // Estimate the request size and refuse anything oversized before it costs
+  // a single token. Big pages + big images are the usual offenders.
+  const estTokens = estimateTokens({ instruction, currentHtml, image });
+  if (estTokens > MAX_REQUEST_TOKENS) {
+    return json(413, {
+      error: TOO_MANY_TOKENS_MSG,
+      estimatedTokens: estTokens,
+      limit: MAX_REQUEST_TOKENS,
+    });
+  }
 
   // --- Ask Claude for a small set of find/replace edits ----------------
   // We deliberately do NOT ask for the whole rewritten file: emitting a full
@@ -216,6 +235,18 @@ function checkPassword(pw) {
     mismatch |= pw.charCodeAt(i) ^ expected.charCodeAt(i);
   }
   return mismatch === 0;
+}
+
+// Rough token estimate (~4 chars/token for text; a size-based proxy for
+// images) used only to block oversized requests before calling the model.
+function estimateTokens({ instruction, currentHtml, image }) {
+  let t = Math.ceil(((instruction || '').length + (currentHtml || '').length) / 4);
+  t += 800; // fixed overhead for the system prompt and scaffolding
+  if (image && typeof image.data === 'string') {
+    const bytes = Math.floor(image.data.length * 0.75); // base64 -> bytes
+    t += Math.ceil(bytes / 75); // crude image-token proxy
+  }
+  return t;
 }
 
 // Only allow editing .html files at the repo root (no traversal, no subdirs).
