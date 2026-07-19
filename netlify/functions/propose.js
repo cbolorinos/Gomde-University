@@ -53,12 +53,38 @@ exports.handler = async (event) => {
   }
   const currentHtml = currentFile.content;
 
-  // --- Ask Claude to produce the edited page ---------------------------
-  let newHtml;
+  // --- Ask Claude for a small set of find/replace edits ----------------
+  // We deliberately do NOT ask for the whole rewritten file: emitting a full
+  // 16KB page is thousands of output tokens and blows past the serverless
+  // timeout. Instead the model returns tiny exact find/replace pairs that we
+  // apply here — a few dozen tokens, back in a couple of seconds.
+  let edits, note;
   try {
-    newHtml = await claudeEdit({ page, instruction, currentHtml, image });
+    ({ edits, note } = await claudeEdits({ page, instruction, currentHtml, image }));
   } catch (e) {
     return json(500, { error: 'Claude request failed: ' + e.message });
+  }
+
+  if (!edits || edits.length === 0) {
+    return json(200, { unchanged: true, note: note || 'No change was produced.' });
+  }
+
+  // Apply the edits, validating each find string exists.
+  let newHtml = currentHtml;
+  const notFound = [];
+  for (const ed of edits) {
+    if (typeof ed.find !== 'string' || ed.find === '' || typeof ed.replace !== 'string') continue;
+    if (!newHtml.includes(ed.find)) { notFound.push(ed.find.slice(0, 60)); continue; }
+    newHtml = newHtml.split(ed.find).join(ed.replace); // replace all occurrences
+  }
+
+  if (notFound.length) {
+    return json(422, {
+      error:
+        'The assistant referenced text it could not find on the page. ' +
+        'Try rephrasing, or quote the exact wording. Unmatched: ' +
+        notFound.map((s) => JSON.stringify(s)).join(', '),
+    });
   }
 
   const diff = makeUnifiedDiff(currentHtml, newHtml, page);
@@ -67,6 +93,7 @@ exports.handler = async (event) => {
     page,
     diff,
     newHtml,
+    note: note || '',
     currentSha: currentFile.sha,
     unchanged: currentHtml === newHtml,
   });
@@ -75,18 +102,29 @@ exports.handler = async (event) => {
 // ---------------------------------------------------------------------------
 // Claude
 // ---------------------------------------------------------------------------
-async function claudeEdit({ page, instruction, currentHtml, image }) {
+async function claudeEdits({ page, instruction, currentHtml, image }) {
   const system =
-    'You are a careful web editor working on a static HTML website for ' +
-    'Kremsegg University. You will be given the FULL current source of one ' +
-    'HTML page and an instruction describing a change. Return the COMPLETE ' +
-    'updated HTML for that page and NOTHING else — no explanations, no code ' +
-    'fences, no commentary. Preserve the existing structure, styling, ' +
-    'indentation, <head> contents, scripts, and any content the instruction ' +
-    'does not mention. Make the smallest change that satisfies the ' +
-    'instruction. Keep the HTML valid. If an image is provided and the ' +
-    'instruction asks to add or replace an image, reference it at the path ' +
-    'the user specifies or at img/uploads/<filename> if none is given.';
+    'You are a careful web editor for the static HTML site of Kremsegg ' +
+    'University. You receive the FULL source of one HTML page and an ' +
+    'instruction. You do NOT rewrite the page. Instead you return a JSON ' +
+    'object describing the minimal set of find/replace edits needed:\n\n' +
+    '{"edits":[{"find":"<exact substring copied verbatim from the source>",' +
+    '"replace":"<the new text>"}],"note":"<short summary of what you changed>"}\n\n' +
+    'Rules:\n' +
+    '- Each "find" MUST be an exact, verbatim substring of the current ' +
+    'source, including original whitespace, casing and punctuation. Copy it ' +
+    'precisely; do not paraphrase.\n' +
+    '- Make "find" long enough to be unambiguous, but keep "replace" minimal.\n' +
+    '- If the same text should change everywhere it appears, one edit is fine ' +
+    '(all occurrences of "find" are replaced).\n' +
+    '- To style text (e.g. make it gold), wrap it in a <span style="..."> in ' +
+    'the "replace" value. Use the site\'s gold tone #b08d57 unless told ' +
+    'otherwise.\n' +
+    '- If an image is provided and should be placed on the page, reference it ' +
+    'at the path given, or at img/uploads/<filename>.\n' +
+    '- Return ONLY the JSON object. No markdown, no code fences, no prose ' +
+    'outside the JSON. If nothing should change, return {"edits":[],"note":' +
+    '"..."}.';
 
   const content = [];
   if (image && image.data && image.media_type) {
@@ -112,7 +150,7 @@ async function claudeEdit({ page, instruction, currentHtml, image }) {
     },
     body: JSON.stringify({
       model: CLAUDE_MODEL,
-      max_tokens: 16000,
+      max_tokens: 4000,
       system,
       messages: [{ role: 'user', content }],
     }),
@@ -129,12 +167,20 @@ async function claudeEdit({ page, instruction, currentHtml, image }) {
     .join('')
     .trim();
 
-  // Strip accidental code fences if the model added them.
-  out = out.replace(/^```(?:html)?\s*/i, '').replace(/\s*```$/i, '').trim();
-  if (!out.toLowerCase().includes('<html') && !out.toLowerCase().includes('<!doctype')) {
-    throw new Error('Model did not return a full HTML document');
+  // Strip accidental code fences, then pull out the JSON object.
+  out = out.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  const start = out.indexOf('{');
+  const end = out.lastIndexOf('}');
+  if (start === -1 || end === -1) {
+    throw new Error('Model did not return JSON edits');
   }
-  return out;
+  let parsed;
+  try {
+    parsed = JSON.parse(out.slice(start, end + 1));
+  } catch (e) {
+    throw new Error('Could not parse edits JSON: ' + e.message);
+  }
+  return { edits: Array.isArray(parsed.edits) ? parsed.edits : [], note: parsed.note || '' };
 }
 
 // ---------------------------------------------------------------------------
