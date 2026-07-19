@@ -19,5 +19,33 @@
     X-Robots-Tag = "noindex, nofollow"
 
 # Node 18+ gives the functions a global fetch(), which propose.js/publish.js use.
+# --- Caching -------------------------------------------------------------
+# Always revalidate HTML pages so a published edit shows up immediately,
+# with no stale full-page caching in browsers or any CDN. The browser keeps
+# a copy but must check with the server (cheap 304) before reusing it.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Static assets can be cached hard for speed. CSS/JS already use ?v= cache-
+# busting, so bumping the version (e.g. style.css?v=42) forces a fresh fetch.
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
 [functions]
   node_bundler = "esbuild"
