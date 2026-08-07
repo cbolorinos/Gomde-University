@@ -18,16 +18,21 @@
 <style>
 /* ==========================================================================
    A Private Salon Dinner — standalone invitation page
-   Palette & spirit carried from the Kremsegg University site; hero lifted
-   from the printed invitation: molten gold, drifting motes, shafts of light.
+   Teal-and-gold palette sampled from the reference cover art. Self-contained:
+   every rule lives in this block, so nothing here touches the rest of the site.
+   Dark sections are gold and white on teal; light sections are darker gold and
+   darker teal on white.
    ========================================================================== */
 :root{
-  --cream:#FFFFFF; --cream-2:#F3ECDC; --paper:#FDF9F0;
-  --ink:#2A2118; --ink-soft:#4A3E30; --muted:#6E5F4D;
-  --gold:#B98A4A; --gold-dark:#96702F; --gold-pale:#E4CFA4;
-  --gold-lume:#F0D08A; --maroon:#7E2F21; --maroon-dark:#67251A;
-  --border:#E5DAC3;
-  --night:#140d06;
+  /* Light sections: white ground, darker teal ink, darker gold accents. */
+  --cream:#FFFFFF; --cream-2:#EEF8F6; --paper:#FAFEFD;
+  --ink:#123733; --ink-soft:#245C56; --muted:#4F8781;
+  --border:#CDE6E2;
+  /* Gold, dark end for white grounds, bright end for teal grounds. */
+  --gold-dark:#8A6A2E; --gold:#B28F4A; --gold-pale:#D9C083; --gold-lume:#E8CE8F;
+  /* Teal ramp, sampled from the reference. */
+  --night:#0E2E2C; --teal:#14403D; --teal-2:#1E5B56; --teal-mid:#4FA79F;
+  --on-teal:#E9F6F4; --on-teal-soft:#CFE9E5;
   --display:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --body:'EB Garamond', Georgia, 'Times New Roman', serif;
 }
@@ -61,10 +66,10 @@ p{margin:0 0 1.2em;}
 }
 .btn svg{width:1.05em; height:1.05em; flex:none;}
 .btn--gold{
-  background:linear-gradient(180deg,#c9994f,#96702F); color:#fff;
-  border:1px solid var(--gold-dark); box-shadow:0 8px 24px rgba(150,112,47,.28);
+  background:linear-gradient(180deg,#C09A50,#8A6A2E); color:#fff;
+  border:1px solid var(--gold-dark); box-shadow:0 8px 24px rgba(138,106,46,.30);
 }
-.btn--gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(150,112,47,.4); }
+.btn--gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(138,106,46,.42); }
 .btn--ghost{ background:transparent; color:var(--ink); border:1px solid var(--gold); }
 .btn--ghost:hover{ background:var(--gold-dark); color:#fff; border-color:var(--gold-dark); transform:translateY(-2px); }
 
@@ -82,49 +87,35 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 @keyframes dharma-spin{ to{ transform:rotate(360deg);} }
 
 /* ==========================================================================
-   HERO — molten gold, drifting light, shafts from above
+   HERO — deep teal, drifting light, gold shafts from above
    ========================================================================== */
 .hero{
   position:relative; min-height:100svh; display:flex; flex-direction:column;
   align-items:center; justify-content:center; text-align:center;
   padding:6rem 1.5rem 5rem; overflow:hidden; isolation:isolate;
-  color:#F6E7C4; background:#20130a;
+  color:#E9F6F4; background:#14403D;
 }
 .hero .night-bg{
   background:
-    radial-gradient(120% 90% at 78% 8%, rgba(255,214,130,.55) 0%, rgba(198,140,54,.28) 26%, rgba(60,36,14,0) 55%),
-    radial-gradient(150% 120% at 20% 100%, rgba(120,78,30,.55) 0%, rgba(30,18,8,0) 60%),
-    linear-gradient(160deg, #23150a 0%, #3a230f 34%, #6b4417 60%, #2c1a0b 100%);
+    radial-gradient(120% 90% at 78% 8%, rgba(255,232,178,.32) 0%, rgba(190,176,116,.14) 26%, rgba(20,64,61,0) 55%),
+    radial-gradient(150% 120% at 20% 100%, rgba(38,112,105,.62) 0%, rgba(14,46,44,0) 60%),
+    linear-gradient(160deg, #123A37 0%, #17514D 34%, #256C66 60%, #10403C 100%);
 }
 
-/* ---- Shared dark-section treatment: parallax gradient + drifting texture ---- */
+/* ---- Shared dark-section treatment: parallax gradient + floating motes ---- */
 .night-bg{
   position:absolute; left:0; right:0; top:-80%; height:260%; z-index:0;
   will-change:transform; pointer-events:none;
 }
-
-/* Seamless geometric texture, drifting slowly on the diagonal.
-   --tex-size is the tile edge; the drift keyframe travels exactly one tile,
-   so the loop is invisible. --tex-opacity tunes presence per section. */
-.texture{
-  position:absolute; left:0; top:-80%; width:100%; height:260%; z-index:1;
-  will-change:transform; pointer-events:none; overflow:hidden;
-  opacity:var(--tex-opacity,.75);
-}
-.texture::before{
-  content:""; position:absolute;
-  left:calc(-1 * var(--tex-size,520px)); top:calc(-1 * var(--tex-size,520px));
-  width:calc(100% + 2 * var(--tex-size,520px));
-  height:calc(100% + 2 * var(--tex-size,520px));
-  background-image:url('img/texture.svg');
-  background-repeat:repeat;
-  background-size:var(--tex-size,520px) var(--tex-size,520px);
-  will-change:transform;
-  animation:tex-drift 90s linear infinite;
-}
-@keyframes tex-drift{
-  from{ transform:translate3d(0,0,0); }
-  to{ transform:translate3d(var(--tex-size,520px), var(--tex-size,520px), 0); }
+/* Mote field. Overhangs its section the same way .night-bg does, so there is
+   room to drift on scroll without the edges pulling into view; the JS maps the
+   castle into the visible band rather than the whole canvas. A smaller
+   data-parallax factor than .night-bg puts the motes nearer than the backdrop.
+   width/height must be explicit: <canvas> is a replaced element, so inset:0
+   alone leaves it at its intrinsic 300x150. */
+.motes{
+  position:absolute; left:0; top:-80%; width:100%; height:260%;
+  display:block; z-index:1; pointer-events:none; will-change:transform;
 }
 
 /* Slow-rotating shafts of light from the upper right, like the invitation */
@@ -149,7 +140,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 /* Soft vignette to seat the text */
 .hero::after{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:radial-gradient(ellipse at 50% 52%, rgba(15,9,3,0) 30%, rgba(15,9,3,.55) 100%);
+  background:radial-gradient(ellipse at 50% 52%, rgba(4,26,24,0) 30%, rgba(4,26,24,.55) 100%);
 }
 .hero-inner{ position:relative; z-index:2; max-width:820px; opacity:0; transform:translateY(18px);
   animation:hero-in 1.6s cubic-bezier(.2,.7,.2,1) .3s forwards; }
@@ -164,13 +155,13 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .hero h1{
   font-family:var(--display); font-weight:400;
   font-size:clamp(2.9rem, 8vw, 6.2rem); line-height:1; letter-spacing:.01em;
-  color:#FFFFFF; text-shadow:0 2px 40px rgba(0,0,0,.5), 0 0 60px rgba(255,205,120,.15);
+  color:#FFFFFF; text-shadow:0 2px 40px rgba(0,0,0,.5), 0 0 60px rgba(232,206,143,.16);
   margin:0;
 }
-.hero h1 .light{ display:block; font-style:italic; font-weight:300; color:#F4DCA1; }
+.hero h1 .light{ display:block; font-style:italic; font-weight:300; color:#E8CE8F; }
 .hero-at{ font-family:var(--display); font-size:clamp(1.2rem,3.4vw,1.9rem); letter-spacing:.32em;
   text-transform:uppercase; color:var(--gold-lume); margin:1.4rem 0 0; font-weight:500; }
-.hero-meta{ margin-top:2.4rem; font-family:var(--body); color:#EAD9B0; letter-spacing:.06em; }
+.hero-meta{ margin-top:2.4rem; font-family:var(--body); color:#CFE9E5; letter-spacing:.06em; }
 .hero-meta strong{ font-weight:500; color:#FFFFFF; }
 .hero-host{ margin-top:1.6rem; font-size:.8rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-pale); }
 .hero-host span{ display:block; font-family:var(--display); font-size:1.5rem; letter-spacing:.04em; text-transform:none; color:#FFFFFF; margin-top:.35rem; }
@@ -197,16 +188,16 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 
 /* A single monumental question, like the invitation's centrefold */
 .question{
-  position:relative; text-align:center; color:#F6E7C4; overflow:hidden; isolation:isolate;
-  padding:10rem clamp(1.5rem, 8vw, 7rem); background:#20130a;
+  position:relative; text-align:center; color:#E9F6F4; overflow:hidden; isolation:isolate;
+  padding:10rem clamp(1.5rem, 8vw, 7rem); background:#14403D;
 }
 .question .night-bg{
   background:
-    radial-gradient(120% 120% at 50% 0%, rgba(255,214,130,.28) 0%, rgba(40,24,10,0) 55%),
-    linear-gradient(160deg,#20130a,#4a2d12 70%,#20130a);
+    radial-gradient(120% 120% at 50% 0%, rgba(232,206,143,.22) 0%, rgba(20,64,61,0) 55%),
+    linear-gradient(160deg,#14403D,#1E5B56 70%,#14403D);
 }
 .question::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:radial-gradient(ellipse at 50% 50%, rgba(15,9,3,0) 40%, rgba(15,9,3,.5) 100%); }
+  background:radial-gradient(ellipse at 50% 50%, rgba(4,26,24,0) 40%, rgba(4,26,24,.5) 100%); }
 .question > p, .question > .ornament{ position:relative; z-index:2; }
 .question .eyebrow{ color:var(--gold-lume); }
 .question p.big{
@@ -221,7 +212,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .deflist li{ padding:1.6rem 0 1.6rem 2rem; border-top:1px solid var(--border); position:relative; }
 .deflist li:last-child{ border-bottom:1px solid var(--border); }
 .deflist li::before{ content:""; position:absolute; left:0; top:2.63rem; width:9px; height:9px;
-  border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px rgba(185,138,74,.16); }
+  border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px rgba(178,143,74,.18); }
 .deflist strong{ font-family:var(--display); font-weight:500; font-size:1.5rem; display:block; color:var(--ink); }
 
 /* ==========================================================================
@@ -229,7 +220,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
    ========================================================================== */
 .details{ max-width:780px; margin:0 auto; background:var(--paper);
   border:1px solid var(--border); border-top:3px solid var(--gold);
-  box-shadow:0 30px 70px rgba(42,33,24,.12); padding:3.5rem 3rem; text-align:center; }
+  box-shadow:0 30px 70px rgba(22,48,45,.13); padding:3.5rem 3rem; text-align:center; }
 .details .grid{ display:grid; grid-template-columns:1fr 1fr; gap:2rem 3rem; text-align:left; margin:2.5rem 0; }
 .details .field .k{ font-family:var(--body); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:.35rem; }
 .details .field .v{ font-family:var(--display); font-size:1.5rem; color:var(--ink); line-height:1.25; }
@@ -240,10 +231,10 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
    MAP
    ========================================================================== */
 .map-frame{ max-width:980px; margin:2.5rem auto 0; border:1px solid var(--border);
-  border-top:3px solid var(--gold); box-shadow:0 24px 60px rgba(42,33,24,.14);
+  border-top:3px solid var(--gold); box-shadow:0 24px 60px rgba(22,48,45,.15);
   background:var(--paper); padding:.55rem; }
 .map-frame iframe{ display:block; width:100%; height:440px; border:0;
-  filter:sepia(.28) saturate(1.05) contrast(.98); }
+  filter:saturate(.72) hue-rotate(-10deg) contrast(.97) brightness(.98); }
 .address{ text-align:center; margin-top:2rem; font-family:var(--display); font-size:1.4rem; color:var(--ink); line-height:1.4; }
 .address small{ display:block; font-family:var(--body); font-size:.95rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-top:.5rem; }
 
@@ -256,24 +247,24 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
    FOOTER
    ========================================================================== */
 .site-footer{ position:relative; overflow:hidden; isolation:isolate;
-  background:#140d06; color:#CBBBA0; text-align:center; padding:5rem 1.5rem 3rem; }
+  background:#0E2E2C; color:#AED2CD; text-align:center; padding:5rem 1.5rem 3rem; }
 .site-footer .night-bg{
   background:
-    radial-gradient(120% 130% at 50% 0%, rgba(255,214,130,.16) 0%, rgba(20,13,6,0) 60%),
-    linear-gradient(180deg,#1c1208,#140d06);
+    radial-gradient(120% 130% at 50% 0%, rgba(216,192,131,.14) 0%, rgba(14,46,44,0) 60%),
+    linear-gradient(180deg,#154440,#0E2E2C);
 }
-.site-footer > :not(.night-bg):not(.texture){ position:relative; z-index:2; }
+.site-footer > :not(.night-bg):not(.motes){ position:relative; z-index:2; }
 .site-footer .emblem{ display:block; width:min(300px, 68vw); aspect-ratio:1056.4 / 336.2;
   height:auto; margin:0 auto 1.9rem; color:var(--gold-pale); opacity:.9; }
 .site-footer .host-name{ font-family:var(--display); font-size:1.7rem; color:#FFFFFF; margin:0 0 .3rem; }
-.site-footer .role{ font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+.site-footer .role{ font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-pale); }
 .site-footer a{ color:var(--gold-pale); }
-.site-footer .confid{ max-width:560px; margin:2.5rem auto 0; font-size:.92rem; color:#9C8B72; line-height:1.7; }
+.site-footer .confid{ max-width:560px; margin:2.5rem auto 0; font-size:.92rem; color:#79ABA5; line-height:1.7; }
 .site-footer .signoff{ max-width:640px; margin:2.6rem auto 0; font-family:var(--display); font-weight:500;
   font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.25; color:#FFFFFF; letter-spacing:.01em; }
 .site-footer .signoff span{ display:block; margin-top:1.1rem; font-weight:400; font-size:1.25rem;
-  font-family:var(--body); letter-spacing:0; color:#B7A487; line-height:1.7; }
-.site-footer .fine{ margin-top:2rem; font-size:.78rem; color:#7A6B54; letter-spacing:.04em; }
+  font-family:var(--body); letter-spacing:0; color:#93C0BA; line-height:1.7; }
+.site-footer .fine{ margin-top:2rem; font-size:.78rem; color:#5F918B; letter-spacing:.04em; }
 
 /* ==========================================================================
    SCROLL REVEAL
@@ -287,7 +278,6 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
   .hero-inner{ animation:none; opacity:1; transform:none; }
   .hero-rays{ animation:none; }
   .scroll-cue{ animation:none; opacity:.85; }
-  .texture::before{ animation:none; }
   html.js .page-loader img{ animation:none; }
   html{ scroll-behavior:auto; }
 }
@@ -324,14 +314,14 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <header class="hero" id="top">
   <div class="night-bg" data-parallax="0.55" aria-hidden="true"></div>
-  <div class="texture" data-parallax="0.55" aria-hidden="true"></div>
+  <canvas class="motes" data-castle="1" data-parallax="0.30" aria-hidden="true"></canvas>
   <div class="hero-rays" aria-hidden="true"></div>
 
   <div class="hero-inner">
     <p class="eyebrow">Leadership · Interdependence · The Elevation of the World</p>
     <h1>A private<br>salon dinner</h1>
     <p class="hero-at">at Schloss Kremsegg</p>
-    <p style="max-width:520px;margin:1.2rem auto 0;color:#EAD9B0;font-style:italic;">An intimate experience of music and art to open the heart and mind beneath the skies of an Austrian castle.</p>
+    <p style="max-width:520px;margin:1.2rem auto 0;color:#CFE9E5;font-style:italic;">An intimate experience of music and art to open the heart and mind beneath the skies of an Austrian castle.</p>
     <p class="hero-meta">
       <strong>Saturday, 12 September 2026</strong><br>
       Reception 17:00 · Dinner to follow<br>
@@ -364,7 +354,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <section class="question">
   <div class="night-bg" data-parallax="0.5" aria-hidden="true"></div>
-  <div class="texture" data-parallax="0.5" aria-hidden="true"></div>
+  <canvas class="motes" data-parallax="0.28" aria-hidden="true"></canvas>
   <svg class="ornament ornament--light reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
   <p class="eyebrow reveal">At the heart of the evening, one essential question</p>
   <p class="big reveal">What does it mean to lead as a force for flourishing in an interconnected world?</p>
@@ -402,7 +392,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
         <div class="field"><div class="k">Place</div><div class="v">Schloss Kremsegg<small>Upper Austria</small></div></div>
         <div class="field"><div class="k">Host</div><div class="v">Chökyi Nyima Rinpoche</div></div>
       </div>
-      <p style="margin-top:1.6rem;font-size:1.05rem;color:var(--ink-soft);">To maintain the intimacy of the evening, only a small number of places are available. Please let us know by <span style="color:#b08d57;">20 August</span> if you would like to accept this invitation. As capacity is limited, places will be allocated in the order that replies are received.</p>
+      <p style="margin-top:1.6rem;font-size:1.05rem;color:var(--ink-soft);">To maintain the intimacy of the evening, only a small number of places are available. Please let us know by <span style="color:#8A6A2E;">20 August</span> if you would like to accept this invitation. As capacity is limited, places will be allocated in the order that replies are received.</p>
     </div>
   </div>
 </section>
@@ -447,7 +437,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <footer class="site-footer">
   <div class="night-bg" data-parallax="0.45" aria-hidden="true"></div>
-  <div class="texture" data-parallax="0.45" aria-hidden="true"></div>
+  <canvas class="motes" data-parallax="0.25" aria-hidden="true"></canvas>
   <svg class="emblem" aria-hidden="true"><use href="#divider-sym"/></svg>
   <p class="host-name">Chökyi Nyima Rinpoche</p>
   <p class="role">Host of the Evening</p>
@@ -475,6 +465,214 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
   if (document.readyState === 'complete') h();
   else window.addEventListener('load', h);
   setTimeout(h, 6000);
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Floating light motes. Every dark section gets a drifting golden field; the
+   hero's field additionally renders Schloss Kremsegg as an even wash of light.
+   Each sampled point on the drawing owns exactly one mote — no random
+   assignment, so coverage is uniform rather than clumped — and every mote
+   holds its own point, shimmering in place instead of migrating. Point data is
+   baked from img/castle-vector.svg: Poisson-sampled at even spacing along the
+   stroke, normalised 0..1 on the drawing's bounding box.
+
+   Glows are stamped from a pre-rendered sprite rather than building a radial
+   gradient per particle per frame, which is what makes ~1800 motes affordable.
+   Retina-aware, pauses off-screen, honours reduced-motion.
+--------------------------------------------------------------------------- */
+(function () {
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canvases = document.querySelectorAll('canvas.motes');
+  if (!canvases.length) return;
+
+  /* Evenly spaced x,y pairs along the castle line drawing. */
+  var CASTLE = [0.438,0.0,0.43,0.009,0.438,0.011,0.429,0.021,0.438,0.021,0.432,0.032,0.437,0.04,0.428,0.045,0.435,0.051,0.439,0.058,0.43,0.06,0.435,0.066,0.427,0.07,0.438,0.074,0.432,0.075,0.425,0.08,0.438,0.087,0.427,0.091,0.436,0.097,0.424,0.1,0.442,0.101,0.43,0.103,0.435,0.107,0.425,0.109,0.441,0.111,0.437,0.118,0.423,0.119,0.444,0.119,0.42,0.128,0.426,0.129,0.44,0.134,0.423,0.137,0.447,0.141,0.417,0.142,0.443,0.148,0.422,0.151,0.45,0.153,0.445,0.158,0.416,0.159,0.434,0.16,0.41,0.162,0.426,0.163,0.453,0.168,0.439,0.169,0.407,0.17,0.413,0.17,0.421,0.171,0.432,0.171,0.427,0.173,0.447,0.176,0.453,0.179,0.439,0.182,0.414,0.183,0.428,0.185,0.445,0.186,0.42,0.188,0.452,0.188,0.411,0.192,0.438,0.193,0.427,0.196,0.448,0.199,0.414,0.2,0.422,0.2,0.437,0.203,0.409,0.208,0.448,0.213,0.416,0.214,0.44,0.214,0.41,0.217,0.435,0.219,0.448,0.222,0.454,0.224,0.414,0.226,0.439,0.227,0.408,0.231,0.448,0.232,0.454,0.233,0.438,0.237,0.405,0.242,0.444,0.242,0.45,0.242,0.825,0.242,0.806,0.243,0.812,0.243,0.456,0.244,0.831,0.244,0.399,0.245,0.8,0.245,0.819,0.245,0.824,0.252,0.394,0.253,0.442,0.253,0.463,0.253,0.805,0.253,0.405,0.254,0.797,0.254,0.813,0.254,0.835,0.254,0.448,0.255,0.769,0.255,0.776,0.255,0.79,0.255,0.783,0.256,0.458,0.258,0.757,0.259,0.764,0.259,0.83,0.26,0.401,0.261,0.453,0.262,0.744,0.262,0.392,0.264,0.407,0.264,0.779,0.264,0.835,0.264,0.386,0.265,0.463,0.265,0.447,0.266,0.733,0.266,0.769,0.266,0.469,0.269,0.727,0.269,0.749,0.269,0.762,0.269,0.756,0.271,0.412,0.272,0.405,0.273,0.713,0.273,0.739,0.273,0.832,0.273,0.475,0.275,0.823,0.275,0.386,0.276,0.703,0.276,0.732,0.276,0.458,0.277,0.719,0.277,0.491,0.278,0.697,0.278,0.45,0.279,0.399,0.281,0.42,0.281,0.725,0.281,0.414,0.282,0.465,0.282,0.709,0.282,0.382,0.284,0.473,0.284,0.496,0.284,0.68,0.284,0.687,0.284,0.425,0.286,0.483,0.286,0.701,0.286,0.823,0.286,0.375,0.287,0.455,0.287,0.432,0.288,0.438,0.288,0.666,0.288,0.695,0.288,0.444,0.289,0.417,0.29,0.488,0.29,0.817,0.29,0.361,0.293,0.395,0.293,0.46,0.293,0.501,0.293,0.675,0.294,0.683,0.294,0.353,0.295,0.369,0.295,0.653,0.295,0.662,0.295,0.375,0.296,0.435,0.296,0.639,0.296,0.823,0.296,0.344,0.298,0.669,0.298,0.424,0.299,0.816,0.3,0.631,0.301,0.349,0.303,0.364,0.303,0.397,0.303,0.498,0.303,0.648,0.303,0.657,0.303,0.356,0.304,0.617,0.304,0.625,0.304,0.463,0.305,0.642,0.305,0.341,0.306,0.415,0.306,0.504,0.307,0.605,0.307,0.611,0.307,0.636,0.309,0.819,0.31,0.629,0.311,0.335,0.312,0.401,0.312,0.395,0.313,0.497,0.313,0.585,0.313,0.594,0.313,0.619,0.313,0.412,0.315,0.407,0.316,0.601,0.316,0.343,0.317,0.508,0.317,0.608,0.317,0.81,0.317,0.57,0.318,0.58,0.32,0.348,0.321,0.46,0.321,0.466,0.321,0.821,0.321,0.503,0.322,0.52,0.322,0.815,0.322,0.4,0.323,0.781,0.323,0.801,0.323,0.514,0.324,0.557,0.324,0.588,0.324,0.792,0.324,0.53,0.327,0.544,0.327,0.563,0.327,0.787,0.327,0.808,0.327,0.776,0.328,0.507,0.329,0.55,0.329,0.573,0.329,0.768,0.329,0.343,0.33,0.821,0.33,0.464,0.332,0.47,0.332,0.521,0.332,0.54,0.334,0.557,0.334,0.782,0.334,0.773,0.337,0.546,0.338,0.815,0.338,0.349,0.339,0.505,0.339,0.511,0.339,0.525,0.339,0.747,0.339,0.764,0.339,0.467,0.34,0.531,0.34,0.754,0.341,0.738,0.343,0.517,0.344,0.719,0.344,0.731,0.344,0.499,0.345,0.701,0.346,0.346,0.348,0.726,0.348,0.823,0.348,0.511,0.349,0.768,0.349,0.817,0.349,0.468,0.35,0.712,0.35,0.473,0.351,0.489,0.351,0.505,0.351,0.706,0.351,0.748,0.351,0.495,0.352,0.754,0.352,0.482,0.354,0.691,0.354,0.718,0.354,0.761,0.354,0.351,0.355,0.681,0.357,0.669,0.358,0.675,0.358,0.698,0.358,0.767,0.358,0.823,0.358,0.828,0.358,0.807,0.36,0.815,0.36,0.343,0.361,0.475,0.361,0.488,0.361,0.751,0.361,0.834,0.361,0.688,0.362,0.481,0.363,0.649,0.363,0.349,0.365,0.639,0.368,0.666,0.369,0.755,0.369,0.765,0.369,0.83,0.369,0.629,0.371,0.673,0.371,0.81,0.371,0.82,0.371,0.836,0.371,0.607,0.373,0.348,0.374,0.644,0.374,0.649,0.374,0.656,0.374,0.76,0.374,0.619,0.375,0.634,0.375,0.678,0.375,0.75,0.375,0.815,0.375,0.827,0.378,0.587,0.379,0.833,0.379,0.333,0.38,0.597,0.38,0.613,0.38,0.626,0.38,0.755,0.382,0.578,0.384,0.338,0.385,0.604,0.385,0.348,0.386,0.302,0.388,0.314,0.388,0.329,0.388,0.681,0.388,0.548,0.389,0.593,0.389,0.829,0.389,0.308,0.39,0.323,0.39,0.558,0.39,0.586,0.39,0.65,0.39,0.287,0.391,0.535,0.391,0.675,0.391,0.297,0.392,0.334,0.392,0.541,0.394,0.52,0.395,0.564,0.395,0.318,0.396,0.349,0.396,0.581,0.396,0.264,0.397,0.656,0.397,0.269,0.399,0.555,0.399,0.646,0.399,0.669,0.399,0.284,0.4,0.304,0.4,0.504,0.4,0.511,0.4,0.525,0.4,0.547,0.4,0.678,0.4,0.828,0.4,0.258,0.401,0.277,0.401,0.343,0.401,0.498,0.401,0.531,0.401,0.537,0.401,0.294,0.402,0.662,0.402,0.337,0.403,0.491,0.403,0.517,0.405,0.652,0.405,0.251,0.407,0.56,0.407,0.23,0.408,0.236,0.408,0.267,0.408,0.585,0.408,0.21,0.409,0.245,0.409,0.511,0.409,0.833,0.409,0.256,0.411,0.347,0.411,0.407,0.411,0.499,0.411,0.505,0.411,0.219,0.412,0.225,0.413,0.413,0.413,0.487,0.413,0.19,0.414,0.341,0.414,0.493,0.414,0.826,0.414,0.576,0.416,0.195,0.417,0.395,0.417,0.402,0.417,0.481,0.417,0.204,0.418,0.586,0.418,0.215,0.42,0.346,0.42,0.159,0.422,0.167,0.422,0.389,0.422,0.407,0.422,0.56,0.422,0.569,0.422,0.177,0.423,0.185,0.423,0.413,0.423,0.581,0.423,0.827,0.424,0.192,0.425,0.485,0.425,0.149,0.426,0.833,0.426,0.172,0.428,0.575,0.428,0.338,0.429,0.393,0.43,0.563,0.43,0.155,0.431,0.165,0.431,0.129,0.433,0.41,0.433,0.135,0.434,0.141,0.434,0.147,0.435,0.343,0.436,0.388,0.437,0.476,0.437,0.487,0.437,0.121,0.44,0.47,0.44,0.832,0.44,0.412,0.442,0.394,0.443,0.128,0.445,0.338,0.445,0.481,0.445,0.344,0.448,0.473,0.448,0.32,0.45,0.314,0.451,0.387,0.451,0.468,0.452,0.833,0.452,0.124,0.453,0.33,0.453,0.409,0.453,0.291,0.454,0.305,0.454,0.337,0.454,0.13,0.456,0.283,0.456,0.392,0.456,0.136,0.457,0.344,0.458,0.414,0.458,0.299,0.459,0.31,0.459,0.749,0.459,0.278,0.461,0.323,0.461,0.471,0.461,0.143,0.462,0.318,0.462,0.833,0.462,0.287,0.463,0.759,0.463,0.305,0.464,0.332,0.464,0.294,0.465,0.136,0.467,0.244,0.467,0.257,0.467,0.27,0.467,0.338,0.467,0.39,0.467,0.411,0.467,0.736,0.467,0.765,0.467,0.282,0.468,0.753,0.468,0.251,0.469,0.466,0.469,0.744,0.47,0.236,0.471,0.264,0.471,0.23,0.473,0.76,0.473,0.334,0.474,0.342,0.475,0.393,0.475,0.403,0.475,0.768,0.475,0.837,0.475,0.139,0.476,0.244,0.476,0.256,0.476,0.83,0.476,0.179,0.478,0.205,0.478,0.218,0.478,0.277,0.478,0.663,0.478,0.223,0.479,0.411,0.479,0.657,0.479,0.67,0.479,0.211,0.48,0.388,0.48,0.233,0.481,0.466,0.481,0.19,0.482,0.399,0.482,0.734,0.482,0.184,0.484,0.197,0.484,0.261,0.484,0.161,0.485,0.172,0.485,0.346,0.485,0.767,0.485,0.274,0.486,0.338,0.486,0.135,0.487,0.142,0.487,0.167,0.487,0.207,0.487,0.649,0.487,0.835,0.487,0.178,0.488,0.28,0.488,0.655,0.488,0.662,0.488,0.469,0.49,0.667,0.49,0.679,0.49,0.731,0.491,0.213,0.492,0.158,0.493,0.264,0.493,0.586,0.493,0.673,0.493,0.759,0.493,0.257,0.495,0.343,0.495,0.17,0.496,0.273,0.496,0.737,0.496,0.743,0.496,0.749,0.497,0.831,0.497,0.464,0.498,0.58,0.498,0.593,0.498,0.764,0.498,0.165,0.499,0.193,0.499,0.647,0.499,0.141,0.501,0.57,0.501,0.837,0.501,0.198,0.502,0.214,0.502,0.68,0.502,0.134,0.503,0.205,0.504,0.337,0.504,0.587,0.504,0.598,0.504,0.159,0.505,0.753,0.505,0.759,0.505,0.468,0.507,0.741,0.507,0.832,0.507,0.575,0.508,0.67,0.508,0.746,0.508,0.191,0.509,0.518,0.509,0.21,0.51,0.526,0.51,0.648,0.51,0.677,0.51,0.839,0.51,0.567,0.512,0.202,0.513,0.342,0.513,0.596,0.513,0.129,0.514,0.169,0.514,0.141,0.515,0.509,0.515,0.654,0.515,0.466,0.516,0.663,0.516,0.833,0.516,0.135,0.518,0.515,0.518,0.521,0.518,0.67,0.518,0.153,0.519,0.123,0.52,0.162,0.52,0.649,0.52,0.146,0.521,0.565,0.521,0.341,0.522,0.396,0.522,0.527,0.522,0.657,0.524,0.39,0.525,0.505,0.525,0.595,0.525,0.836,0.525,0.57,0.526,0.127,0.527,0.401,0.527,0.407,0.527,0.578,0.529,0.588,0.529,0.343,0.531,0.463,0.531,0.386,0.532,0.53,0.532,0.133,0.533,0.5,0.533,0.392,0.536,0.521,0.536,0.573,0.536,0.338,0.537,0.585,0.537,0.841,0.537,0.511,0.538,0.579,0.538,0.381,0.539,0.412,0.539,0.834,0.539,0.467,0.541,0.505,0.541,0.526,0.541,0.138,0.542,0.343,0.542,0.132,0.543,0.387,0.543,0.518,0.544,0.407,0.546,0.309,0.548,0.335,0.548,0.315,0.549,0.414,0.549,0.512,0.549,0.838,0.549,0.304,0.553,0.382,0.553,0.464,0.553,0.341,0.554,0.133,0.557,0.392,0.557,0.408,0.557,0.401,0.558,0.265,0.559,0.311,0.559,0.335,0.559,0.84,0.559,0.319,0.56,0.386,0.56,0.297,0.563,0.462,0.563,0.26,0.564,0.129,0.565,0.251,0.565,0.219,0.566,0.268,0.567,0.467,0.567,0.753,0.567,0.322,0.569,0.336,0.569,0.342,0.569,0.392,0.569,0.399,0.569,0.745,0.569,0.76,0.569,0.134,0.57,0.301,0.57,0.316,0.57,0.767,0.57,0.841,0.57,0.462,0.572,0.175,0.574,0.21,0.574,0.223,0.574,0.247,0.574,0.295,0.574,0.772,0.574,0.253,0.575,0.272,0.575,0.218,0.576,0.669,0.576,0.74,0.576,0.13,0.577,0.31,0.577,0.675,0.577,0.17,0.578,0.182,0.578,0.335,0.578,0.205,0.58,0.3,0.58,0.318,0.58,0.466,0.58,0.658,0.58,0.841,0.58,0.68,0.581,0.745,0.581,0.767,0.581,0.228,0.582,0.664,0.582,0.135,0.583,0.652,0.583,0.257,0.584,0.269,0.584,0.461,0.584,0.162,0.586,0.177,0.586,0.305,0.586,0.339,0.586,0.185,0.587,0.312,0.587,0.671,0.587,0.168,0.588,0.582,0.588,0.224,0.589,0.249,0.589,0.598,0.589,0.677,0.589,0.205,0.591,0.592,0.591,0.742,0.591,0.772,0.591,0.211,0.592,0.262,0.592,0.839,0.592,0.465,0.593,0.575,0.593,0.654,0.593,0.131,0.594,0.217,0.594,0.255,0.595,0.336,0.595,0.183,0.597,0.522,0.597,0.845,0.598,0.171,0.599,0.223,0.599,0.585,0.599,0.769,0.599,0.775,0.599,0.207,0.6,0.529,0.6,0.596,0.6,0.68,0.6,0.838,0.601,0.162,0.603,0.177,0.603,0.463,0.603,0.512,0.603,0.649,0.603,0.213,0.604,0.339,0.604,0.574,0.604,0.126,0.605,0.132,0.605,0.524,0.605,0.744,0.605,0.656,0.606,0.468,0.608,0.601,0.608,0.506,0.609,0.518,0.609,0.771,0.609,0.843,0.609,0.17,0.61,0.335,0.612,0.676,0.612,0.682,0.612,0.408,0.615,0.594,0.615,0.745,0.615,0.776,0.615,0.385,0.616,0.402,0.616,0.572,0.616,0.529,0.617,0.839,0.617,0.846,0.617,0.393,0.618,0.465,0.618,0.652,0.618,0.34,0.621,0.68,0.621,0.129,0.622,0.598,0.622,0.506,0.623,0.741,0.623,0.747,0.625,0.772,0.625,0.399,0.626,0.526,0.626,0.575,0.626,0.842,0.626,0.389,0.627,0.384,0.628,0.652,0.628,0.315,0.629,0.337,0.631,0.406,0.631,0.681,0.631,0.464,0.632,0.6,0.632,0.777,0.632,0.267,0.633,0.503,0.633,0.531,0.633,0.57,0.633,0.657,0.633,0.743,0.633,0.253,0.634,0.302,0.634,0.126,0.635,0.297,0.635,0.308,0.635,0.577,0.635,0.841,0.635,0.131,0.637,0.259,0.637,0.524,0.637,0.382,0.638,0.217,0.639,0.508,0.639,0.677,0.639,0.772,0.639,0.21,0.64,0.335,0.64,0.683,0.64,0.316,0.642,0.463,0.642,0.654,0.642,0.267,0.643,0.251,0.644,0.294,0.644,0.301,0.644,0.403,0.644,0.598,0.644,0.745,0.644,0.777,0.644,0.171,0.645,0.205,0.645,0.41,0.645,0.527,0.645,0.846,0.645,0.124,0.646,0.222,0.646,0.573,0.646,0.427,0.648,0.504,0.648,0.13,0.649,0.177,0.649,0.213,0.649,0.434,0.649,0.44,0.649,0.771,0.649,0.162,0.65,0.2,0.65,0.312,0.65,0.333,0.65,0.385,0.651,0.679,0.651,0.841,0.651,0.297,0.652,0.466,0.652,0.654,0.652,0.246,0.654,0.252,0.654,0.373,0.654,0.379,0.654,0.509,0.654,0.595,0.654,0.777,0.654,0.171,0.655,0.207,0.655,0.367,0.655,0.403,0.655,0.42,0.655,0.524,0.655,0.601,0.655,0.265,0.656,0.359,0.656,0.445,0.656,0.18,0.657,0.219,0.657,0.412,0.657,0.438,0.657,0.571,0.657,0.315,0.659,0.341,0.659,0.428,0.659,0.578,0.659,0.684,0.659,0.744,0.659,0.848,0.659,0.127,0.66,0.202,0.66,0.353,0.66,0.388,0.66,0.452,0.66,0.46,0.66,0.529,0.66,0.762,0.66,0.768,0.66,0.163,0.661,0.751,0.661,0.756,0.661,0.841,0.661,0.505,0.662,0.774,0.662,0.157,0.663,0.364,0.663,0.37,0.663,0.245,0.665,0.251,0.665,0.335,0.665,0.346,0.665,0.376,0.665,0.383,0.665,0.673,0.665,0.679,0.665,0.177,0.666,0.267,0.666,0.466,0.666,0.653,0.666,0.659,0.666,0.122,0.667,0.296,0.667,0.311,0.667,0.33,0.667,0.358,0.667,0.445,0.667,0.223,0.668,0.438,0.668,0.457,0.668,0.746,0.668,0.129,0.67,0.318,0.67,0.599,0.67,0.203,0.671,0.262,0.671,0.525,0.671,0.571,0.671,0.843,0.671,0.506,0.672,0.667,0.672,0.218,0.673,0.462,0.673,0.582,0.673,0.592,0.673,0.246,0.674,0.251,0.674,0.452,0.674,0.679,0.674,0.16,0.676,0.174,0.676,0.338,0.676,0.532,0.676,0.673,0.676,0.124,0.677,0.297,0.677,0.312,0.677,0.659,0.677,0.344,0.678,0.438,0.678,0.511,0.679,0.597,0.679,0.503,0.68,0.524,0.68,0.292,0.682,0.517,0.682,0.846,0.682,0.156,0.683,0.464,0.683,0.589,0.683,0.202,0.684,0.218,0.684,0.249,0.684,0.267,0.684,0.576,0.684,0.582,0.684,0.174,0.685,0.529,0.685,0.124,0.687,0.299,0.687,0.31,0.687,0.508,0.688,0.162,0.689,0.343,0.689,0.522,0.689,0.44,0.69,0.514,0.69,0.848,0.69,0.198,0.691,0.261,0.691,0.315,0.691,0.842,0.691,0.216,0.693,0.177,0.694,0.248,0.694,0.294,0.694,0.12,0.695,0.435,0.695,0.462,0.695,0.17,0.696,0.204,0.696,0.346,0.697,0.158,0.699,0.34,0.699,0.125,0.7,0.221,0.7,0.264,0.7,0.392,0.7,0.198,0.701,0.305,0.701,0.291,0.702,0.385,0.702,0.176,0.704,0.245,0.704,0.254,0.704,0.298,0.704,0.314,0.704,0.404,0.704,0.467,0.704,0.119,0.705,0.847,0.705,0.154,0.706,0.17,0.706,0.215,0.706,0.438,0.706,0.26,0.708,0.345,0.708,0.378,0.708,0.397,0.708,0.208,0.71,0.308,0.71,0.302,0.711,0.388,0.711,0.464,0.712,0.843,0.712,0.175,0.713,0.202,0.713,0.412,0.713,0.218,0.714,0.247,0.714,0.253,0.714,0.407,0.714,0.154,0.716,0.383,0.716,0.439,0.716,0.85,0.716,0.119,0.717,0.16,0.717,0.17,0.717,0.126,0.718,0.212,0.718,0.377,0.718,0.346,0.719,0.46,0.722,0.368,0.723,0.846,0.723,0.415,0.724,0.439,0.725,0.466,0.727,0.119,0.728,0.373,0.728,0.125,0.729,0.851,0.729,0.422,0.73,0.344,0.733,0.46,0.735,0.417,0.736,0.438,0.736,0.466,0.738,0.844,0.738,0.117,0.739,0.367,0.739,0.124,0.74,0.347,0.741,0.849,0.742,0.42,0.745,0.342,0.746,0.361,0.746,0.46,0.746,0.119,0.748,0.438,0.748,0.454,0.751,0.466,0.751,0.85,0.752,0.366,0.755,0.42,0.755,0.449,0.756,0.359,0.757,0.845,0.757,0.121,0.758,0.434,0.758,0.425,0.759,0.441,0.759,0.463,0.759,0.343,0.761,0.456,0.761,0.446,0.764,0.849,0.764,0.116,0.767,0.361,0.768,0.466,0.768,0.122,0.769,0.339,0.769,0.422,0.769,0.438,0.769,0.46,0.769,0.768,0.772,0.754,0.773,0.846,0.773,0.677,0.774,0.657,0.776,0.119,0.778,0.346,0.778,0.364,0.778,0.579,0.778,0.749,0.778,0.759,0.778,0.358,0.779,0.672,0.779,0.777,0.779,0.338,0.78,0.522,0.78,0.505,0.781,0.666,0.781,0.681,0.781,0.851,0.781,0.425,0.783,0.585,0.783,0.598,0.783,0.782,0.783,0.528,0.784,0.591,0.784,0.768,0.784,0.255,0.785,0.297,0.785,0.303,0.785,0.512,0.785,0.2,0.786,0.417,0.786,0.576,0.786,0.676,0.786,0.686,0.786,0.115,0.787,0.121,0.787,0.154,0.787,0.162,0.787,0.24,0.787,0.603,0.787,0.659,0.787,0.751,0.787,0.309,0.789,0.361,0.789,0.341,0.79,0.195,0.791,0.292,0.791,0.52,0.791,0.779,0.791,0.851,0.791,0.251,0.792,0.287,0.792,0.147,0.793,0.209,0.793,0.245,0.793,0.422,0.793,0.505,0.793,0.19,0.795,0.26,0.795,0.3,0.795,0.573,0.795,0.579,0.795,0.528,0.796,0.747,0.796,0.116,0.797,0.162,0.797,0.2,0.797,0.239,0.797,0.682,0.797,0.154,0.798,0.6,0.798,0.658,0.798,0.753,0.798,0.255,0.8,0.846,0.8,0.307,0.801,0.34,0.801,0.361,0.801,0.688,0.801,0.781,0.801,0.505,0.803,0.575,0.803,0.29,0.804,0.417,0.804,0.148,0.806,0.195,0.806,0.526,0.806,0.748,0.806,0.852,0.806,0.158,0.807,0.164,0.807,0.655,0.807,0.662,0.807,0.682,0.807,0.21,0.808,0.424,0.808,0.603,0.808,0.118,0.809,0.204,0.809,0.242,0.809,0.303,0.809,0.344,0.809,0.688,0.81,0.784,0.81,0.257,0.812,0.358,0.812,0.778,0.812,0.847,0.812,0.188,0.813,0.338,0.813,0.364,0.814,0.417,0.814,0.579,0.814,0.598,0.814,0.751,0.814,0.112,0.815,0.161,0.815,0.237,0.815,0.573,0.815,0.284,0.817,0.525,0.817,0.146,0.818,0.29,0.818,0.307,0.818,0.424,0.818,0.659,0.818,0.205,0.819,0.508,0.819,0.119,0.82,0.193,0.82,0.242,0.82,0.501,0.82,0.684,0.82,0.781,0.82,0.852,0.82,0.255,0.821,0.344,0.821,0.302,0.823,0.337,0.823,0.157,0.824,0.359,0.824,0.417,0.824,0.576,0.824,0.599,0.824,0.142,0.825,0.15,0.825,0.162,0.825,0.236,0.825,0.529,0.825,0.689,0.825,0.188,0.826,0.287,0.826,0.662,0.826,0.755,0.826,0.245,0.829,0.251,0.829,0.422,0.829,0.508,0.829,0.292,0.83,0.328,0.83,0.749,0.83,0.781,0.83,0.195,0.831,0.202,0.831,0.208,0.831,0.307,0.831,0.364,0.831,0.501,0.831,0.603,0.831,0.657,0.831,0.848,0.831,0.854,0.831,0.114,0.832,0.256,0.832,0.301,0.832,0.542,0.832,0.153,0.834,0.24,0.834,0.547,0.834,0.671,0.834,0.686,0.834,0.323,0.835,0.333,0.835,0.517,0.835,0.526,0.835,0.146,0.836,0.159,0.836,0.287,0.836,0.339,0.836,0.535,0.836,0.578,0.836,0.598,0.836,0.759,0.836,0.248,0.837,0.677,0.837,0.295,0.838,0.571,0.838,0.772,0.838,0.11,0.84,0.328,0.84,0.505,0.84,0.512,0.84,0.778,0.84,0.36,0.841,0.419,0.841,0.552,0.841,0.56,0.841,0.749,0.841,0.853,0.841,0.667,0.842,0.683,0.842,0.32,0.843,0.522,0.843,0.542,0.843,0.66,0.843,0.784,0.843,0.354,0.844,0.527,0.844,0.673,0.844,0.767,0.844,0.338,0.846,0.454,0.846,0.575,0.846,0.848,0.846,0.432,0.847,0.566,0.847,0.756,0.847,0.131,0.848,0.438,0.848,0.109,0.849,0.116,0.849,0.144,0.849,0.448,0.849,0.479,0.849,0.155,0.851,0.329,0.851,0.343,0.851,0.425,0.851,0.47,0.851,0.488,0.851,0.855,0.851,0.167,0.852,0.461,0.852,0.501,0.852,0.351,0.853,0.36,0.853,0.126,0.854,0.42,0.854,0.524,0.854,0.54,0.854,0.149,0.855,0.161,0.855,0.443,0.855,0.511,0.855,0.555,0.855,0.562,0.855,0.575,0.855,0.85,0.855,0.138,0.857,0.175,0.857,0.453,0.857,0.529,0.857,0.0,0.858,0.033,0.858,0.132,0.858,0.435,0.858,0.492,0.858,0.039,0.859,0.055,0.859,0.098,0.859,0.107,0.859,0.116,0.859,0.466,0.859,0.475,0.859,0.485,0.859,0.012,0.86,0.027,0.86,0.339,0.86,0.43,0.86,0.504,0.86,0.516,0.86,0.856,0.86,0.006,0.861,0.05,0.861,0.064,0.861,0.08,0.861,0.144,0.861,0.333,0.861,0.547,0.861,0.019,0.863,0.089,0.863,0.156,0.863,0.165,0.863,0.423,0.863,0.498,0.863,0.571,0.863,0.073,0.865,0.521,0.865,0.527,0.865,0.535,0.865,0.541,0.865,0.578,0.865,0.584,0.865,0.849,0.865,0.171,0.866,0.043,0.868,0.058,0.868,0.127,0.868,0.134,0.868,0.15,0.868,0.311,0.868,0.099,0.869,0.119,0.869,0.001,0.87,0.013,0.87,0.026,0.87,0.032,0.87,0.037,0.87,0.052,0.87,0.067,0.87,0.078,0.87,0.083,0.87,0.161,0.87,0.322,0.87,0.328,0.87,0.093,0.871,0.108,0.871,0.139,0.871,0.592,0.871,0.606,0.872,0.611,0.872,0.856,0.872,0.298,0.875,0.317,0.875,0.585,0.875,0.306,0.876,0.598,0.876,0.849,0.876,0.619,0.877,0.633,0.877,0.642,0.878,0.312,0.88,0.293,0.881,0.603,0.881,0.626,0.881,0.876,0.881,0.899,0.881,0.284,0.882,0.669,0.882,0.854,0.882,0.301,0.883,0.611,0.883,0.647,0.883,0.915,0.883,0.7,0.885,0.86,0.885,0.866,0.885,0.889,0.885,0.925,0.885,0.636,0.886,0.717,0.886,0.881,0.886,0.894,0.886,0.932,0.886,0.277,0.887,0.674,0.887,0.682,0.887,0.744,0.887,0.823,0.887,0.941,0.887,0.254,0.888,0.271,0.888,0.631,0.888,0.642,0.888,0.652,0.888,0.659,0.888,0.749,0.888,0.815,0.888,0.905,0.888,0.691,0.889,0.711,0.889,0.723,0.889,0.736,0.889,0.871,0.889,0.248,0.891,0.666,0.891,0.83,0.891,0.837,0.891,0.92,0.891,0.96,0.891,0.967,0.891,0.973,0.891,0.991,0.891,0.265,0.892,0.728,0.892,0.758,0.892,0.794,0.892,0.803,0.892,0.843,0.892,0.848,0.892,0.899,0.892,0.946,0.892,0.952,0.892,0.697,0.893,0.778,0.893,0.784,0.893,1.0,0.893,0.259,0.894,0.678,0.894,0.703,0.894,0.857,0.894,0.912,0.894,0.928,0.894,0.766,0.896,0.82,0.896,0.938,0.896,0.718,0.897,0.753,0.897,0.772,0.897,0.811,0.897,0.981,0.897,0.244,0.898,0.253,0.898,0.739,0.898,0.746,0.898,0.826,0.898,0.79,0.899,0.231,0.9,0.797,0.9,0.835,0.9,0.949,0.9,0.971,0.9,0.987,0.9,0.237,0.902,0.955,0.902,0.993,0.902,0.963,0.903,0.976,0.903,0.853,0.904,0.84,0.908,0.225,0.91,0.231,0.91,0.216,0.914,0.85,0.914,0.843,0.916,0.836,0.917,0.856,0.919,0.221,0.92,0.216,0.925,0.849,0.927,0.209,0.93,0.208,0.944,0.206,0.954,0.199,0.957,0.192,0.967,0.198,0.967,0.183,0.973,0.19,0.978,0.175,0.979,0.164,0.984,0.17,0.984,0.181,0.985,0.154,0.989,0.175,0.99,0.159,0.994,0.165,0.995,0.146,0.996,0.152,0.998,0.14,1.0];
+  var CASTLE_ASPECT = 1.6914;
+
+  /* Castle framing, as fractions of the hero. Tweak these three to resize. */
+  var CASTLE_WIDTH = 0.94, CASTLE_MAXH = 0.82, CASTLE_BOTTOM = 0.94;
+  var TAU = Math.PI * 2;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  /* One glow sprite per tint, drawn once and stamped thereafter. */
+  var GOLD = '232,198,124', WHITE = '255,248,232';
+  function makeSprite(rgb) {
+    var S = 64, c = document.createElement('canvas');
+    c.width = c.height = S;
+    var x = c.getContext('2d');
+    var g = x.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    g.addColorStop(0, 'rgba(' + rgb + ',1)');
+    g.addColorStop(0.35, 'rgba(' + rgb + ',0.35)');
+    g.addColorStop(1, 'rgba(' + rgb + ',0)');
+    x.fillStyle = g; x.fillRect(0, 0, S, S);
+    return c;
+  }
+  var SPRITE = [makeSprite(GOLD), makeSprite(WHITE)];
+  function tint() { return Math.random() < 0.3 ? 1 : 0; }
+
+  /* A free mote: rises slowly, twinkles, respawns at the bottom. As before. */
+  function makeFree(seed) {
+    return {
+      guided: false,
+      x: Math.random(),
+      y: seed ? Math.random() : rand(1.02, 1.15),
+      r: rand(0.6, 3.4),
+      rise: rand(0.06, 0.28),
+      phase: rand(0, TAU),
+      tw: rand(0.6, 1.7),
+      sp: tint(),
+      base: rand(0.25, 0.9)
+    };
+  }
+
+  /* A guided mote: owns one point on the outline for the life of the field.
+     Ranges here are deliberately narrow — size, brightness and sway all vary
+     only slightly, so the drawing glows evenly instead of pooling in patches.
+     The sway is small enough to shimmer without smearing the line. Motes begin
+     on their point; only opacity eases in, so nothing flies into place. */
+  function makeGuided(i) {
+    return {
+      guided: true,
+      idx: i,
+      a1: rand(1.6, 3.2), s1: rand(0.16, 0.42), p1: rand(0, TAU),
+      a2: rand(0.6, 1.6), s2: rand(0.5, 1.0), p2: rand(0, TAU),
+      r: rand(0.95, 1.35),
+      tw: rand(0.5, 1.4), phase: rand(0, TAU),
+      sp: tint(),
+      base: rand(0.44, 0.60)
+    };
+  }
+
+  var FADE_IN = 1.2;
+
+  function Field(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.castle = canvas.hasAttribute('data-castle');
+    this.t0 = null;
+    this.visible = true;
+    this.resize();
+    var self = this;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        self.visible = entries[0].isIntersecting;
+      }, { threshold: 0 }).observe(canvas);
+    }
+  }
+
+  Field.prototype.resize = function () {
+    this.DPR = Math.min(window.devicePixelRatio || 1, 2);
+    this.W = this.canvas.clientWidth; this.H = this.canvas.clientHeight;
+    if (!this.W || !this.H) return;
+    /* The canvas overhangs its section, so the visible band is the parent's
+       height centred in the canvas. The castle is framed against that band. */
+    var host = this.canvas.parentElement;
+    this.HH = (host && host.offsetHeight) || this.H;
+    this.OFF = (this.H - this.HH) / 2;
+    this.canvas.width = Math.floor(this.W * this.DPR);
+    this.canvas.height = Math.floor(this.H * this.DPR);
+    this.ctx.setTransform(this.DPR, 0, 0, this.DPR, 0, 0);
+
+    this.motes = [];
+
+    if (this.castle) {
+      var cw = this.W * CASTLE_WIDTH;
+      var ch = cw / CASTLE_ASPECT;
+      var maxH = this.HH * CASTLE_MAXH;
+      if (ch > maxH) { ch = maxH; cw = ch * CASTLE_ASPECT; }
+      this.cw = cw; this.ch = ch;
+      this.cx = (this.W - cw) / 2;
+      this.cy = this.OFF + this.HH * CASTLE_BOTTOM - ch;
+
+      /* Thin evenly on small canvases: the spacing stays uniform, just coarser. */
+      var stride = this.W < 480 ? 3 : (this.W < 760 ? 2 : 1);
+      this.pts = [];
+      for (var i = 0; i < CASTLE.length; i += 2 * stride) {
+        this.pts.push(CASTLE[i], CASTLE[i + 1]);
+      }
+      var n = this.pts.length / 2;
+      for (var g = 0; g < n; g++) this.motes.push(makeGuided(g));
+    }
+
+    var freeTarget = Math.round((this.W * this.H) / (this.castle ? 16000 : 8000));
+    freeTarget = Math.min(this.castle ? 160 : 320, freeTarget);
+    for (var j = 0; j < freeTarget; j++) this.motes.push(makeFree(true));
+    this.t0 = null;
+  };
+
+  Field.prototype.step = function (t, animate) {
+    if (!this.W || !this.H) return;
+    if (this.t0 === null) this.t0 = t;
+    var ctx = this.ctx, W = this.W, H = this.H, age = t - this.t0;
+    var pts = this.pts;
+    var fade = animate ? Math.min(1, age / FADE_IN) : 1;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+
+    for (var i = 0; i < this.motes.length; i++) {
+      var s = this.motes[i], px, py, alpha, rr, tw;
+
+      if (!s.guided) {
+        if (animate) {
+          s.y -= (s.rise / H) * 1.2;
+          if (s.y < -0.06) { this.motes[i] = makeFree(false); continue; }
+          tw = 0.55 + 0.45 * Math.sin(t * s.tw + s.phase);
+          px = s.x * W + Math.sin(t * s.tw + s.phase) * 14;
+          py = s.y * H; alpha = s.base * tw; rr = s.r * (0.85 + 0.3 * tw);
+        } else {
+          px = s.x * W; py = s.y * H; alpha = s.base * 0.7; rr = s.r;
+        }
+      } else {
+        var hx = this.cx + pts[s.idx * 2] * this.cw;
+        var hy = this.cy + pts[s.idx * 2 + 1] * this.ch;
+        if (animate) {
+          px = hx + Math.sin(t * s.s1 + s.p1) * s.a1 + Math.sin(t * s.s2 + s.p2) * s.a2;
+          py = hy + Math.cos(t * s.s1 * 0.8 + s.p1) * s.a1 + Math.cos(t * s.s2 * 1.3 + s.p2) * s.a2;
+          /* Shallow twinkle — enough to live, not enough to break the wash. */
+          tw = 0.82 + 0.18 * Math.sin(t * s.tw + s.phase);
+          alpha = s.base * tw * fade; rr = s.r * (0.92 + 0.16 * tw);
+        } else {
+          px = hx; py = hy; alpha = s.base * 0.8; rr = s.r;
+        }
+      }
+
+      var d = rr * 8;
+      ctx.globalAlpha = alpha < 0 ? 0 : (alpha > 1 ? 1 : alpha);
+      ctx.drawImage(SPRITE[s.sp], px - d / 2, py - d / 2, d, d);
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+  };
+
+  var fields = [];
+  for (var i = 0; i < canvases.length; i++) fields.push(new Field(canvases[i]));
+
+  var to;
+  window.addEventListener('resize', function () {
+    clearTimeout(to);
+    to = setTimeout(function () {
+      for (var i = 0; i < fields.length; i++) {
+        fields[i].resize();
+        if (reduced) fields[i].step(0, false);
+      }
+    }, 180);
+  }, { passive: true });
+
+  if (reduced) {
+    for (var j = 0; j < fields.length; j++) fields[j].step(0, false);
+    return;
+  }
+  function loop(now) {
+    var t = now / 1000;
+    for (var i = 0; i < fields.length; i++) if (fields[i].visible) fields[i].step(t, true);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
 })();
 </script>
 
