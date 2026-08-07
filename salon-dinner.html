@@ -97,13 +97,35 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
     linear-gradient(160deg, #23150a 0%, #3a230f 34%, #6b4417 60%, #2c1a0b 100%);
 }
 
-/* ---- Shared dark-section treatment: parallax gradient + floating specks ---- */
+/* ---- Shared dark-section treatment: parallax gradient + drifting texture ---- */
 .night-bg{
   position:absolute; left:0; right:0; top:-80%; height:260%; z-index:0;
   will-change:transform; pointer-events:none;
 }
-.specks{ position:absolute; left:0; top:-80%; width:100%; height:260%; z-index:1;
-  will-change:transform; pointer-events:none; }
+
+/* Seamless geometric texture, drifting slowly on the diagonal.
+   --tex-size is the tile edge; the drift keyframe travels exactly one tile,
+   so the loop is invisible. --tex-opacity tunes presence per section. */
+.texture{
+  position:absolute; left:0; top:-80%; width:100%; height:260%; z-index:1;
+  will-change:transform; pointer-events:none; overflow:hidden;
+  opacity:var(--tex-opacity,.75);
+}
+.texture::before{
+  content:""; position:absolute;
+  left:calc(-1 * var(--tex-size,520px)); top:calc(-1 * var(--tex-size,520px));
+  width:calc(100% + 2 * var(--tex-size,520px));
+  height:calc(100% + 2 * var(--tex-size,520px));
+  background-image:url('img/texture.svg');
+  background-repeat:repeat;
+  background-size:var(--tex-size,520px) var(--tex-size,520px);
+  will-change:transform;
+  animation:tex-drift 90s linear infinite;
+}
+@keyframes tex-drift{
+  from{ transform:translate3d(0,0,0); }
+  to{ transform:translate3d(var(--tex-size,520px), var(--tex-size,520px), 0); }
+}
 
 /* Slow-rotating shafts of light from the upper right, like the invitation */
 .hero-rays{
@@ -143,16 +165,16 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .hero h1{
   font-family:var(--display); font-weight:400;
   font-size:clamp(2.9rem, 8vw, 6.2rem); line-height:1; letter-spacing:.01em;
-  color:#FBEFCF; text-shadow:0 2px 40px rgba(0,0,0,.5), 0 0 60px rgba(255,205,120,.15);
+  color:#FFFFFF; text-shadow:0 2px 40px rgba(0,0,0,.5), 0 0 60px rgba(255,205,120,.15);
   margin:0;
 }
 .hero h1 .light{ display:block; font-style:italic; font-weight:300; color:#F4DCA1; }
 .hero-at{ font-family:var(--display); font-size:clamp(1.2rem,3.4vw,1.9rem); letter-spacing:.32em;
   text-transform:uppercase; color:var(--gold-lume); margin:1.4rem 0 0; font-weight:500; }
 .hero-meta{ margin-top:2.4rem; font-family:var(--body); color:#EAD9B0; letter-spacing:.06em; }
-.hero-meta strong{ font-weight:500; color:#FBEFCF; }
+.hero-meta strong{ font-weight:500; color:#FFFFFF; }
 .hero-host{ margin-top:1.6rem; font-size:.8rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-pale); }
-.hero-host span{ display:block; font-family:var(--display); font-size:1.5rem; letter-spacing:.04em; text-transform:none; color:#FBEFCF; margin-top:.35rem; }
+.hero-host span{ display:block; font-family:var(--display); font-size:1.5rem; letter-spacing:.04em; text-transform:none; color:#FFFFFF; margin-top:.35rem; }
 
 /* Scroll cue */
 .scroll-cue{ position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%); z-index:2;
@@ -191,7 +213,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .question p.big{
   font-family:var(--display); font-weight:300; font-style:italic;
   font-size:clamp(1.9rem,4.6vw,3.4rem); line-height:1.45; letter-spacing:.01em;
-  max-width:30ch; margin:1rem auto 0; color:#FBEFCF;
+  max-width:30ch; margin:1rem auto 0; color:#FFFFFF;
 }
 .question .count{ margin-top:3.2rem; font-size:.82rem; letter-spacing:.34em; text-transform:uppercase; color:var(--gold-pale); }
 
@@ -204,7 +226,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .deflist strong{ font-family:var(--display); font-weight:500; font-size:1.5rem; display:block; color:var(--ink); }
 
 /* ==========================================================================
-   DETAILS CARD — date / time / place + Add to Calendar
+   DETAILS CARD — date / time / place
    ========================================================================== */
 .details{ max-width:780px; margin:0 auto; background:var(--paper);
   border:1px solid var(--border); border-top:3px solid var(--gold);
@@ -242,14 +264,14 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
     radial-gradient(120% 130% at 50% 0%, rgba(255,214,130,.16) 0%, rgba(20,13,6,0) 60%),
     linear-gradient(180deg,#1c1208,#140d06);
 }
-.site-footer > :not(.night-bg):not(.specks){ position:relative; z-index:2; }
+.site-footer > :not(.night-bg):not(.texture){ position:relative; z-index:2; }
 .site-footer .emblem{ width:88px; height:53px; margin:0 auto 1.7rem; color:var(--gold-pale); opacity:.9; }
-.site-footer .host-name{ font-family:var(--display); font-size:1.7rem; color:#FBEFCF; margin:0 0 .3rem; }
+.site-footer .host-name{ font-family:var(--display); font-size:1.7rem; color:#FFFFFF; margin:0 0 .3rem; }
 .site-footer .role{ font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
 .site-footer a{ color:var(--gold-pale); }
 .site-footer .confid{ max-width:560px; margin:2.5rem auto 0; font-size:.92rem; color:#9C8B72; line-height:1.7; }
 .site-footer .signoff{ max-width:640px; margin:2.6rem auto 0; font-family:var(--display); font-weight:500;
-  font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.25; color:#FBEFCF; letter-spacing:.01em; }
+  font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.25; color:#FFFFFF; letter-spacing:.01em; }
 .site-footer .signoff span{ display:block; margin-top:1.1rem; font-weight:400; font-size:1.25rem;
   font-family:var(--body); letter-spacing:0; color:#B7A487; line-height:1.7; }
 .site-footer .fine{ margin-top:2rem; font-size:.78rem; color:#7A6B54; letter-spacing:.04em; }
@@ -266,6 +288,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
   .hero-inner{ animation:none; opacity:1; transform:none; }
   .hero-rays{ animation:none; }
   .scroll-cue{ animation:none; opacity:.85; }
+  .texture::before{ animation:none; }
   html.js .page-loader img{ animation:none; }
   html{ scroll-behavior:auto; }
 }
@@ -273,15 +296,21 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 </head>
 <body>
 
-<!-- Lotus glyph from the invitation — defined once, tinted per-section via currentColor. -->
+<!-- Ornamental divider — defined once, tinted per-section via currentColor. -->
 <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-  <symbol id="lotus-sym" viewBox="0 0 100 60">
-    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M50,54 C37,37.7 42.9,12.7 50,6 C57.2,12.7 63,37.7 50,54 Z"/>
-      <path d="M50,54 C30.8,48.2 22.9,25.4 25.5,16.3 C34.9,17.6 52.6,34.1 50,54 Z"/>
-      <path d="M50,54 C47.4,34.1 65.1,17.6 74.5,16.3 C77.1,25.4 69.2,48.2 50,54 Z"/>
-      <path d="M50,54 C32.9,60 15.6,47.2 12.9,39 C20.6,35 41.9,37.8 50,54 Z"/>
-      <path d="M50,54 C58.1,37.8 79.4,35 87.1,39 C84.4,47.2 67.1,60 50,54 Z"/>
+  <symbol id="divider-sym" viewBox="0 0 1275.6 336.2">
+    <g fill="currentColor">
+      <polygon points="864.8 152.3 880.6 168.1 864.1 184.6 1275.6 184.6 1275.6 152.3 864.8 152.3"/>
+      <polygon points="397.6 168.1 413.4 152.3 0 152.3 0 184.6 414.1 184.6 397.6 168.1"/>
+      <rect x="592.3" y="156.1" width="95.3" height="24" transform="translate(68.6 501.7) rotate(-45)"/>
+      <rect x="577.5" y="170.8" width="24" height="95.3" transform="translate(18.2 480.9) rotate(-45)"/>
+      <polygon points="589.5 34 614.7 59.2 631.7 42.2 589.5 0 522.2 67.4 614.7 159.9 631.7 142.9 556.2 67.4 589.5 34"/>
+      <rect x="678.3" y="70.1" width="24" height="95.3" transform="translate(118.9 522.6) rotate(-45)"/>
+      <polygon points="757.6 67.4 690.3 0 597.7 92.5 614.7 109.5 690.3 34 723.7 67.4 698.5 92.5 715.5 109.5 757.6 67.4"/>
+      <polygon points="757.6 268.8 665.1 176.3 648.1 193.3 723.7 268.8 690.3 302.2 665.1 277 648.1 294 690.3 336.2 757.6 268.8"/>
+      <polygon points="421.4 168.1 488.8 235.5 581.3 142.9 564.4 125.9 488.8 201.5 455.4 168.1 488.8 134.7 514 159.9 531 142.9 488.8 100.7 421.4 168.1"/>
+      <polygon points="858.4 168.1 791 100.7 698.5 193.3 715.5 210.3 791 134.7 824.4 168.1 791 201.5 765.8 176.3 748.9 193.3 791 235.5 858.4 168.1"/>
+      <polygon points="522.2 268.8 589.5 336.2 682.1 243.7 665.1 226.7 589.5 302.2 556.2 268.8 581.3 243.7 564.4 226.7 522.2 268.8"/>
     </g>
   </symbol>
 </svg>
@@ -296,11 +325,10 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <header class="hero" id="top">
   <div class="night-bg" data-parallax="0.55" aria-hidden="true"></div>
-  <canvas class="specks" data-parallax="0.55" aria-hidden="true"></canvas>
+  <div class="texture" data-parallax="0.55" aria-hidden="true"></div>
   <div class="hero-rays" aria-hidden="true"></div>
 
   <div class="hero-inner">
-    <svg class="hero-emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
     <p class="eyebrow">Leadership · Interdependence · The Elevation of the World</p>
     <h1>A private<br>salon dinner</h1>
     <p class="hero-at">at Schloss Kremsegg</p>
@@ -322,7 +350,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <section class="section section--paper">
   <div class="wrap narrow center">
-    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <svg class="ornament reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
     <p class="eyebrow reveal">It is our great pleasure to invite you</p>
     <p class="lead reveal">On the evening of 12 September, twenty guests will gather by invitation at a baroque castle in the heart of Upper Austria — a place that has held space for learning, music, and quiet revolutions of thought since the year 1230.</p>
     <hr class="rule reveal">
@@ -337,8 +365,8 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <section class="question">
   <div class="night-bg" data-parallax="0.5" aria-hidden="true"></div>
-  <canvas class="specks" data-parallax="0.5" aria-hidden="true"></canvas>
-  <svg class="ornament ornament--light lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+  <div class="texture" data-parallax="0.5" aria-hidden="true"></div>
+  <svg class="ornament ornament--light reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
   <p class="eyebrow reveal">At the heart of the evening, one essential question</p>
   <p class="big reveal">What does it mean to lead as a force for flourishing in an interconnected world?</p>
 </section>
@@ -348,7 +376,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <section class="section section--cream2">
   <div class="wrap">
-    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <svg class="ornament reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
     <p class="eyebrow section-eyebrow reveal">The Evening</p>
     <h2 class="reveal">An evening created for depth, beauty,<br>and meaningful encounter</h2>
     <ul class="deflist">
@@ -361,11 +389,11 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 </section>
 
 <!-- ======================================================================= -->
-<!-- DETAILS + ADD TO CALENDAR                                               -->
+<!-- DETAILS                                                                 -->
 <!-- ======================================================================= -->
 <section class="section section--paper">
   <div class="wrap">
-    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <svg class="ornament reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
     <p class="eyebrow section-eyebrow reveal">The Details</p>
     <div class="details reveal">
       <h2 style="text-align:center;margin-bottom:.2em;">You are warmly invited</h2>
@@ -385,7 +413,7 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <section class="section section--cream2">
   <div class="wrap">
-    <svg class="ornament lotus reveal" aria-hidden="true"><use href="#lotus-sym"/></svg>
+    <svg class="ornament reveal" aria-hidden="true"><use href="#divider-sym"/></svg>
     <p class="eyebrow section-eyebrow reveal">The Setting</p>
     <h2 class="reveal">Schloss Kremsegg</h2>
     <p class="center lead reveal" style="max-width:640px;margin-left:auto;margin-right:auto;">A baroque castle above the Krems valley — a place of learning, music, and quiet revolutions of thought since the year 1230.</p>
@@ -420,8 +448,8 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 <!-- ======================================================================= -->
 <footer class="site-footer">
   <div class="night-bg" data-parallax="0.45" aria-hidden="true"></div>
-  <canvas class="specks" data-parallax="0.45" aria-hidden="true"></canvas>
-  <svg class="emblem lotus" aria-hidden="true"><use href="#lotus-sym"/></svg>
+  <div class="texture" data-parallax="0.45" aria-hidden="true"></div>
+  <svg class="emblem" aria-hidden="true"><use href="#divider-sym"/></svg>
   <p class="host-name">Chökyi Nyima Rinpoche</p>
   <p class="role">Host of the Evening</p>
   <p class="signoff">We would be honored by your presence.<br><span>With warm regards, John Dunne &amp; the University Team · <a href="mailto:tracy@tracy-allyn.com">tracy@tracy-allyn.com</a></span></p>
@@ -448,104 +476,6 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
   if (document.readyState === 'complete') h();
   else window.addEventListener('load', h);
   setTimeout(h, 6000);
-})();
-</script>
-
-<script>
-/* ---------------------------------------------------------------------------
-   Floating light specks — a transcendent drift of golden motes over every
-   dark section (hero, the question, the footer). One shared animation loop
-   feeds all canvases. Retina-aware, gentle on the CPU, honors reduced-motion.
---------------------------------------------------------------------------- */
-(function () {
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var canvases = document.querySelectorAll('canvas.specks');
-  if (!canvases.length) return;
-
-  function rand(a, b) { return a + Math.random() * (b - a); }
-  function makeSpeck(seed) {
-    return {
-      x: Math.random(),
-      y: seed ? Math.random() : rand(0.6, 1.15),
-      r: rand(0.6, 3.4),
-      drift: rand(-0.04, 0.04),
-      rise: rand(0.06, 0.28),
-      phase: rand(0, Math.PI * 2),
-      tw: rand(0.6, 1.7),
-      hue: Math.random() < 0.25 ? '255,231,175' : '255,206,120',
-      base: rand(0.25, 0.9)
-    };
-  }
-
-  function Field(canvas) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.specks = [];
-    this.visible = true;
-    this.resize();
-    var self = this;
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        self.visible = entries[0].isIntersecting;
-      }, { threshold: 0 }).observe(canvas);
-    }
-  }
-  Field.prototype.resize = function () {
-    this.DPR = Math.min(window.devicePixelRatio || 1, 2);
-    this.W = this.canvas.clientWidth; this.H = this.canvas.clientHeight;
-    this.canvas.width = Math.floor(this.W * this.DPR);
-    this.canvas.height = Math.floor(this.H * this.DPR);
-    this.ctx.setTransform(this.DPR, 0, 0, this.DPR, 0, 0);
-    var target = Math.min(320, Math.round((this.W * this.H) / 8000));
-    this.specks = [];
-    for (var i = 0; i < target; i++) this.specks.push(makeSpeck(true));
-  };
-  Field.prototype.step = function (t, animate) {
-    var ctx = this.ctx, W = this.W, H = this.H;
-    ctx.clearRect(0, 0, W, H);
-    ctx.globalCompositeOperation = 'lighter';
-    for (var i = 0; i < this.specks.length; i++) {
-      var s = this.specks[i], px, py, alpha, rr;
-      if (animate) {
-        s.y -= (s.rise / H) * 1.2;
-        if (s.y < -0.06) { this.specks[i] = makeSpeck(false); continue; }
-        var tw = 0.55 + 0.45 * Math.sin(t * s.tw + s.phase);
-        px = (s.x * W) + Math.sin(t * s.tw + s.phase) * 14 + (s.drift * W * 0.02);
-        py = s.y * H; alpha = s.base * tw; rr = s.r * (0.85 + 0.3 * tw);
-      } else {
-        px = s.x * W; py = s.y * H; alpha = s.base * 0.7; rr = s.r;
-      }
-      var g = ctx.createRadialGradient(px, py, 0, px, py, rr * 4);
-      g.addColorStop(0, 'rgba(' + s.hue + ',' + alpha + ')');
-      g.addColorStop(0.35, 'rgba(' + s.hue + ',' + (alpha * 0.35) + ')');
-      g.addColorStop(1, 'rgba(' + s.hue + ',0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(px, py, rr * 4, 0, Math.PI * 2); ctx.fill();
-    }
-    ctx.globalCompositeOperation = 'source-over';
-  };
-
-  var fields = [];
-  for (var i = 0; i < canvases.length; i++) fields.push(new Field(canvases[i]));
-
-  var to;
-  window.addEventListener('resize', function () {
-    clearTimeout(to);
-    to = setTimeout(function () {
-      for (var i = 0; i < fields.length; i++) { fields[i].resize(); if (reduced) fields[i].step(0, false); }
-    }, 180);
-  }, { passive: true });
-
-  if (reduced) {
-    for (var j = 0; j < fields.length; j++) fields[j].step(0, false);
-    return;
-  }
-  function loop(now) {
-    var t = now / 1000;
-    for (var i = 0; i < fields.length; i++) { if (fields[i].visible) fields[i].step(t, true); }
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
 })();
 </script>
 
