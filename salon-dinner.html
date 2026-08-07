@@ -155,11 +155,10 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
   animation:hero-in 1.6s cubic-bezier(.2,.7,.2,1) .3s forwards; }
 @keyframes hero-in{ to{ opacity:1; transform:none; } }
 
-/* Lotus emblem + section ornaments */
-.lotus{ display:block; }
-.hero-emblem{ width:104px; height:62px; margin:0 auto 2.2rem; color:var(--gold-lume);
-  filter:drop-shadow(0 2px 14px rgba(0,0,0,.5)); opacity:.95; }
-.ornament{ width:66px; height:40px; margin:0 auto 1.7rem; color:var(--gold); opacity:.92; }
+/* Ornamental divider — a horizontal rule that breaks the text between sections.
+   Aspect ratio is 1056.4 : 336.2, so height tracks width at ~31.8%. */
+.ornament{ display:block; width:min(260px, 62vw); aspect-ratio:1056.4 / 336.2;
+  height:auto; margin:0 auto 1.9rem; color:var(--gold); opacity:.92; }
 .ornament--light{ color:var(--gold-pale); opacity:.9; }
 .hero .eyebrow{ color:var(--gold-lume); letter-spacing:.42em; font-size:.72rem; }
 .hero h1{
@@ -235,7 +234,6 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 .details .field .k{ font-family:var(--body); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:.35rem; }
 .details .field .v{ font-family:var(--display); font-size:1.5rem; color:var(--ink); line-height:1.25; }
 .details .field .v small{ display:block; font-family:var(--body); font-size:.98rem; color:var(--muted); letter-spacing:.02em; margin-top:.2rem; }
-.details .actions{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
 @media (max-width:560px){ .details{ padding:2.5rem 1.5rem;} .details .grid{ grid-template-columns:1fr; gap:1.6rem;} }
 
 /* ==========================================================================
@@ -265,7 +263,8 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
     linear-gradient(180deg,#1c1208,#140d06);
 }
 .site-footer > :not(.night-bg):not(.texture){ position:relative; z-index:2; }
-.site-footer .emblem{ width:88px; height:53px; margin:0 auto 1.7rem; color:var(--gold-pale); opacity:.9; }
+.site-footer .emblem{ display:block; width:min(300px, 68vw); aspect-ratio:1056.4 / 336.2;
+  height:auto; margin:0 auto 1.9rem; color:var(--gold-pale); opacity:.9; }
 .site-footer .host-name{ font-family:var(--display); font-size:1.7rem; color:#FFFFFF; margin:0 0 .3rem; }
 .site-footer .role{ font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
 .site-footer a{ color:var(--gold-pale); }
@@ -298,19 +297,19 @@ html.js .page-loader.done{ opacity:0; pointer-events:none; }
 
 <!-- Ornamental divider — defined once, tinted per-section via currentColor. -->
 <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-  <symbol id="divider-sym" viewBox="0 0 1275.6 336.2">
+  <symbol id="divider-sym" viewBox="0 0 1056.4 336.2">
     <g fill="currentColor">
-      <polygon points="864.8 152.3 880.6 168.1 864.1 184.6 1275.6 184.6 1275.6 152.3 864.8 152.3"/>
-      <polygon points="397.6 168.1 413.4 152.3 0 152.3 0 184.6 414.1 184.6 397.6 168.1"/>
-      <rect x="592.3" y="156.1" width="95.3" height="24" transform="translate(68.6 501.7) rotate(-45)"/>
-      <rect x="577.5" y="170.8" width="24" height="95.3" transform="translate(18.2 480.9) rotate(-45)"/>
-      <polygon points="589.5 34 614.7 59.2 631.7 42.2 589.5 0 522.2 67.4 614.7 159.9 631.7 142.9 556.2 67.4 589.5 34"/>
-      <rect x="678.3" y="70.1" width="24" height="95.3" transform="translate(118.9 522.6) rotate(-45)"/>
-      <polygon points="757.6 67.4 690.3 0 597.7 92.5 614.7 109.5 690.3 34 723.7 67.4 698.5 92.5 715.5 109.5 757.6 67.4"/>
-      <polygon points="757.6 268.8 665.1 176.3 648.1 193.3 723.7 268.8 690.3 302.2 665.1 277 648.1 294 690.3 336.2 757.6 268.8"/>
-      <polygon points="421.4 168.1 488.8 235.5 581.3 142.9 564.4 125.9 488.8 201.5 455.4 168.1 488.8 134.7 514 159.9 531 142.9 488.8 100.7 421.4 168.1"/>
-      <polygon points="858.4 168.1 791 100.7 698.5 193.3 715.5 210.3 791 134.7 824.4 168.1 791 201.5 765.8 176.3 748.9 193.3 791 235.5 858.4 168.1"/>
-      <polygon points="522.2 268.8 589.5 336.2 682.1 243.7 665.1 226.7 589.5 302.2 556.2 268.8 581.3 243.7 564.4 226.7 522.2 268.8"/>
+      <polygon points="288.90 168.00 300.40 156.60 0.00 156.60 0.00 180.00 300.90 180.00 288.90 168.00"/>
+      <polygon points="767.50 168.50 756.00 180.00 1056.40 180.00 1056.40 156.60 755.50 156.60 767.50 168.50"/>
+      <polygon points="485.11 193.35 552.50 125.96 569.47 142.93 502.08 210.32"/>
+      <polygon points="434.71 193.24 451.68 176.27 519.07 243.66 502.10 260.63"/>
+      <polygon points="476.90 34.00 502.10 59.20 519.10 42.20 476.90 0.00 409.50 67.40 502.10 159.90 519.10 142.90 443.50 67.40 476.90 34.00"/>
+      <polygon points="535.41 92.53 552.38 75.56 619.77 142.95 602.80 159.92"/>
+      <polygon points="645.00 67.40 577.60 0.00 485.10 92.50 502.10 109.50 577.60 34.00 611.00 67.40 585.80 92.50 602.80 109.50 645.00 67.40"/>
+      <polygon points="645.00 268.80 552.40 176.30 535.50 193.30 611.00 268.80 577.60 302.20 552.40 277.00 535.50 294.00 577.60 336.20 645.00 268.80"/>
+      <polygon points="308.80 168.10 376.10 235.50 468.70 142.90 451.70 125.90 376.10 201.50 342.80 168.10 376.10 134.70 401.30 159.90 418.30 142.90 376.10 100.70 308.80 168.10"/>
+      <polygon points="745.70 168.10 678.40 100.70 585.80 193.30 602.80 210.30 678.40 134.70 711.80 168.10 678.40 201.50 653.20 176.30 636.20 193.30 678.40 235.50 745.70 168.10"/>
+      <polygon points="409.50 268.80 476.90 336.20 569.40 243.70 552.40 226.70 476.90 302.20 443.50 268.80 468.70 243.70 451.70 226.70 409.50 268.80"/>
     </g>
   </symbol>
 </svg>
