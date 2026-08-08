@@ -17,7 +17,7 @@
 }
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
-body{ font-family:'EB Garamond',Georgia,serif; color:var(--ink-soft); background:var(--paper);
+body{ font-family:'EB Garamond',Georgia,serif, Georgia, serif; color:var(--ink-soft); background:var(--paper);
       font-size:10pt; line-height:1.72; }
 img{ display:block; }
 .page{ page-break-after:always; }
@@ -26,8 +26,8 @@ img{ display:block; }
 .pad{ padding:0 24mm; }
 .center{ text-align:center; }
 .eyebrow{ font-size:7.6pt; letter-spacing:.34em; text-transform:uppercase; color:var(--gold-dark); line-height:1.7; }
-.orn{ width:38mm; margin:0 auto 5mm; }
-.orn-sm{ width:28mm; margin:0 auto 4mm; }
+.orn{ width:22mm; margin:0 auto 3.5mm; }
+.orn-sm{ width:20mm; margin:0 auto 3mm; }
 .rule{ width:22mm; height:.4pt; background:var(--gold); border:0; margin:7mm auto; }
 h1,h2,h3{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:400; margin:0; line-height:1.15; }
 
@@ -41,46 +41,46 @@ h1,h2,h3{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:400; margi
 .host-name{ font-family:'Cormorant Garamond',Georgia,serif; font-size:17pt; color:var(--ink); margin-top:1.5mm; }
 
 /* ---- body ---------------------------------------------------------------- */
-.body-sec{ padding:26mm 26mm 0; text-align:center; }
+.body-sec{ padding:9mm 26mm 0; text-align:center; }
 .body-sec p{ margin:0 0 5mm; }
 .salut{ margin-bottom:5mm; }
 
 /* ---- question band ------------------------------------------------------- */
 .question{ background-color:var(--teal); background-image:url('img/email-question-teal.jpg');
   background-size:cover; background-position:center; color:#fff; text-align:center;
-  padding:20mm 26mm; }
+  padding:8mm 26mm; }
 .question .eyebrow{ color:var(--gold-lume); }
-.question .big{ font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-weight:400; font-size:23pt;
+.question .big{ font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-weight:400; font-size:18pt;
   line-height:1.4; color:#fff; margin:5mm auto 0; max-width:135mm; }
 
 /* ---- details ------------------------------------------------------------- */
-.details-wrap{ background:var(--cream2); padding:11mm 24mm; }
+.details-wrap{ background:var(--cream2); padding:6mm 24mm; }
 .details{ background:var(--paper); border:.5pt solid var(--border); border-top:2pt solid var(--gold);
-  padding:10mm 12mm 9mm; text-align:center; }
-.details h2{ font-size:20pt; color:var(--ink); margin-bottom:6mm; }
+  padding:9mm 12mm 8mm; text-align:center; }
+.details h2{ font-size:18pt; color:var(--ink); margin-bottom:5mm; }
 .fields{ width:100%; border-collapse:collapse; margin:0 auto 6mm; }
-.fields td{ width:50%; padding:3.5mm 4mm; text-align:left; vertical-align:top; }
+.fields td{ width:50%; padding:2.1mm 4mm; text-align:left; vertical-align:top; }
 .k{ font-size:7pt; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-dark); }
-.v{ font-family:'Cormorant Garamond',Georgia,serif; font-size:14pt; color:var(--ink); line-height:1.3; margin-top:1mm; }
+.v{ font-family:'Cormorant Garamond',Georgia,serif; font-size:13pt; color:var(--ink); line-height:1.3; margin-top:1mm; }
 .v small{ display:block; font-family:'EB Garamond',Georgia,serif; font-size:9pt; color:var(--muted); margin-top:.5mm; }
-.rsvp{ font-size:10pt; color:var(--ink-soft); margin:0 0 6mm; }
+.rsvp{ font-size:9.5pt; color:var(--ink-soft); margin:0 0 4mm; }
 .rsvp .by{ color:var(--gold-dark); }
 .cta{ display:inline-block; background:var(--gold-dark); color:#fff; text-decoration:none;
-  padding:4mm 12mm; font-size:9.5pt; letter-spacing:.12em; text-transform:uppercase; }
-.cta-url{ margin-top:3mm; font-size:8.5pt; color:var(--muted); }
-.confid{ padding:7mm 30mm 0; text-align:center; font-style:italic; font-size:9pt; color:var(--muted); }
+  padding:3.4mm 11mm; font-size:9pt; letter-spacing:.12em; text-transform:uppercase; }
+.cta-url{ margin-top:2mm; font-size:8.5pt; color:var(--muted); }
+.confid{ padding:3mm 30mm 0; text-align:center; font-style:italic; font-size:8.5pt; color:var(--muted); }
 
 /* ---- footer -------------------------------------------------------------- */
 .footer{ background-color:var(--night); background-image:url('img/email-footer-teal.jpg');
   background-size:cover; background-position:center top; color:#93BDC0; text-align:center;
-  padding:13mm 24mm 26mm; }
-.footer .host-name{ color:#fff; font-size:16pt; }
+  padding:9mm 24mm 10mm; }
+.footer .host-name{ color:#fff; font-size:15pt; }
 .footer .role{ font-size:7pt; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-pale); margin-top:1.5mm; }
-.footer .signoff{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:18pt; line-height:1.3; color:#fff;
-  max-width:120mm; margin:7mm auto 0; }
-.footer .regards{ margin-top:5mm; font-size:10pt; line-height:1.7; color:#93BDC0; }
+.footer .signoff{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:15pt; line-height:1.3; color:#fff;
+  max-width:120mm; margin:4mm auto 0; }
+.footer .regards{ margin-top:4mm; font-size:9.5pt; line-height:1.55; color:#93BDC0; }
 .footer a{ color:var(--gold-pale); text-decoration:none; }
-.footer .fine{ margin-top:5mm; font-size:7.5pt; letter-spacing:.06em; color:#58969D; }
+.footer .fine{ margin-top:3mm; font-size:7.5pt; letter-spacing:.06em; color:#58969D; }
 </style>
 </head>
 <body>
@@ -101,33 +101,27 @@ h1,h2,h3{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:400; margi
     <div class="host-name">Chökyi Nyima Rinpoche</div>
   </div>
 
-</div>
-
-<!-- ================= PAGE 2 ================= -->
-<div class="page">
   <div class="body-sec">
     <img class="orn-sm" src="img/divider-knot-gold.png" alt="">
     <div class="eyebrow">By Invitation</div>
-    <p class="salut" style="margin-top:5mm;">Dear Bibi Burton,</p>
+    <div style="height:5mm;"></div>
     <p>On the evening of <strong style="font-weight:500;">Saturday, 12 September 2026</strong>, a selected group of
        guests will gather by invitation at a baroque castle in the heart of Upper Austria — a place that has held
        space for learning, music, and quiet revolutions of thought since the year 1230.</p>
     <p>It becomes, for one evening, the setting for a private benefit dinner in support of a new kind of
        university — and an evening of exceptional conversation, hosted by the world-renowned Buddhist teacher
        <span style="color:#0F2B2E;">Chökyi Nyima Rinpoche</span>.</p>
-    <hr class="rule">
   </div>
+</div>
 
+<!-- ================= PAGE 2 ================= -->
+<div class="page">
   <div class="question">
     <img class="orn" src="img/divider-knot-white.png" alt="">
     <div class="eyebrow">At the Heart of the Evening,<br>One Essential Question</div>
     <p class="big">What does it mean to lead as a force for flourishing in an interconnected world?</p>
   </div>
 
-</div>
-
-<!-- ================= PAGE 3 ================= -->
-<div class="page">
   <div class="details-wrap">
     <div class="details">
       <h2>You are warmly invited</h2>
