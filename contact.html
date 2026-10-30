@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact — Kremsegg University</title>
-<meta name="description" content="Write to the Kremsegg University development team. We read every message personally and will respond.">
+<meta name="description" content="A conversation, before anything else. Arrange a conversation, receive the founding brief, or visit Kremsegg University. We respond to every inquiry personally.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="img/favicon-192.png">
-<link rel="stylesheet" href="css/style.css?v=41">
+<link rel="stylesheet" href="css/style.css?v=47">
 <script>document.documentElement.classList.add('js');try{var s=window.sessionStorage;if(s.getItem('gomdeLoaderSeen'))document.documentElement.classList.add('loader-seen');else s.setItem('gomdeLoaderSeen','1');}catch(e){}</script>
 <script src="js/gate.js?v=1"></script>
 </head>
@@ -37,17 +37,10 @@
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <ul>
         <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="vision.html">The Vision</a></li>
+        <li><a class="nav-link" href="vision.html">The University</a></li>
         <li><a class="nav-link" href="academics.html">Academics</a></li>
-        <li class="has-dropdown">
-          <button class="nav-toggle-btn" type="button" aria-expanded="false">Project Team</button>
-          <ul class="dropdown">
-            <li><a href="faculty.html">Leadership</a></li>
-            <li><a href="board.html">Board &amp; Advisory Council</a></li>
-            <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
-          </ul>
-        </li>
-        <li><a class="nav-link" href="speak-with-our-team.html">Become a Patron</a></li>
+        <li><a class="nav-link" href="faculty.html">Project Team</a></li>
+        <li><a class="nav-link" href="support-the-founding.html">Support the Founding</a></li>
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
@@ -57,24 +50,20 @@
 </header>
 
 <main id="main">
-<section class="page-hero page-hero--gradient">
-  <div class="wrap">
-    <p class="eyebrow">Contact</p>
-    <h1>Write to our team</h1>
-    <p class="lede">Tell us a little about yourself and what draws you to this work. Everything you share is held in confidence.</p>
-  </div>
-</section>
+<section class="contact-split">
+  <div class="wrap contact-grid">
+    <div class="contact-intro">
+      <p class="eyebrow">Contact</p>
+      <h1>A conversation, before anything else</h1>
+      <p class="lede">If you feel drawn to this work, we would welcome the chance to understand what matters to you. There is no expectation attached to a first conversation, only the opportunity to learn more and to ask anything you wish.</p>
+      <p>We respond to every inquiry personally.</p>
+      <div class="contact-photo"><img src="img/johndunne.jpg" alt="Professor John Dunne, Founding Rector" width="300" height="400"></div>
+    </div>
 
-<section class="section section--alt" id="contact-form" style="background:#ffffff">
-  <div class="wrap narrow">
-    <div class="form-card" style="background:#ffffff">
-      <h2>Send us a message</h2>
-      <p class="muted">We read every note personally, and will respond.</p>
-
+    <div class="form-card contact-form-card" id="contact-form">
       <!-- CONTACT FORM ▸ powered by Web3Forms (no backend needed).
            Submissions go to the inbox registered to the access_key below.
            To change the recipient, swap in a new key from https://web3forms.com -->
-
       <form action="https://api.web3forms.com/submit" method="POST" class="form-grid">
         <input type="hidden" name="access_key" value="cd746b90-1dbd-4954-8a20-3e30c8b845dc">
         <input type="hidden" name="subject" value="Contact — Kremsegg University website">
@@ -82,23 +71,21 @@
         <!-- honeypot: bots that tick this hidden box are silently rejected -->
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-        <div>
+        <div class="full">
           <label for="cf-name">Name</label>
           <input id="cf-name" type="text" name="name" required autocomplete="name">
         </div>
-        <div>
+        <div class="full">
           <label for="cf-email">Email</label>
           <input id="cf-email" type="email" name="email" required autocomplete="email">
         </div>
         <div class="full">
-          <label for="cf-interest">I am interested in</label>
+          <label for="cf-interest">I would like to</label>
           <select id="cf-interest" name="interest">
-            <option>Becoming a Founding Patron</option>
-            <option>Requesting the Campaign Information Sheet</option>
-            <option>Arranging a call or a visit to Kremsegg</option>
-            <option>Naming opportunities</option>
-            <option>Ways to give</option>
-            <option>Something else</option>
+            <option data-key="conversation">Arrange a conversation</option>
+            <option data-key="brief">Receive the founding brief</option>
+            <option data-key="visit">Visit Kremsegg</option>
+            <option data-key="other">Something else</option>
           </select>
         </div>
         <div class="full">
@@ -106,17 +93,16 @@
           <textarea id="cf-message" name="message" required></textarea>
         </div>
         <div class="full">
-          <button class="btn btn--gold" type="submit" style="cursor:pointer">Send message</button>
-          <p class="small muted" style="margin-top:.8rem">Your message goes directly to our development team. We will respond personally.</p>
+          <button class="btn btn--gold" type="submit" style="cursor:pointer">Send</button>
         </div>
       </form>
     </div>
   </div>
 </section>
-<section class="cta-band scroll-parallax">
-  <h2>The moment is now.</h2>
-  <div class="hero-actions">
-    <a class="btn btn--light" href="spenden.html">Support Kremsegg University</a>
+
+<section class="section section--tight contact-press" id="press">
+  <div class="wrap narrow center">
+    <p><strong>Media:</strong> interviews with the Founding Rector and images of Schloss Kremsegg are available on request. <a href="mailto:info@kremsegg-university.at">info@kremsegg-university.at</a></p>
   </div>
 </section>
 </main>
@@ -134,30 +120,26 @@
       <div>
         <h4>University</h4>
         <ul>
-          <li><a href="vision.html">The Vision</a></li>
+          <li><a href="vision.html">The University</a></li>
           <li><a href="academics.html">Academics</a></li>
           <li><a href="faculty.html">Project Team</a></li>
-          <li><a href="board.html">Governance</a></li>
-          <li><a href="advisors-collaborators.html">Advisors &amp; Collaborators</a></li>
         </ul>
       </div>
       <div>
-        <h4>Become a Patron</h4>
+        <h4>Support the Founding</h4>
         <ul>
-          <li><a href="why-now.html">Why Now?</a></li>
-          <li><a href="campaign.html">The Campaign</a></li>
-          <li><a href="founding-patrons.html">Founding Patrons</a></li>
-          <li><a href="ways-to-give.html">Ways to Give</a></li>
-          <li><a href="spenden.html">Donate</a></li>
+          <li><a href="support-the-founding.html#campaign">The Campaign</a></li>
+          <li><a href="support-the-founding.html#founding-patrons">Founding Patrons</a></li>
+          <li><a href="support-the-founding.html#ways-to-give">Ways to Give</a></li>
+          <li><a href="support-the-founding.html#bank-transfer">Give by Bank Transfer</a></li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
           <li><a href="study-with-us.html">Study With Us</a></li>
-          <li><a href="speak-with-our-team.html">Speak With Our Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a href="media.html">Media &amp; Press</a></li>
-          <li><a href="contact.html">Contact Form</a></li>
         </ul>
         <p class="small" style="margin-top:.9rem">Part of the Bodhi Project and the Shedrub Mandala. Founded in the lineage of Ch&ouml;kyi Nyima Rinpoche.</p>
       </div>
@@ -231,5 +213,18 @@
 })();
 </script>
 <script src="js/main.js?v=17" defer></script>
+<script>
+/* Preselect the "I would like to" option from ?interest=conversation|brief|visit|other */
+(function () {
+  try {
+    var k = new URLSearchParams(location.search).get('interest');
+    var sel = document.getElementById('cf-interest');
+    if (!k || !sel) return;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].getAttribute('data-key') === k) { sel.selectedIndex = i; break; }
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
