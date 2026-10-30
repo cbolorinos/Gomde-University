@@ -831,3 +831,12 @@ section[id] { scroll-margin-top: 7rem; }
 .contact-press { border-top: 1px solid var(--border); }
 .contact-press p { margin: 0; color: var(--ink-soft); }
 @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 2.4rem; } .contact-split { padding: 3rem 0; } }
+
+/* "Where you will learn" tiles: place name, subheader-style location, description */
+.card--photo .card-body .tile-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink); margin: 0 0 .25rem; }
+.card--photo .card-body .tile-place { flex: 0 0 auto; font-family: var(--sans); font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--brand-maroon); margin: 0 0 .9rem; }
+
+/* Home stat strip: number, subheader-style label, gold divider, description */
+.stat-num { margin-bottom: .35rem; }
+.stat-label { display: block; font-family: var(--sans); font-size: .95rem; font-weight: 600; letter-spacing: .2em; color: var(--gold-pale); }
+.stat-rule { width: 48px; height: 2px; border: 0; background: var(--gold); margin: 1.1rem auto 1.1rem; }
