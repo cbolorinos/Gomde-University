@@ -751,7 +751,8 @@ textarea { min-height: 150px; resize: vertical; }
 .cta-band--deep p { color: var(--gold-pale); }
 
 /* ---- Project Team page ------------------------------------------------------ */
-.leader-grid { align-items: start; }
+.leader-grid { align-items: stretch; }
+.leader-card .bio { margin-top: auto; padding-top: .9rem; }
 .leader-card .card-img { aspect-ratio: 3 / 4; }
 .leader-card .card-img img { object-position: 50% 20%; }
 .leader-card .roster-role { margin-bottom: .3rem; }

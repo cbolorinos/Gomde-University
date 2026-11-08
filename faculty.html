@@ -300,7 +300,7 @@
 </script>
 <script src="js/main.js?v=17" defer></script>
 <script>
-/* Collaborator bios open in a dialog */
+/* Bios open in a dialog */
 (function () {
   var dlg = document.getElementById('bio-dialog');
   if (!dlg || typeof dlg.showModal !== 'function') return;
@@ -312,6 +312,17 @@
       nameEl.textContent = btn.querySelector('.collab-name').textContent;
       instEl.textContent = btn.querySelector('.collab-inst').textContent;
       textEl.innerHTML = btn.nextElementSibling.innerHTML;
+      dlg.showModal();
+    });
+  });
+  /* Leadership "Full bio" links open the same dialog (without JS they still expand inline) */
+  document.querySelectorAll('.leader-card details.bio > summary').forEach(function (sum) {
+    sum.addEventListener('click', function (e) {
+      e.preventDefault();
+      var card = sum.closest('.leader-card');
+      nameEl.textContent = card.querySelector('.leader-name').textContent;
+      instEl.textContent = card.querySelector('.roster-role').textContent;
+      textEl.innerHTML = card.querySelector('.bio-body').innerHTML;
       dlg.showModal();
     });
   });
