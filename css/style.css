@@ -841,3 +841,4 @@ section[id] { scroll-margin-top: 7rem; }
 
 /* Body text: avoid a single word alone on the last line */
 p, li, blockquote { text-wrap: pretty; }
+.hero .lede { text-wrap: balance; }
