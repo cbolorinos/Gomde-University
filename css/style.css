@@ -125,19 +125,6 @@ a:hover { color: var(--maroon); }
 .arrow-link::after { content: " \2192"; }
 .arrow-link:hover { color: var(--maroon); border-color: var(--maroon); }
 
-/* ---- Eyebrow bar (top utility menu) -------------------------------------- */
-.eyebrow-bar { background: var(--ink); }
-.eyebrow-bar-inner {
-  max-width: 1220px; margin: 0 auto; padding: .4rem 1.25rem;
-  display: flex; justify-content: flex-end; align-items: center; gap: .9rem;
-}
-.eyebrow-bar a {
-  color: var(--gold-pale); text-decoration: none;
-  font-family: var(--sans); font-size: .82rem; font-weight: 600; letter-spacing: .06em;
-}
-.eyebrow-bar a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-.eyebrow-sep { color: var(--gold); }
-
 /* ---- Header / navigation ------------------------------------------------ */
 .site-header {
   position: sticky; top: 0; z-index: 50;
