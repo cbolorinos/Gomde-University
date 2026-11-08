@@ -838,3 +838,6 @@ section[id] { scroll-margin-top: 7rem; }
 .group-photo { margin: 0; text-align: center; }
 .group-photo img { display: block; width: 100%; height: auto; border: 1px solid var(--gold-pale); border-radius: 3px; }
 .group-photo figcaption { max-width: 760px; margin: 1.4rem auto 0; font-size: 1.05rem; line-height: 1.6; color: var(--ink-soft); }
+
+/* Body text: avoid a single word alone on the last line */
+p, li, blockquote { text-wrap: pretty; }
